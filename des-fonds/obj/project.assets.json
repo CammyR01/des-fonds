@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Cameron\\.nuget\\packages\\": {}
+    "C:\\Users\\ad731\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\des-fonds.csproj",
+      "projectUniqueName": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupWorkRepo\\des-fonds\\des-fonds.csproj",
       "projectName": "des-fonds",
-      "projectPath": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\des-fonds.csproj",
-      "packagesPath": "C:\\Users\\Cameron\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\obj\\",
+      "projectPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupWorkRepo\\des-fonds\\des-fonds.csproj",
+      "packagesPath": "C:\\Users\\ad731\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupWorkRepo\\des-fonds\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Cameron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ad731\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -28,7 +28,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
