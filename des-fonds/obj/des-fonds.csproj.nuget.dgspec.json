@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\Test\\des-fonds\\des-fonds\\des-fonds.csproj": {}
+    "C:\\Users\\Cameron\\Documents\\GitHub\\des-fonds\\des-fonds\\des-fonds.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\Test\\des-fonds\\des-fonds\\des-fonds.csproj": {
+    "C:\\Users\\Cameron\\Documents\\GitHub\\des-fonds\\des-fonds\\des-fonds.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\Test\\des-fonds\\des-fonds\\des-fonds.csproj",
+        "projectUniqueName": "C:\\Users\\Cameron\\Documents\\GitHub\\des-fonds\\des-fonds\\des-fonds.csproj",
         "projectName": "des-fonds",
-        "projectPath": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\Test\\des-fonds\\des-fonds\\des-fonds.csproj",
+        "projectPath": "C:\\Users\\Cameron\\Documents\\GitHub\\des-fonds\\des-fonds\\des-fonds.csproj",
         "packagesPath": "C:\\Users\\Cameron\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\Test\\des-fonds\\des-fonds\\obj\\",
+        "outputPath": "C:\\Users\\Cameron\\Documents\\GitHub\\des-fonds\\des-fonds\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Cameron\\AppData\\Roaming\\NuGet\\NuGet.Config",
