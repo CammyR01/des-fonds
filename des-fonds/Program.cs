@@ -8,7 +8,9 @@ namespace des_fonds
         {
             CreateIncome();
         }
-
+        /// <summary>
+        /// test method to create an income
+        /// </summary>
         public static void CreateIncome()
         {
             //attributes for income
