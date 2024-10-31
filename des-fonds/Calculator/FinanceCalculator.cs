@@ -12,7 +12,7 @@ namespace des_fonds.Calculator
         /// Calculates the monthly total income
         /// requires the month the user wants the total income from
         /// requires the year the user wants the total income from
-        /// calculates the total
+        /// calculates the total income for the specified month and year for all expense statements
         /// </summary>
         /// <param name="month">the month in number representation</param>
         /// <param name="year">the year</param>
@@ -22,7 +22,15 @@ namespace des_fonds.Calculator
             //Still to be implemented
             return 0.00;
         }
-        
+        /// <summary>
+        /// calculates the monthly total expense
+        /// requires the month the user wants the total from
+        /// requires the year the user wants the total from
+        /// calculates the total expense for the specified month and year for all expense statements
+        /// </summary>
+        /// <param name="month">the month in number representation</param>
+        /// <param name="year">the year the user specified</param>
+        /// <returns>the total expense for specified month and year for all expenses statements</returns>
         public static double CalculateMonthlyExpense(int month, int year)
         {
             //still to be implemented
