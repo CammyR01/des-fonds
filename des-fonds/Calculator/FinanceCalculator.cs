@@ -18,7 +18,9 @@ namespace des_fonds.Calculator
         /// <param name="year">the year</param>
         /// <returns>the total income for the specified month and year for all income statements</returns>
         public static double CalculateMonthlyIncome(int month, int year)
-        {
+        { 
+	///wouldnt this take in month and income as parameters instead of year?
+
             //Still to be implemented
             return 0.00;
         }
