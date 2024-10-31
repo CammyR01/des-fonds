@@ -7,6 +7,7 @@ namespace des_fonds
         static void Main(string[] args)
         {
             CreateIncome();
+            CreateExpense();
         }
 
         public static void CreateIncome()
@@ -18,7 +19,18 @@ namespace des_fonds
             //create income
             Income income = new Income(source, amount, Date);
             //display income
-            Console.WriteLine(income);
+            Console.WriteLine(income + "\n");
+        }
+        public static void CreateExpense()
+        {
+            //attributes for expense
+            string category = "Rent";
+            double amount = 455.88;
+            DateTime date = new DateTime(2024, 10, 31);
+            //create expense
+            Expense expense = new Expense(category, amount, date);
+            //display expense
+            Console.WriteLine(expense + "\n");
         }
     }
 }
