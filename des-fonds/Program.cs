@@ -6,8 +6,8 @@ namespace des_fonds
     {
         static void Main(string[] args)
         {
-            CreateIncome();
-            CreateExpense();
+            CreateIncome();//creates an income.
+            CreateExpense();//creates an expense.
         }
         /// <summary>
         /// test method to create an income
