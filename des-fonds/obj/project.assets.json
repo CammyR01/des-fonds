@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupWorkRepo\\des-fonds\\des-fonds.csproj",
+      "projectUniqueName": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\des-fonds.csproj",
       "projectName": "des-fonds",
-      "projectPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupWorkRepo\\des-fonds\\des-fonds.csproj",
+      "projectPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\des-fonds.csproj",
       "packagesPath": "C:\\Users\\ad731\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupWorkRepo\\des-fonds\\obj\\",
+      "outputPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\ad731\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,6 +28,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -66,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
