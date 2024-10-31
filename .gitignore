@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/des-fonds/.vs/des-fonds/FileContentIndex
+/des-fonds/obj/Debug/net8.0/refint
+*.json
+*.pdb
+*.cache
+*.dll
+*.txt
+*.BuildWithSkipAnalyzers
+*.exe
+/des-fonds/.vs/des-fonds/v17
+/des-fonds/.vs/des-fonds/DesignTimeBuild
