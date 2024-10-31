@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("des-fonds")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+967f01143a34526e2125fe048e5c3bdfea1569cd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+159c0629ad9deecb8cb7be077d8246a8437f0f00")]
 [assembly: System.Reflection.AssemblyProductAttribute("des-fonds")]
 [assembly: System.Reflection.AssemblyTitleAttribute("des-fonds")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
