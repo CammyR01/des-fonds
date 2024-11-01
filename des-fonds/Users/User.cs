@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace des_fonds.Users;
 
 public class User
@@ -15,6 +17,12 @@ public class User
         this.uName = uName;
         this.uPass = uPass;
         this.id = ++nextId
+    }
+
+    public override string ToString()
+    {
+        string strout = string.Format("Username: {0}\nPassword: {1}", Uname, Upass);
+        return strout;
     }
 
     
