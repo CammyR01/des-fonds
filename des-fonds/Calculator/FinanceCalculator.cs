@@ -38,5 +38,49 @@ namespace des_fonds.Calculator
             //still to be implemented
             return 0.00;
         }
+        /// <summary>
+        /// calculate the yearly income for a specified year
+        /// </summary>
+        /// <param name="year">the year specified</param>
+        /// <returns>the total annual Income for specified year</returns>
+        public static double CalculateAnnualIncome(int year)
+        {
+            //still to be implemented
+            return 0.00;
+        }
+        /// <summary>
+        /// calculate the yearly expense for a specified year
+        /// </summary>
+        /// <param name="year">the year specified</param>
+        /// <returns></returns>
+        public static double CalculateAnnualExpense(int year)
+        {
+            //still to be implemented
+            return 0.00;
+        }
+        /// <summary>
+        /// calculate a specified items monthly income for a specified month and year
+        /// </summary>
+        /// <param name="item">the income source</param>
+        /// <param name="month">the month specified</param>
+        /// <param name="year">the year specified</param>
+        /// <returns>the total specified item income for specific month and year</returns>
+        public static double CalculateItemIncomeMonthly(string item, int month, int year)
+        {
+            //still to be implemented
+            return 0.00;
+        }
+        /// <summary>
+        /// calculate a specified items expense for a specified month and year
+        /// </summary>
+        /// <param name="item">the expense item</param>
+        /// <param name="month">the month specified</param>
+        /// <param name="year">the year specified</param>
+        /// <returns></returns>
+        public static double CalculateItemExpenseMonthly(string item, int month, int year)
+        {
+            //still to be implemented
+            return 0.00;
+        }
     }
 }
