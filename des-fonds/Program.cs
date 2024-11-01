@@ -32,8 +32,7 @@ namespace des_fonds
             //create expense
             Expense expense = new Expense(category, amount, date);
             //display expense
-            Console.WriteLine(expense + "\n");
-            //HAHAHAH YOUR CODE IS MINCE Test
+            Console.WriteLine(expense + "\n")
         }
     }
 }
