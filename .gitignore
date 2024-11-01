@@ -19,3 +19,6 @@
 *.exe
 /des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfoInputs.cache
 /des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfo.cs
+/des-fonds/.vs/ProjectEvaluation
+/des-fonds/obj/Debug/net8.0/des-fonds.assets.cache
+/des-fonds/obj/Debug/net8.0/des-fonds.GeneratedMSBuildEditorConfig.editorconfig
