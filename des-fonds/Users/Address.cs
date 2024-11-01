@@ -6,6 +6,7 @@ public class Address
  private string streetAddress;
  private string postCode;
  private string city;
+ private string country;
 
 
  public string streetAddress{get => streetAddress; set => streetAddress = value; }
@@ -14,12 +15,15 @@ public class Address
 
  public string city{get => city; set => city = value; }
 
- public Address(string streetAddress,string postCode, string city)
+ public string country{get => country; set => country = value; }
+
+ public Address(string streetAddress,string postCode, string city, string country)
 
 {
 this.streetAddress = streetAddress;
 this.postCode = postCode;
 this.city = city;
+this.country = country;
 
 
 }
