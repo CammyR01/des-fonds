@@ -1,4 +1,5 @@
 ﻿using des_fonds.Finances;
+using des_fonds.Users;
 
 namespace des_fonds
 {
@@ -8,7 +9,8 @@ namespace des_fonds
         {
             CreateIncome();//creates an income.
             CreateExpense();//creates an expense.
-           // CalcAnnualIncome();//calculate the annual income
+                            // CalcAnnualIncome();//calculate the annual income
+            CreateUser();
         }
         /// <summary>
         /// test method to create an income
@@ -40,6 +42,12 @@ namespace des_fonds
             
 
             
+        }
+        public static void CreateUser()
+        {
+            string uName = 'JOSH';
+            string uPass = 'MCI';
+            User user = new User(uName, uPass);
         }
     }
 }
