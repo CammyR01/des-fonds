@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\des-fonds.csproj": {}
+    "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\des-fonds.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\des-fonds.csproj": {
+    "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\des-fonds.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\des-fonds.csproj",
+        "projectUniqueName": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\des-fonds.csproj",
         "projectName": "des-fonds",
-        "projectPath": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\des-fonds.csproj",
-        "packagesPath": "C:\\Users\\Cameron\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Cameron\\Documents\\University\\Year 3\\Trimester 1\\Group Project\\des-fonds\\des-fonds\\obj\\",
+        "projectPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\des-fonds.csproj",
+        "packagesPath": "C:\\Users\\ad731\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ad731\\OneDrive\\C#Projects\\GroupRepo\\des-fonds\\des-fonds\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Cameron\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ad731\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -61,7 +61,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
