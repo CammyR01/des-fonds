@@ -9,11 +9,6 @@ public class Address
  private string country;
 
 
- public string streetAddress{get => streetAddress; set => streetAddress = value; }
-
- public string postCode{get => postCode; set => postCode = value; }
-
- public string city{get => city; set => city = value; }
 
  public string country{get => country; set => country = value; }
 
@@ -28,5 +23,7 @@ this.country = country;
 
 }
 
-
+    public string StreetAddress { get => streetAddress; set => streetAddress = value; }
+    public string PostCode { get => postCode; set => postCode = value; }
+    public string City { get => city; set => city = value; }
 }

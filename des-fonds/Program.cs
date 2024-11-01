@@ -11,6 +11,7 @@ namespace des_fonds
             CreateExpense();//creates an expense.
                             // CalcAnnualIncome();//calculate the annual income
             CreateUser();
+            DisplayStatement();
         }
         /// <summary>
         /// test method to create an income
@@ -43,6 +44,16 @@ namespace des_fonds
 
             
         }
+        public static void DisplayStatement()
+        {
+            // Single income and expense instance
+            Income income = new Income("Job", 1500.00, new DateTime(2024, 10, 12));
+            Expense expense = new Expense("Groceries", 150.00, new DateTime(2024, 10, 10));
+
+            // Use `DisplayStatements` to show both entries
+            income.DisplayStatements(income, expense);
+        }
+
         public static void CreateUser()
         {
             string uName = "JOSH";
