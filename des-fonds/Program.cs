@@ -45,7 +45,7 @@ namespace des_fonds
         }
         public static void CreateUser()
         {
-            string uName = 'JOSH';
+            string uName ="JOSH";
             string uPass = 'MCI';
             User user = new User(uName, uPass);
         }
