@@ -8,6 +8,7 @@ namespace des_fonds
         {
             CreateIncome();//creates an income.
             CreateExpense();//creates an expense.
+           // CalcAnnualIncome();//calculate the annual income
         }
         /// <summary>
         /// test method to create an income
@@ -33,6 +34,12 @@ namespace des_fonds
             Expense expense = new Expense(category, amount, date);
             //display expense
             Console.WriteLine(expense + "\n");
+        }
+        public static void CalcAnnualIncome()
+        {
+            
+
+            
         }
     }
 }
