@@ -23,9 +23,11 @@ namespace des_fonds
             double amount = 1234.45;
             DateTime Date = new DateTime(2024, 10, 29);
             //create income
-            Income income = new Income(source, amount, Date);
+            Income income1 = new Income(source, amount, Date);
+            Income income2 = new Income("side job", 55.00, new DateTime(2024, 11, 1));
             //display income
-            Console.WriteLine(income + "\n");
+            Console.WriteLine(income1 + "\n");
+            Console.WriteLine(income2+ "\n");
         }
         public static void CreateExpense()
         {
@@ -34,9 +36,9 @@ namespace des_fonds
             double amount = 455.88;
             DateTime date = new DateTime(2024, 10, 31);
             //create expense
-            Expense expense = new Expense(category, amount, date);
+            Expense expense1 = new Expense(category, amount, date);
             //display expense
-            Console.WriteLine(expense + "\n");
+            Console.WriteLine(expense1 + "\n");
         }
         public static void CalcAnnualIncome()
         {
