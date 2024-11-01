@@ -10,7 +10,7 @@ public class Address
 
 
 
- public string country{get => country; set => country = value; }
+ public string Country{get => country; set => country = value; }
 
  public Address(string streetAddress,string postCode, string city, string country)
 
