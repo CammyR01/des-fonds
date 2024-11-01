@@ -6,8 +6,8 @@ public class User
 {
     private string uName;
     private string uPass;
-    private static int id;
-    private int nextId = 0;
+    private static int id =0;
+    private int nextId;
     private Address address;
 
     public string Upass { get => uPass; set => uPass = value; }
@@ -16,7 +16,7 @@ public class User
     {
         this.uName = uName;
         this.uPass = uPass;
-        this.id = ++nextId
+        id = ++nextId;
     }
 
     public override string ToString()

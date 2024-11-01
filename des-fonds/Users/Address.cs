@@ -8,11 +8,6 @@ public class Address
  private string city;
 
 
- public string streetAddress{get => streetAddress; set => streetAddress = value; }
-
- public string postCode{get => postCode; set => postCode = value; }
-
- public string city{get => city; set => city = value; }
 
  public Address(string streetAddress,string postCode, string city)
 
@@ -24,5 +19,7 @@ this.city = city;
 
 }
 
-
+    public string StreetAddress { get => streetAddress; set => streetAddress = value; }
+    public string PostCode { get => postCode; set => postCode = value; }
+    public string City { get => city; set => city = value; }
 }
