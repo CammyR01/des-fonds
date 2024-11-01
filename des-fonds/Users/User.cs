@@ -26,9 +26,24 @@ public class User
         return strout;
     }
 
-    
+    public void EditUserDetails(string newUsername, string newPassword)
+    {
+        if (!string.IsNullOrEmpty(newUsername))
+        {
+            Uname = newUsername;  
+        }
 
-    
+        if (!string.IsNullOrEmpty(newPassword))
+        {
+            Upass = newPassword;  
+        }
+
+        Console.WriteLine("User details updated successfully.");
+    }
+
+
+
+
 
 }
 

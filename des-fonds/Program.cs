@@ -12,6 +12,7 @@ namespace des_fonds
                             // CalcAnnualIncome();//calculate the annual income
             CreateUser();
             DisplayStatement();
+            EditDetails();
         }
         /// <summary>
         /// test method to create an income
@@ -66,5 +67,28 @@ namespace des_fonds
             Console.WriteLine(user);
             Console.WriteLine(user1);
         }
+
+        public static void EditDetails()
+        {
+            // default user details
+            string uName = "Sugar";
+            string uPass = "Sugar1";
+            User user = new User(uName, uPass);
+            Console.WriteLine("Before Update:\n" + user);
+
+            // Prompt for new username
+            Console.Write("Enter new username (or press Enter to keep the current username): ");
+            string ? newUsername = Console.ReadLine();
+
+            // Prompt for new password
+            Console.Write("Enter new password (or press Enter to keep the current password): ");
+            string ? newPassword = Console.ReadLine();
+
+            // Update user details using the EditUserDetails method
+            user.EditUserDetails( newUsername , newPassword);
+
+            Console.WriteLine("\nAfter Update:\n" + user);
+        }
+
     }
 }
