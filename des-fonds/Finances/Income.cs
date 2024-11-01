@@ -15,16 +15,19 @@
             this.source = source;
         }
 
+
+
         /// <summary>
         /// Displays a representation of an Income statement
         /// </summary>
         /// <returns>String Representation of an income</returns>
         public override string ToString()
         {
-            string strout = string.Format("Source: {0}\n" +
-                "Amount: £{1}\n" +
-                "Date Recieved: {2}"
-                , Source, Amount, Date.ToShortDateString());
+            string strout = string.Format("Income Id: {0}\n" +
+                "Source: {1}\n" +
+                "Amount: £{2}\n" +
+                "Date Recieved: {3}"
+                ,Id, Source, Amount, Date.ToShortDateString());
             return strout;
         }
     }
