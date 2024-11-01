@@ -6,6 +6,7 @@ public class User
     private string uPass;
     private static int id;
     private int nextId = 0;
+    private Address address;
 
     public string Upass { get => uPass; set => uPass = value; }
     public string Uname { get => uName; set => uName = value; }
