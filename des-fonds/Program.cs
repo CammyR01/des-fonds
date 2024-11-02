@@ -1,6 +1,8 @@
-﻿using des_fonds.Finances;
+﻿using des_fonds.Calculator;
+using des_fonds.Finances;
 using des_fonds.Users;
 using System.Runtime.InteropServices;
+using System.Runtime.Intrinsics.X86;
 
 namespace des_fonds
 {
@@ -12,6 +14,7 @@ namespace des_fonds
             CreateExpense();//creates an expense.
                             // CalcAnnualIncome();//calculate the annual income
             AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
+            TestCalculateMonthlyIncome();
             CreateUser();
             DisplayStatement();
             EditDetails();
@@ -99,7 +102,7 @@ namespace des_fonds
             User user2 = UserPopulate("bob", "pass2");
             //create income
             Income in1 = CreateIncomePopulate("Wage", 1234.99, new DateTime(2024, 11, 1));
-            Income in2 = CreateIncomePopulate("Side Hustle", 49.88, new DateTime(2024, 10, 2));
+            Income in2 = CreateIncomePopulate("Side Hustle", 49.88, new DateTime(2024, 11, 2));
             Income in3 = CreateIncomePopulate("Birthday Money", 100, new DateTime(2024, 5, 22));
             //create expense
             Expense ex1 = CreateExpensePopulate("Rent", 553.89, new DateTime(2024, 11, 1));
@@ -125,8 +128,36 @@ namespace des_fonds
             {
                 Console.WriteLine(s1 + "\n");
             }
+            
+            
+        }
 
-
+        public static void TestCalculateMonthlyIncome()
+        {
+            // add income and expenses to users
+            User user1 = UserPopulate("ash", "pass");
+            User user2 = UserPopulate("bob", "pass2");
+            //create income
+            Income in1 = CreateIncomePopulate("Wage", 1234.99, new DateTime(2024, 11, 1));
+            Income in2 = CreateIncomePopulate("Side Hustle", 49.88, new DateTime(2024, 11, 2));
+            Income in3 = CreateIncomePopulate("Birthday Money", 100, new DateTime(2024, 5, 22));
+            //create expense
+            Expense ex1 = CreateExpensePopulate("Rent", 553.89, new DateTime(2024, 11, 1));
+            Expense ex2 = CreateExpensePopulate("spotify", 19.99, new DateTime(2024, 10, 2));
+            Expense ex3 = CreateExpensePopulate("wifi", 62.00, new DateTime(2024, 10, 2));
+            //add income and expense to users statements
+            user1.AddStatement(in1);
+            user1.AddStatement(in2);
+            user1.AddStatement(ex1);
+            user1.AddStatement(ex2);
+            user2.AddStatement(in3);
+            user2.AddStatement(ex3);
+            // calculate monthly income
+            int month = 11;
+            int year = 2024;
+            double monthly_total = FinanceCalculator.CalculateMonthlyIncome(user1, month, year);
+            // two incomes "in1" + "in2" total to 1284.87
+            Console.WriteLine("The total for " + month + "/" + year + " is £" + monthly_total + "\n");
         }
 
         // Creates users
@@ -143,6 +174,10 @@ namespace des_fonds
         public static Expense CreateExpensePopulate(string category, double amount, DateTime date)
         {
             return new Expense(category, amount, date);
+        }
+        public static void Populate()
+        {
+            //still to implement
         }
     }
 }
