@@ -25,6 +25,8 @@ public class User
         statements = new List<Statement>();
 
     }
+    // dont think this one is needed as we have the top constructor
+    //and i the constructor under this one creates an address when given all arguments
     public User(string uName, string uPass, Address address)
     {
         this.uName = uName;
@@ -33,11 +35,12 @@ public class User
 
     }
 
-    public User(string streetAddress, string postCode, string city, string country)
+    public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
     {
         this.uName = uName;
         this.uPass = uPass;
-        address = new Address(streetAddress, postCode, city, country);
+        this.id = ++nextId;
+        this.address = new Address(streetAddress, postCode, city, country);
     }
 
     public void AddStatement(Statement statement)

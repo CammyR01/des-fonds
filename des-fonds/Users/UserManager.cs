@@ -7,6 +7,10 @@ public class UserManager
 
     public UserManager()
     {
+        //should this be a static class and dont think this is need it should get all that info from the users class
+        //also if static you dont need a constructor you can call it directly 
+        // like UserManager.GetUserDetails(User user) and get attributes with
+        // user.Uname or Address address = user.Address; i will give you a message later bud
         // Default user details
         string uName = "Sugar";
         string uPass = "Sugar1";
