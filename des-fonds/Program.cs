@@ -11,6 +11,7 @@ namespace des_fonds
     {
         static void Main(string[] args)
         {
+            MoneyApp app = MoneyApp.Instance;
             CreateIncome();//creates an income.
             CreateExpense();//creates an expense.
                             // CalcAnnualIncome();//calculate the annual income
@@ -18,11 +19,44 @@ namespace des_fonds
             TestCalculateMonthlyIncome();
             TestCalculateMonthlyExpense();
             CreateUser();
+            TestRegisterLogin(app);
             DisplayStatement();
-            EditDetails();
-            EditAddress();
+            //EditDetails();
+            //EditAddress();
             
         }
+        public static void TestRegisterLogin(MoneyApp app)
+        {
+            //try register user
+            try
+            {
+                UserManager.RegisterUser("peter", "password", "21 Jump Street", "g179as", "Gotham", "SomeCountry");
+                Console.WriteLine("Registration Successful");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            string username = "peter";// change name to get error
+            string password = "password1";//change password to get error
+            //login in user
+            try
+            {
+                User fetched_user = UserManager.LoginUser(username, password);
+                Console.WriteLine("login successful");
+                Console.WriteLine(fetched_user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
+
+
+
         /// <summary>
         /// test method to create an income
         /// </summary>
@@ -77,54 +111,54 @@ namespace des_fonds
             Console.WriteLine(user1);
         }
 
-        public static void EditDetails()
-        {
-            UserManager userManager = new UserManager();
+        //public static void EditDetails()
+        //{
+        //    UserManager userManager = new UserManager();
 
-            // Display current user details
-            Console.WriteLine("User Details Before Update:\n" + userManager.GetUserDetails());
+        //    // Display current user details
+        //    Console.WriteLine("User Details Before Update:\n" + userManager.GetUserDetails());
 
-            // Prompt for new username
-            Console.Write("Enter new username (or press Enter to keep the current username): ");
-            string? newUsername = Console.ReadLine();
+        //    // Prompt for new username
+        //    Console.Write("Enter new username (or press Enter to keep the current username): ");
+        //    string? newUsername = Console.ReadLine();
 
-            // Prompt for new password
-            Console.Write("Enter new password (or press Enter to keep the current password): ");
-            string? newPassword = Console.ReadLine();
+        //    // Prompt for new password
+        //    Console.Write("Enter new password (or press Enter to keep the current password): ");
+        //    string? newPassword = Console.ReadLine();
 
-            // Update user details
-            userManager.EditUserDetails(newUsername, newPassword);
+        //    // Update user details
+        //    userManager.EditUserDetails(newUsername, newPassword);
 
-            // Display updated user details
-            Console.WriteLine("\nUser Details After Update:\n" + userManager.GetUserDetails());
-        }
+        //    // Display updated user details
+        //    Console.WriteLine("\nUser Details After Update:\n" + userManager.GetUserDetails());
+        //}
 
-        public static void EditAddress()
-        {
-            UserManager userManager = new UserManager();
-            Console.WriteLine("===============================================================");
-            // Display current address details
-            Console.WriteLine("\n\nAddress Before Update:\n" + userManager.GetAddressDetails());
+        //public static void EditAddress()
+        //{
+        //    UserManager userManager = new UserManager();
+        //    Console.WriteLine("===============================================================");
+        //    // Display current address details
+        //    Console.WriteLine("\n\nAddress Before Update:\n" + userManager.GetAddressDetails());
 
-            // Prompt for new address details
-            Console.Write("Enter a new Street name (or press Enter to keep current): ");
-            string? newStreetAddress = Console.ReadLine();
+        //    // Prompt for new address details
+        //    Console.Write("Enter a new Street name (or press Enter to keep current): ");
+        //    string? newStreetAddress = Console.ReadLine();
 
-            Console.Write("Enter a new City (or press Enter to keep current): ");
-            string? newCity = Console.ReadLine();
+        //    Console.Write("Enter a new City (or press Enter to keep current): ");
+        //    string? newCity = Console.ReadLine();
 
-            Console.Write("Enter a new Postcode (or press Enter to keep current): ");
-            string? newPostcode = Console.ReadLine();
+        //    Console.Write("Enter a new Postcode (or press Enter to keep current): ");
+        //    string? newPostcode = Console.ReadLine();
 
-            Console.Write("Enter a new Country (or press Enter to keep current): ");
-            string? newCountry = Console.ReadLine();
+        //    Console.Write("Enter a new Country (or press Enter to keep current): ");
+        //    string? newCountry = Console.ReadLine();
 
-            // Update address details
-            userManager.EditAddress(newStreetAddress, newPostcode, newCity, newCountry);
+        //    // Update address details
+        //    userManager.EditAddress(newStreetAddress, newPostcode, newCity, newCountry);
 
-            // Display updated address details
-            Console.WriteLine("\nAddress After Update:\n" + userManager.GetAddressDetails());
-        }
+        //    // Display updated address details
+        //    Console.WriteLine("\nAddress After Update:\n" + userManager.GetAddressDetails());
+        //}
         public static void AddIncomeExpenseToUserStatments()
         {
             //create users
