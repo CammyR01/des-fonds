@@ -20,6 +20,7 @@ namespace des_fonds
             CreateUser();
             DisplayStatement();
             EditDetails();
+            EditAddress();
             
         }
         /// <summary>
@@ -78,11 +79,10 @@ namespace des_fonds
 
         public static void EditDetails()
         {
-            // default user details
-            string uName = "Sugar";
-            string uPass = "Sugar1";
-            User user = new User(uName, uPass);
-            Console.WriteLine("Before Update:\n" + user);
+            UserManager userManager = new UserManager();
+
+            // Display current user details
+            Console.WriteLine("User Details Before Update:\n" + userManager.GetUserDetails());
 
             // Prompt for new username
             Console.Write("Enter new username (or press Enter to keep the current username): ");
@@ -92,10 +92,38 @@ namespace des_fonds
             Console.Write("Enter new password (or press Enter to keep the current password): ");
             string? newPassword = Console.ReadLine();
 
-            // Update user details using the EditUserDetails method
-            user.EditUserDetails(newUsername, newPassword);
+            // Update user details
+            userManager.EditUserDetails(newUsername, newPassword);
 
-            Console.WriteLine("\nAfter Update:\n" + user);
+            // Display updated user details
+            Console.WriteLine("\nUser Details After Update:\n" + userManager.GetUserDetails());
+        }
+
+        public static void EditAddress()
+        {
+            UserManager userManager = new UserManager();
+            Console.WriteLine("===============================================================");
+            // Display current address details
+            Console.WriteLine("\n\nAddress Before Update:\n" + userManager.GetAddressDetails());
+
+            // Prompt for new address details
+            Console.Write("Enter a new Street name (or press Enter to keep current): ");
+            string? newStreetAddress = Console.ReadLine();
+
+            Console.Write("Enter a new City (or press Enter to keep current): ");
+            string? newCity = Console.ReadLine();
+
+            Console.Write("Enter a new Postcode (or press Enter to keep current): ");
+            string? newPostcode = Console.ReadLine();
+
+            Console.Write("Enter a new Country (or press Enter to keep current): ");
+            string? newCountry = Console.ReadLine();
+
+            // Update address details
+            userManager.EditAddress(newStreetAddress, newPostcode, newCity, newCountry);
+
+            // Display updated address details
+            Console.WriteLine("\nAddress After Update:\n" + userManager.GetAddressDetails());
         }
         public static void AddIncomeExpenseToUserStatments()
         {

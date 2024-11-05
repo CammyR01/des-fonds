@@ -23,5 +23,9 @@ public class Address
 
 
     }
+    public override string ToString()
+    {
+        return $"Street Address: {StreetAddress}\nCity: {City}\nPostcode: {PostCode}\nCountry: {Country}";
+    }
 
 }
