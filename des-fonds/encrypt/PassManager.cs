@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace des_fonds.encrypt
 {
-    public class Sha256Hasher
+    public static class Sha256Hasher
     {
         // Hash the given password using SHA-256
         public static string Hash(string password)

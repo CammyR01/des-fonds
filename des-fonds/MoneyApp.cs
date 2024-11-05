@@ -1,4 +1,5 @@
-﻿using des_fonds.Finances;
+﻿using des_fonds.encrypt;
+using des_fonds.Finances;
 using des_fonds.Users;
 
 namespace des_fonds
@@ -58,10 +59,10 @@ namespace des_fonds
         private void populate()
         {
             //create users with addresses
-            User user1 = new User("ash", "pass", "1 Some Street", "g123bh","A City", "Somewhere");
-            User user2 = new User("bob", "pass2", "2 Another Street", "g098cg", "Another City", "SomeWhere Else");
-            User user3 = new User("suzan", "pass3", "3 Some Lane", "g389sd", "Greater City", "Somewhere");
-            User user4 = new User("mel", "pass4", "4 Another Lane", "g128jh", "City of Another", "SomeWhere too");
+            User user1 = new User("ash", encrypt.Sha256Hasher.Hash("pass"), "1 Some Street", "g123bh","A City", "Somewhere");
+            User user2 = new User("bob", encrypt.Sha256Hasher.Hash("pass2"), "2 Another Street", "g098cg", "Another City", "SomeWhere Else");
+            User user3 = new User("suzan", encrypt.Sha256Hasher.Hash("pass3"), "3 Some Lane", "g389sd", "Greater City", "Somewhere");
+            User user4 = new User("mel", encrypt.Sha256Hasher.Hash("pass4"), "4 Another Lane", "g128jh", "City of Another", "SomeWhere too");
 
             //Create incomes for users
             Income in1 = new Income("Wage", 1234.99, new DateTime(2024, 10, 1));

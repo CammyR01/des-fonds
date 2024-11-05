@@ -54,9 +54,6 @@ namespace des_fonds
 
         }
 
-
-
-
         /// <summary>
         /// test method to create an income
         /// </summary>
@@ -86,7 +83,8 @@ namespace des_fonds
         }
         public static void CalcAnnualIncome()
         {
-            //still to be implemented
+            
+            
 
 
         }
