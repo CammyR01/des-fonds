@@ -114,7 +114,7 @@ public static class UserManager
     public static void RegisterUser(string username, string password, string street, string postcode, string city, string country)
     {
         if (username.Length > 0)
-        {         
+        {                 
             if(street.Length > 0)
             {
                 if (postcode.Length > 0)

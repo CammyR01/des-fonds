@@ -14,7 +14,7 @@ namespace des_fonds
             MoneyApp app = MoneyApp.Instance;
             CreateIncome();//creates an income.
             CreateExpense();//creates an expense.
-                            // CalcAnnualIncome();//calculate the annual income
+            CalcAnnualIncome();//calculate the annual income
             AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             TestCalculateMonthlyIncome();
             TestCalculateMonthlyExpense();
@@ -39,7 +39,7 @@ namespace des_fonds
             }
 
             string username = "peter";// change name to get error
-            string password = "password1";//change password to get error
+            string password = "password";//change password to get error
             //login in user
             try
             {
@@ -83,9 +83,18 @@ namespace des_fonds
         }
         public static void CalcAnnualIncome()
         {
-            
-            
-
+            double annualIncome = 0;
+            int year = 2024;
+            try
+            {
+                User user = UserManager.LoginUser("suzan", "pass3");
+                annualIncome = FinanceCalculator.CalculateAnnualIncome(user, year);
+                Console.WriteLine(user + "\n" + "annual Income: £" + annualIncome);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
 
         }
         public static void DisplayStatement()
