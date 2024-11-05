@@ -12,12 +12,28 @@ public class User
 
     public string Upass { get => uPass; set => uPass = value; }
     public string Uname { get => uName; set => uName = value; }
+    public Address Address { get => address; set => address = value; }
+
     public User(string uName, string uPass)
     {
         this.uName = uName;
         this.uPass = uPass;
         this.id = ++nextId;
+        
+    }
+    public User(string uName, string uPass,Address address)
+    {
+        this.uName = uName;
+        this.uPass = uPass;
+        this.id = ++nextId;
 
+    }
+
+    public User(string streetAddress, string postCode, string city, string country)
+    {
+        this.uName = uName;
+        this.uPass = uPass;
+        address = new Address(streetAddress, postCode, city, country);
     }
 
     public override string ToString()
@@ -26,20 +42,7 @@ public class User
         return strout;
     }
 
-    public void EditUserDetails(string newUsername, string newPassword)
-    {
-        if (!string.IsNullOrEmpty(newUsername))
-        {
-            Uname = newUsername;  
-        }
 
-        if (!string.IsNullOrEmpty(newPassword))
-        {
-            Upass = newPassword;  
-        }
-
-        Console.WriteLine("User details updated successfully.");
-    }
 
 
 
