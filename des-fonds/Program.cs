@@ -267,9 +267,6 @@ namespace des_fonds
         {
             return new Expense(category, amount, date);
         }
-        public static void Populate()
-        {
-            //still to implement
-        }
+        
     }
 }
