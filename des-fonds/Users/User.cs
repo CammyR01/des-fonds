@@ -1,5 +1,4 @@
 using des_fonds.Finances;
-using System.Reflection.Metadata.Ecma335;
 
 namespace des_fonds.Users;
 

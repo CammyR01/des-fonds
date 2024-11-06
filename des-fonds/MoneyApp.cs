@@ -1,5 +1,4 @@
-﻿using des_fonds.encrypt;
-using des_fonds.Finances;
+﻿using des_fonds.Finances;
 using des_fonds.Users;
 
 namespace des_fonds

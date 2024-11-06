@@ -1,6 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
-using des_fonds.encrypt;
+﻿using des_fonds.encrypt;
 namespace des_fonds.Users;
 
 public static class UserManager

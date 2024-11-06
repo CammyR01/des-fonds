@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace des_fonds.Finances
+﻿namespace des_fonds.Finances
 {
-    
+
     public class Expense : Statement
     {
         private string category;// the category of the expense
