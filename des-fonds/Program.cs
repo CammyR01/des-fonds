@@ -1,9 +1,6 @@
 ﻿using des_fonds.Calculator;
 using des_fonds.Finances;
 using des_fonds.Users;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Runtime.Intrinsics.X86;
 
 namespace des_fonds
 {
@@ -21,8 +18,9 @@ namespace des_fonds
             CreateUser();
             TestRegisterLogin(app);
             DisplayStatement();
+            EditUsername(app);
             //EditDetails();
-            //EditAddress();
+            EditAddress(app);
             
         }
         /// <summary>
@@ -139,6 +137,55 @@ namespace des_fonds
             Console.WriteLine(user);
             Console.WriteLine(user1);
         }
+        public static void EditUsername(MoneyApp app)
+        {
+            //login in suzan
+            try
+            {
+                //suzan login details
+                string username = "suzan";
+                string password = "pass3";
+                
+                //try login in user
+                User user = UserManager.LoginUser(username, password);
+                //if login in successfull change name from "suzan" to "susan"
+                string oldName = user.Uname; //get old name from class
+                string newName = "susan"; // the new name
+                //edit the details
+                UserManager.EditUserDetails(user, newName);
+                Console.WriteLine("Edit was successful:\nOld Name: " + oldName + "\nNew Name: " + user.Uname);
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public static void EditAddress(MoneyApp app)
+        {
+            try
+            {
+                //login ash
+                string username = "ash";
+                string password = "pass";
+                User user = UserManager.LoginUser(username, password);
+                Console.WriteLine("Old Address:\n" + user.Address);
+                //change address
+                string street = "17 New Street";
+                string postcode = "NewPCode";
+                string city = "New City";
+                string country = "New Country";
+                UserManager.EditAddress(user, street, postcode, city, country);
+                Console.WriteLine("Address Changed:\n" + user.Address);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
 
         //public static void EditDetails()
         //{
@@ -162,32 +209,6 @@ namespace des_fonds
         //    Console.WriteLine("\nUser Details After Update:\n" + userManager.GetUserDetails());
         //}
 
-        //public static void EditAddress()
-        //{
-        //    UserManager userManager = new UserManager();
-        //    Console.WriteLine("===============================================================");
-        //    // Display current address details
-        //    Console.WriteLine("\n\nAddress Before Update:\n" + userManager.GetAddressDetails());
-
-        //    // Prompt for new address details
-        //    Console.Write("Enter a new Street name (or press Enter to keep current): ");
-        //    string? newStreetAddress = Console.ReadLine();
-
-        //    Console.Write("Enter a new City (or press Enter to keep current): ");
-        //    string? newCity = Console.ReadLine();
-
-        //    Console.Write("Enter a new Postcode (or press Enter to keep current): ");
-        //    string? newPostcode = Console.ReadLine();
-
-        //    Console.Write("Enter a new Country (or press Enter to keep current): ");
-        //    string? newCountry = Console.ReadLine();
-
-        //    // Update address details
-        //    userManager.EditAddress(newStreetAddress, newPostcode, newCity, newCountry);
-
-        //    // Display updated address details
-        //    Console.WriteLine("\nAddress After Update:\n" + userManager.GetAddressDetails());
-        //}
         /// <summary>
         /// test method to add income and expense to created users
         /// </summary>
@@ -224,8 +245,6 @@ namespace des_fonds
             {
                 Console.WriteLine(s1 + "\n");
             }
-            
-            
         }
         /// <summary>
         /// Tests method to calculate monthly income
