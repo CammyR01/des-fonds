@@ -25,11 +25,17 @@ namespace des_fonds
             //EditAddress();
             
         }
+        /// <summary>
+        /// test method to register a user and then logs user in
+        /// throws exception if username or passwords are incorrect
+        /// </summary>
+        /// <param name="app">instance of app</param>
         public static void TestRegisterLogin(MoneyApp app)
         {
             //try register user
             try
             {
+                //calls user manager method to register user
                 UserManager.RegisterUser("peter", "password", "21 Jump Street", "g179as", "Gotham", "SomeCountry");
                 Console.WriteLine("Registration Successful");
             }
@@ -37,14 +43,16 @@ namespace des_fonds
             {
                 Console.WriteLine(ex.Message);
             }
-
+            // username input and password for usermanager loginUser method
             string username = "peter";// change name to get error
             string password = "password";//change password to get error
             //login in user
             try
             {
+                // if user login is successfull return the user profile
                 User fetched_user = UserManager.LoginUser(username, password);
                 Console.WriteLine("login successful");
+                //display logged in user
                 Console.WriteLine(fetched_user);
             }
             catch (Exception ex)
@@ -70,6 +78,9 @@ namespace des_fonds
             Console.WriteLine(income1 + "\n");
             Console.WriteLine(income2 + "\n");
         }
+        /// <summary>
+        /// test method to create an expense
+        /// </summary>
         public static void CreateExpense()
         {
             //attributes for expense
@@ -81,14 +92,22 @@ namespace des_fonds
             //display expense
             Console.WriteLine(expense1 + "\n");
         }
+        /// <summary>
+        /// test method to calculate the annual income
+        /// logs user in and calculates the annual income for the given year
+        /// </summary>
         public static void CalcAnnualIncome()
         {
+            // set variables annual income and year to calculate
             double annualIncome = 0;
             int year = 2024;
             try
             {
+                //log user in 
                 User user = UserManager.LoginUser("suzan", "pass3");
+                //calculate annual income using finance calculator class and calculateAnnualIncome method
                 annualIncome = FinanceCalculator.CalculateAnnualIncome(user, year);
+                //display user and annual income total
                 Console.WriteLine(user + "\n" + "annual Income: £" + annualIncome);
             }
             catch (Exception ex)
@@ -106,7 +125,10 @@ namespace des_fonds
             // Use `DisplayStatements` to show both entries
             income.DisplayStatements(income, expense);
         }
-
+        /// <summary>
+        /// creates a user
+        /// displays the users
+        /// </summary>
         public static void CreateUser()
         {
             string uName = "JOSH";
@@ -166,6 +188,9 @@ namespace des_fonds
         //    // Display updated address details
         //    Console.WriteLine("\nAddress After Update:\n" + userManager.GetAddressDetails());
         //}
+        /// <summary>
+        /// test method to add income and expense to created users
+        /// </summary>
         public static void AddIncomeExpenseToUserStatments()
         {
             //create users
@@ -202,7 +227,9 @@ namespace des_fonds
             
             
         }
-
+        /// <summary>
+        /// Tests method to calculate monthly income
+        /// </summary>
         public static void TestCalculateMonthlyIncome()
         {
             // add income and expenses to users
@@ -230,6 +257,9 @@ namespace des_fonds
             // two incomes "in1" + "in2" total to 1284.87
             Console.WriteLine("The total for " + month + "/" + year + " is £" + monthly_total + "\n");
         }
+        /// <summary>
+        /// test method to calculate the montly expenses
+        /// </summary>
         public static void TestCalculateMonthlyExpense()
         {
             // add income and expenses to users
