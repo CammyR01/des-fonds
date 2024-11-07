@@ -87,7 +87,7 @@ public static class UserManager
                                 {
                                     //everything is valid change address
                                     Address address = user.Address;
-                                    address.StreetAddress = newStreet;
+                                    address.Street = newStreet;
                                     address.PostCode = newPostcode;
                                     address.City = newCity;
                                     address.Country = newCountry;
