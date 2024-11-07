@@ -52,6 +52,33 @@ public static class UserManager
             Console.WriteLine(e.Message);
         }
     }
+    public static void RemoveUser(User user)
+    {
+        try
+        {
+            // Retrieve the user list from the MoneyApp instance
+            MoneyApp app = MoneyApp.Instance;
+
+            // Check if the user exists in the list
+            if (app.UserList.Contains(user))
+            {
+                // Remove the user and display confirmation
+                app.UserList.Remove(user);
+                Console.WriteLine("User removed: " + user.Uname);
+            }
+            else
+            {
+                // User not found, throw an exception
+                throw new Exception("User not found in the system.");
+            }
+        }
+        catch (Exception e)
+        {
+            // Print the error message if an exception occurs
+            Console.WriteLine(e.Message);
+        }
+    }
+
     public static bool isValidUserName(string username)
     {
         //check if string is null or empty

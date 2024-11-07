@@ -21,6 +21,7 @@ namespace des_fonds
             EditUsername(app);
             //EditDetails();
             EditAddress(app);
+            RemoveUser(app);
             
         }
         /// <summary>
@@ -145,7 +146,7 @@ namespace des_fonds
                 //suzan login details
                 string username = "suzan";
                 string password = "pass3";
-                
+
                 //try login in user
                 User user = UserManager.LoginUser(username, password);
                 //if login in successfull change name from "suzan" to "susan"
@@ -161,6 +162,32 @@ namespace des_fonds
                 Console.WriteLine(ex.Message);
             }
         }
+        public static void RemoveUser(MoneyApp app)
+        {
+            // tryn login and remove the user
+            try
+            {
+                //user details
+                string username = "ash";
+                string password = "pass";
+
+                // attempt to log the user in
+                User user = UserManager.LoginUser(username, password);
+
+                // if login is successful proceed with removal
+                Console.WriteLine("User logged in successfully: " + user.Uname);
+
+                // Remove the user
+                UserManager.RemoveUser(user);
+                Console.WriteLine("User removal successful: " + user.Uname);
+            }
+            catch (Exception ex)
+            {
+                // display an error message if login or removal fails
+                Console.WriteLine(ex.Message);
+            }
+        }
+
 
         public static void EditAddress(MoneyApp app)
         {
