@@ -17,8 +17,11 @@ namespace des_fonds.Users
             members = new List<User>();
         }
 
-        //Invite Members
-
+        //add member to members list if invite is accepted
+        public void addHouseMember(User user)
+        {
+            members.Add(user);
+        }
         //remove Members
 
         //share bills

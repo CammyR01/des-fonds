@@ -12,7 +12,7 @@ public class User
     private Address address;
     private List<Statement> statements;
 
-    //private HouseHead househead;
+    private bool isHousehead;
     private List<Message> messages;
     private bool newNotification;
     private int notificationCount;
@@ -24,7 +24,7 @@ public class User
     public List<Message> Messages { get => messages; set => messages = value; }
     public bool NewNotification { get => newNotification; set => newNotification = value; }
     public int NotificationCount { get => notificationCount; set => notificationCount = value; }
-    //public HouseHead Househead { get => househead; set => househead = value; }
+    public bool IsHousehead { get => isHousehead; set => isHousehead = value; }
 
     public User(string uName, string uPass)
     {
@@ -68,6 +68,7 @@ public class User
         strout += "\n" + address;
         return strout;
     }
+    
     public void SendHouseInvite(string username, string message)
     {
         try

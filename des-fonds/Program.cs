@@ -354,7 +354,24 @@ namespace des_fonds
         {
             try
             {
+                // login in user
                 User a = UserManager.LoginUser("susan", "pass3");
+                //is a househead
+                bool ishead = a.IsHousehead;
+                
+                if (ishead)
+                {
+                    string username = "mel";
+                    User b = UserManager.GetUserByUsername(username);
+                    string message = "hey mel, i am inviting you to join my house as a member");
+                    Invite invite = new Invite(DateTime.Now.Date, a, b, message);
+                    Console.WriteLine("Invite sent");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 
