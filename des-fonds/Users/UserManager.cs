@@ -272,18 +272,27 @@ public static class UserManager
         }
 
     }
-    public static void SendInvite(User user, Invite invite)
+    public static void SendInvite(User partyA, string username, string message)
     {
-        user.Messages.Add(invite);
-        user.NewNotification = true;
-        user.NotificationCount += 1;
+        try
+        {
+            User partyB = GetUserByUsername(username);
+            Invite invite = new Invite(DateTime.Now.Date, partyA, partyB, message);
+            partyB.Messages.Add(invite);
+            partyB.NewNotification = true;
+            partyB.NotificationCount += 1;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
     public static void AcceptInvite(User user, Invite invite)
     {
         invite.Accept();
         
     }
-    public static User GetUserByUsername(string username)
+    private static User GetUserByUsername(string username)
     {
         foreach (User u in MoneyApp.Instance.UserList)
         {

@@ -24,6 +24,8 @@ namespace des_fonds
             EditAddress(app);
             RemoveUser(app);
             CreateHouseHead(app);
+            SendInviteToHousehold(app);
+            receive_invite(app);
 
         }
         /// <summary>
@@ -342,8 +344,10 @@ namespace des_fonds
             {
                 User user = UserManager.LoginUser("susan", "pass3");
 
-                HouseHead head = new HouseHead(user);
-                Console.WriteLine(head);
+                user.CreateHousehold();
+
+                Console.WriteLine("\nis user a househead: " + user.IsHeadOfHouse);
+                Console.WriteLine("The household Address is:\n" + user.Household.Head.Address);
             }
             catch (Exception ex)
             {
@@ -357,21 +361,43 @@ namespace des_fonds
                 // login in user
                 User a = UserManager.LoginUser("susan", "pass3");
                 //is a househead
-                bool ishead = a.IsHousehead;
+                bool ishead = a.IsHeadOfHouse;
                 
                 if (ishead)
                 {
                     string username = "mel";
-                    User b = UserManager.GetUserByUsername(username);
                     string message = "hey mel, i am inviting you to join my house as a member";
-                    Invite invite = new Invite(DateTime.Now.Date, a, b, message);
-                    Console.WriteLine("Invite sent");
+
+                    a.Household.SendInvite(a, username, message);
                 }
 
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+        public static void receive_invite(MoneyApp app)
+        {
+            try
+            {
+                User a = UserManager.LoginUser("mel", "pass4");
+                int NotificationCount = a.NotificationCount;
+                bool Notificationflag = a.NewNotification;
+                Message invite = a.Messages.Last();
+                Console.WriteLine("\nNotification count: " + NotificationCount);
+                Console.WriteLine("Notification flag: " + Notificationflag);
+                Console.WriteLine("\n" + invite);
+
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -391,29 +417,7 @@ namespace des_fonds
             return new Expense(category, amount, date);
         }
 
-        public static void receive_invite(MoneyApp app)
-        {
-            try
-            {
-                User a = UserManager.LoginUser("mel", "pass4");
-                int NotificationCount = a.NotificationCount;
-                bool Notificationflag = a.NewNotification;
-                Message invite = a.Messages.Last();
-                Console.WriteLine(NotificationCount);
-                Console.WriteLine(Notificationflag);
-                Console.WriteLine(invite);
-
-
-
-           
-
-                
-            }
-            catch(Exception ex)
-            {
-
-            }
-        }
+        
         
     }
 }

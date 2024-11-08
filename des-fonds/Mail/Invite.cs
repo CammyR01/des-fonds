@@ -24,7 +24,10 @@ namespace des_fonds.Mail
 
         public override string ToString()
         {
-            string strout = string.Format("{0} has sent you an invite to join there household at\n {1}\n{2}", PartyA.Uname, PartyA.Address.ToString(), Message_Text);
+            string strout = string.Format("{0} has sent you an invite to join there household at",PartyA.Uname);
+            strout += $"\n{PartyA.Address}";
+            strout += $"\n\n{Message_Text}";
+            strout += $"\nMessage status currently: '{status}'.";
             return strout;
         }
     }

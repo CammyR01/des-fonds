@@ -12,7 +12,8 @@ public class User
     private Address address;
     private List<Statement> statements;
 
-    private bool isHousehead;
+    private Household household;
+    private bool isHeadOfHouse;
     private List<Message> messages;
     private bool newNotification;
     private int notificationCount;
@@ -24,7 +25,8 @@ public class User
     public List<Message> Messages { get => messages; set => messages = value; }
     public bool NewNotification { get => newNotification; set => newNotification = value; }
     public int NotificationCount { get => notificationCount; set => notificationCount = value; }
-    public bool IsHousehead { get => isHousehead; set => isHousehead = value; }
+    public bool IsHeadOfHouse { get => isHeadOfHouse; set => isHeadOfHouse = value; }
+    public Household Household { get => household; set => household = value; }
 
     public User(string uName, string uPass)
     {
@@ -32,22 +34,14 @@ public class User
         this.uPass = uPass;
         this.id = ++nextId;
         statements = new List<Statement>();
+        this.isHeadOfHouse = false;
+        messages = new List<Message>();
+        this.newNotification = false;
+        this.notificationCount = 0;
         
 
-    }
-    // dont think this one is needed as we have the top constructor
-    //and in the constructor under this one creates an address when given all arguments
-    
-    //in the second constructor will add the address to the user, access the address via the user
-    // Address address = user.Address;
-    public User(string uName, string uPass, Address address)
-    {
-        this.uName = uName;
-        this.uPass = uPass;
-        this.id = ++nextId;
 
     }
-    //------------------------------------------------------------------------
     public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
     {
         this.uName = uName;
@@ -55,6 +49,11 @@ public class User
         this.id = ++nextId;
         statements = new List<Statement>();
         this.address = new Address(streetAddress, postCode, city, country);
+        this.isHeadOfHouse = false;
+        messages = new List<Message>();
+        this.newNotification = false;
+        this.notificationCount = 0;
+        
     }
 
     public void AddStatement(Statement statement)
@@ -68,24 +67,19 @@ public class User
         strout += "\n" + address;
         return strout;
     }
-    
-    public void SendHouseInvite(string username, string message)
+    public void CreateHousehold()
     {
-        try
+        //check if user is in a household
+        if (isHeadOfHouse)
         {
-            User b = UserManager.GetUserByUsername(username);
-
-            Invite invite = new Invite(DateTime.Now.Date, this, b, message);
-            UserManager.SendInvite(b,invite);
-            Console.WriteLine("Invite sent");
+            throw new Exception("Already in a household!");
+        }
+        else
+        {
+            this.household = new Household(this);
+            this.isHeadOfHouse = true;
 
         }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-        
-
     }
 
 
