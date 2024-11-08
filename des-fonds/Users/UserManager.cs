@@ -281,7 +281,6 @@ public static class UserManager
     public static void AcceptInvite(User user, Invite invite)
     {
         invite.Accept();
-        User a = invite.PartyA
         
     }
     public static User GetUserByUsername(string username)
