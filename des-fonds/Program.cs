@@ -1,5 +1,6 @@
 ﻿using des_fonds.Calculator;
 using des_fonds.Finances;
+using des_fonds.Mail;
 using des_fonds.Users;
 
 namespace des_fonds
@@ -22,6 +23,7 @@ namespace des_fonds
             //EditDetails();
             EditAddress(app);
             RemoveUser(app);
+            CreateHouseHead(app);
             
         }
         /// <summary>
@@ -333,6 +335,44 @@ namespace des_fonds
 
             monthly_expense = FinanceCalculator.CalculateMonthlyExpense(user2, month, year);
             Console.WriteLine("The monthly expense total is: £" + monthly_expense);
+        }
+        public static void CreateHouseHead(MoneyApp app)
+        {
+            try
+            {
+                User user = UserManager.LoginUser("susan", "pass3");
+
+                HouseHead head = new HouseHead(user);
+                Console.WriteLine(head);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static void SendInviteToHousehold(MoneyApp app)
+        {
+            try
+            {
+                // login in user
+                User a = UserManager.LoginUser("susan", "pass3");
+                //is a househead
+                bool ishead = a.IsHousehead;
+                
+                if (ishead)
+                {
+                    string username = "mel";
+                    User b = UserManager.GetUserByUsername(username);
+                    string message = "hey mel, i am inviting you to join my house as a member");
+                    Invite invite = new Invite(DateTime.Now.Date, a, b, message);
+                    Console.WriteLine("Invite sent");
+                }
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         // Creates users

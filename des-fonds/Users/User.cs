@@ -1,4 +1,5 @@
 using des_fonds.Finances;
+using des_fonds.Mail;
 
 namespace des_fonds.Users;
 
@@ -11,10 +12,19 @@ public class User
     private Address address;
     private List<Statement> statements;
 
+    private bool isHousehead;
+    private List<Message> messages;
+    private bool newNotification;
+    private int notificationCount;
+
     public string Upass { get => uPass; set => uPass = value; }
     public string Uname { get => uName; set => uName = value; }
     public Address Address { get => address; set => address = value; }
     public List<Statement> Statements { get => statements; set => statements = value; }
+    public List<Message> Messages { get => messages; set => messages = value; }
+    public bool NewNotification { get => newNotification; set => newNotification = value; }
+    public int NotificationCount { get => notificationCount; set => notificationCount = value; }
+    public bool IsHousehead { get => isHousehead; set => isHousehead = value; }
 
     public User(string uName, string uPass)
     {
@@ -22,6 +32,7 @@ public class User
         this.uPass = uPass;
         this.id = ++nextId;
         statements = new List<Statement>();
+        
 
     }
     // dont think this one is needed as we have the top constructor
@@ -57,10 +68,27 @@ public class User
         strout += "\n" + address;
         return strout;
     }
+    
+    public void SendHouseInvite(string username, string message)
+    {
+        try
+        {
+            User b = UserManager.GetUserByUsername(username);
 
+            Invite invite = new Invite(DateTime.Now.Date, this, b, message);
+            UserManager.SendInvite(b,invite);
+            Console.WriteLine("Invite sent");
 
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+        
 
+    }
 
 
 }
+
 
