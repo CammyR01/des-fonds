@@ -26,6 +26,8 @@ namespace des_fonds
             CreateHouseHead(app);
             SendInviteToHousehold(app);
             receive_invite(app);
+            AcceptInvite(app);
+            CheckAcceptInvite(app);
 
         }
         /// <summary>
@@ -369,6 +371,7 @@ namespace des_fonds
                     string message = "hey mel, i am inviting you to join my house as a member";
 
                     a.Household.SendInvite(a, username, message);
+                    Console.WriteLine("Invite sent");
                 }
 
             }
@@ -388,19 +391,66 @@ namespace des_fonds
                 Console.WriteLine("\nNotification count: " + NotificationCount);
                 Console.WriteLine("Notification flag: " + Notificationflag);
                 Console.WriteLine("\n" + invite);
-
-
-
-
-
-
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine(ex.Message);
             }
         }
 
+        public static void AcceptInvite(MoneyApp app)
+        {
+            try
+            {
+                //log user mel in 
+                User a = UserManager.LoginUser("mel", "pass4");
+                //check notification
+                int noteCount = a.NotificationCount;
+                bool noteflag = a.NewNotification;
+                Console.WriteLine($"\n{a.Uname} has {noteCount} notification");
+                Console.WriteLine($"Checking noteflag: {noteflag}");
+
+                //user gets invitation
+                Message msg = a.Messages.Last();
+                if (msg is Invite invite)
+                {
+                    //Console.WriteLine("New Household Invite");
+                    //Console.WriteLine(invite);
+                    // user can accept or decline, this test is for accept.
+                    invite.Accept();
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static void CheckAcceptInvite(MoneyApp app)
+        {
+            try
+            {
+                User user = UserManager.LoginUser("susan", "pass3");
+                int noteCount = user.NotificationCount;
+                bool noteflag = user.NewNotification;
+
+                Console.WriteLine($"\n{user.Uname} have {noteCount}\nChecking noteflag: {noteflag}\n");
+                // open message reply
+                Message msg = user.Messages.Last();
+                if (msg is Invite invite)
+                {
+                    Console.WriteLine(invite);
+
+                }
+
+                
+   
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
         // Creates users
         public static User UserPopulate(string uname, string upass)
         {

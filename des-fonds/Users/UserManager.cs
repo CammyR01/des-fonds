@@ -287,6 +287,18 @@ public static class UserManager
             Console.WriteLine(ex.Message);
         }
     }
+    public static void ReturnAcceptInvite(Invite acceptedInvite)
+    {
+        User partyA = acceptedInvite.PartyA;
+        User partyB = acceptedInvite.PartyB;
+        partyA.Messages.Add(acceptedInvite);
+        partyA.NotificationCount++;
+        partyA.NewNotification = true;
+
+        partyB.Address = partyA.Address;
+        partyA.Household.Members.Add(acceptedInvite.PartyB);
+        
+    }
     public static void AcceptInvite(User user, Invite invite)
     {
         invite.Accept();
