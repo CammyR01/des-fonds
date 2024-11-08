@@ -1,5 +1,6 @@
 ﻿using des_fonds.Calculator;
 using des_fonds.Finances;
+using des_fonds.Mail;
 using des_fonds.Users;
 
 namespace des_fonds
@@ -23,7 +24,7 @@ namespace des_fonds
             EditAddress(app);
             RemoveUser(app);
             CreateHouseHead(app);
-            
+
         }
         /// <summary>
         /// test method to register a user and then logs user in
@@ -39,7 +40,7 @@ namespace des_fonds
                 UserManager.RegisterUser("peter", "password", "21 Jump Street", "g179as", "Gotham", "SomeCountry");
                 Console.WriteLine("Registration Successful");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -158,7 +159,7 @@ namespace des_fonds
                 Console.WriteLine("Edit was successful:\nOld Name: " + oldName + "\nNew Name: " + user.Uname);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -371,6 +372,30 @@ namespace des_fonds
         public static Expense CreateExpensePopulate(string category, double amount, DateTime date)
         {
             return new Expense(category, amount, date);
+        }
+
+        public static void receive_invite(MoneyApp app)
+        {
+            try
+            {
+                User a = UserManager.LoginUser("mel", "pass4");
+                int NotificationCount = a.NotificationCount;
+                bool Notificationflag = a.NewNotification;
+                Message invite = a.Messages.Last();
+                Console.WriteLine(NotificationCount);
+                Console.WriteLine(Notificationflag);
+                Console.WriteLine(invite);
+
+
+
+           
+
+                
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
         
     }
