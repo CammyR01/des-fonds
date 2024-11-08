@@ -1,4 +1,5 @@
 ﻿using des_fonds.encrypt;
+using des_fonds.Mail;
 namespace des_fonds.Users;
 
 public static class UserManager
@@ -46,7 +47,7 @@ public static class UserManager
             }
 
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             //throw not valid message
             Console.WriteLine(e.Message);
@@ -88,60 +89,60 @@ public static class UserManager
             throw new Exception("Username cant be empty");
         }
         //check if username is 3 or less characters
-        else if(username.Length < 3)
+        else if (username.Length < 3)
         {
             //user name too short
             throw new Exception("username must be longer than 3 characters");
         }
         //validation passed
         return true;
-        
+
     }
 
-    public static void EditAddress(User user,string newStreet, string newPostcode, string newCity, string newCountry)
-    {                
-            //Validate street
-            if (IsStreetValid(newStreet)) 
-            {                
-                    //validate postcode
-                    if (IsPostcodeValid(newPostcode))
-                    {                    
-                        //validate city
-                        if (IsCityValid(newCity))
-                        {                            
-                                //if country is valid
-                                if (IsCountryValid(newCountry))
-                                {
-                                    //everything is valid change address
-                                    Address address = user.Address;
-                                    address.Street = newStreet;
-                                    address.PostCode = newPostcode;
-                                    address.City = newCity;
-                                    address.Country = newCountry;
-                                }//if4
-                                else
-                                {
-                                    //country not valid
-                                    throw new Exception("country is not valid");
-                                }                            
-                        }//if3
-                        else
-                        {
-                            //city is not valid
-                            throw new Exception("city is not valid");
-                        }                        
-                    }//if2
+    public static void EditAddress(User user, string newStreet, string newPostcode, string newCity, string newCountry)
+    {
+        //Validate street
+        if (IsStreetValid(newStreet))
+        {
+            //validate postcode
+            if (IsPostcodeValid(newPostcode))
+            {
+                //validate city
+                if (IsCityValid(newCity))
+                {
+                    //if country is valid
+                    if (IsCountryValid(newCountry))
+                    {
+                        //everything is valid change address
+                        Address address = user.Address;
+                        address.Street = newStreet;
+                        address.PostCode = newPostcode;
+                        address.City = newCity;
+                        address.Country = newCountry;
+                    }//if4
                     else
                     {
-                        //postcode not valid
-                        throw new Exception("Postcode not valid");
+                        //country not valid
+                        throw new Exception("country is not valid");
                     }
-            }//if1
+                }//if3
+                else
+                {
+                    //city is not valid
+                    throw new Exception("city is not valid");
+                }
+            }//if2
             else
             {
-                //street not valid 
-                throw new Exception("Street not valid");
-            }        
+                //postcode not valid
+                throw new Exception("Postcode not valid");
+            }
+        }//if1
+        else
+        {
+            //street not valid 
+            throw new Exception("Street not valid");
+        }
     }
     private static bool IsStreetValid(string newStreet)
     {
@@ -157,7 +158,7 @@ public static class UserManager
             throw new Exception("Street name must be 4 or more characters");
         }
         //passed validation
-        return true;        
+        return true;
     }
 
     private static bool IsPostcodeValid(string newPostcode)
@@ -175,7 +176,7 @@ public static class UserManager
             throw new Exception("postcode must be between 6 and 8");
         }
         //validation passed
-        return true;   
+        return true;
     }
 
     private static bool IsCityValid(string newCity)
@@ -187,14 +188,14 @@ public static class UserManager
             throw new Exception("city cant be empty");
         }
         //check if city length is less than 4
-        else if(newCity.Length < 4)
+        else if (newCity.Length < 4)
         {
             //city too short
             throw new Exception("city must be 4 or more characters");
         }
         //validation passed
         return true;
-        
+
     }
     private static bool IsCountryValid(string newCountry)
     {
@@ -206,7 +207,7 @@ public static class UserManager
 
         }
         //check if country has characters less than 4
-        else if(newCountry.Length < 4)
+        else if (newCountry.Length < 4)
         {
             //country is to short
             throw new Exception("Country to short. must be greater than 4 characters");
@@ -264,15 +265,34 @@ public static class UserManager
                                 MoneyApp.Instance.AddUser(user);
                             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             //a validation failed, print message
             Console.WriteLine(ex.Message);
         }
-            
-           
-                            
-                        
+
+    }
+    public static void SendInvite(User user, Invite invite)
+    {
+        user.Messages.Add(invite);
+        user.NewNotification = true;
+        user.NotificationCount += 1;
+    }
+    public static void AcceptInvite(User user, Invite invite)
+    {
+        invite.Accept();
+        
+    }
+    public static User GetUserByUsername(string username)
+    {
+        foreach (User u in MoneyApp.Instance.UserList)
+        {
+            if (u.Uname == username)
+            {
+                return u;
+            }
+        }
+        throw new Exception("User not found");
     }
             
 }

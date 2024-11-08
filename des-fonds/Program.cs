@@ -22,6 +22,7 @@ namespace des_fonds
             //EditDetails();
             EditAddress(app);
             RemoveUser(app);
+            CreateHouseHead(app);
             
         }
         /// <summary>
@@ -333,6 +334,27 @@ namespace des_fonds
 
             monthly_expense = FinanceCalculator.CalculateMonthlyExpense(user2, month, year);
             Console.WriteLine("The monthly expense total is: £" + monthly_expense);
+        }
+        public static void CreateHouseHead(MoneyApp app)
+        {
+            try
+            {
+                User user = UserManager.LoginUser("susan", "pass3");
+
+                HouseHead head = new HouseHead(user);
+                Console.WriteLine(head);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static void SendInviteToHousehold(MoneyApp app)
+        {
+            try
+            {
+                User a = UserManager.LoginUser("susan", "pass3");
+            }
         }
 
         // Creates users
