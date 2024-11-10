@@ -21,6 +21,21 @@ namespace des_fonds.Users
             members = new List<User>();
         }
 
+
+
+        //send invite to member to join household
+        public void SendInvite(User head, string username, string message)
+        {
+            try
+            {
+                UserManager.SendInvite(head, username, message);
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
         //remove Members
 
             //share bills
