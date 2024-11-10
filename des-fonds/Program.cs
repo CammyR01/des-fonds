@@ -2,6 +2,7 @@
 using des_fonds.Finances;
 using des_fonds.Mail;
 using des_fonds.Users;
+using System.Runtime.CompilerServices;
 
 namespace des_fonds
 {
@@ -28,6 +29,7 @@ namespace des_fonds
             receive_invite(app);
             AcceptInvite(app);
             CheckAcceptInvite(app);
+            checkAddressChangeForHouseMember(app);
 
         }
         /// <summary>
@@ -447,6 +449,45 @@ namespace des_fonds
    
             }
             catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static void checkAddressChangeForHouseMember(MoneyApp app)
+        {
+            try
+            {
+                User userA = UserManager.LoginUser("mel", "pass4");
+                User userB = UserManager.LoginUser("susan", "pass3");
+
+                string userA_name = userA.Uname;
+                string userB_name = userB.Uname;
+                bool isUserA_head = userA.IsHeadOfHouse;
+                bool isUserB_head = userB.IsHeadOfHouse;
+                if (isUserA_head) {
+                    Address householdAddress = userA.Household.Head.Address;
+                    Console.WriteLine("this is the head of house:\n " + userA.Household.Head.Uname);
+                }
+                else if (isUserB_head)
+                {
+                    Address householdAddress = userB.Household.Head.Address;
+                    Console.WriteLine("this is the head of house:\n " + userB.Household.Head.Uname);
+                }
+                if (userA.Address.Equals(userB.Address))
+                {
+                    Console.WriteLine("there address are the same");
+                }
+                else
+                {
+                    Console.WriteLine("ERROR: there addresses are different, should be same as in same household");
+                }
+                foreach(User member in userB.Household.Members)
+                {
+                    Console.WriteLine(member);
+                }
+
+            }
+            catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
