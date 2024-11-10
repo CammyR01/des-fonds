@@ -434,7 +434,7 @@ namespace des_fonds
                 int noteCount = user.NotificationCount;
                 bool noteflag = user.NewNotification;
 
-                Console.WriteLine($"\n{user.Uname} have {noteCount}\nChecking noteflag: {noteflag}\n");
+                Console.WriteLine($"\n{user.Uname} has {noteCount} notification\nChecking noteflag: {noteflag}\n");
                 // open message reply
                 Message msg = user.Messages.Last();
                 if (msg is Invite invite)
