@@ -24,6 +24,8 @@ namespace des_fonds
             EditAddress(app);
             RemoveUser(app);
             CreateHouseHead(app);
+            SendInviteToHousehold(app);
+            receive_invite(app);
 
         }
         /// <summary>
@@ -363,7 +365,7 @@ namespace des_fonds
                 {
                     string username = "mel";
                     User b = UserManager.GetUserByUsername(username);
-                    string message = "hey mel, i am inviting you to join my house as a member");
+                    string message = "hey mel, i am inviting you to join my house as a member";
                     Invite invite = new Invite(DateTime.Now.Date, a, b, message);
                     Console.WriteLine("Invite sent");
                 }
