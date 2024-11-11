@@ -43,7 +43,7 @@ namespace des_fonds
             try
             {
                 //calls user manager method to register user
-                UserManager.RegisterUser("peter", "password", "21 Jump Street", "g179as", "Gotham", "SomeCountry");
+                UserManager.RegisterUser("peterKool", "password","peter", "griffen", "32", "21 Jump Street", "g179as", "Gotham", "SomeCountry");
                 Console.WriteLine("Registration Successful");
             }
             catch (Exception ex)

@@ -7,12 +7,16 @@ public class User
 {
     private string uName;
     private string uPass;
+    private string firstName;
+    private string lastName;
+    private int age;
+    
     private int id;
     private static int nextId = 0;
     private Address address;
     private List<Statement> statements;
 
-    private Household household;
+    private Household? household;
     private bool isHeadOfHouse;
     private List<Message> messages;
     private bool newNotification;
@@ -26,12 +30,15 @@ public class User
     public bool NewNotification { get => newNotification; set => newNotification = value; }
     public int NotificationCount { get => notificationCount; set => notificationCount = value; }
     public bool IsHeadOfHouse { get => isHeadOfHouse; set => isHeadOfHouse = value; }
-    public Household Household { get => household; set => household = value; }
+    public Household? Household { get => household; set => household = value; }
+    public string FirstName { get => firstName; set => firstName = value; }
+    public string LastName { get => lastName; set => lastName = value; }
+    public int Age { get => age; set => age = value; }
 
     public User(string uName, string uPass)
     {
         this.uName = uName;
-        this.uPass = uPass;
+        this.uPass = uPass;    
         this.id = ++nextId;
         statements = new List<Statement>();
         this.isHeadOfHouse = false;
@@ -45,7 +52,7 @@ public class User
     public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
     {
         this.uName = uName;
-        this.uPass = uPass;
+        this.uPass = uPass;       
         this.id = ++nextId;
         statements = new List<Statement>();
         this.address = new Address(streetAddress, postCode, city, country);
@@ -54,6 +61,21 @@ public class User
         this.newNotification = false;
         this.notificationCount = 0;
         
+    }
+    public User(string uname, string upass, string firstname, string lastname, int age, string street, string postcode, string city, string country)
+    {
+        this.uName = uname;
+        this.uPass = upass;
+        this.firstName = firstname;
+        this.lastName = lastname;
+        this.age = age;
+        this.id = ++nextId;
+        this.IsHeadOfHouse = false;
+        statements = new List<Statement>();
+        messages = new List<Message>();
+        this.newNotification = false;
+        this.notificationCount = 0;
+        this.address = new Address(street, postcode, city, country);
     }
 
     public void AddStatement(Statement statement)

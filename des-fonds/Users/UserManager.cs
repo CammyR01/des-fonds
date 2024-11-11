@@ -244,26 +244,91 @@ public static class UserManager
         //string contains characters
         return false;
     }
+    private static bool IsValidAge(string strAge)
+    {
+        if (IsStrEmpty(strAge))
+        {
+            throw new Exception("Age cant be empty");
+        }
+        else
+        {
+            try
+            {
+                int age = int.Parse(strAge);
+                if (age < 16)
+                {
+                    throw new Exception("You must be 16 or older");
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+    }
+    private static bool IsValidFirstName(string name)
+    {
+        if (IsStrEmpty(name))
+        {
+            throw new Exception("Name cant be empty");
+        }
+        else
+        {
+            if(name.Length < 3)
+            {
+                throw new Exception($"{name} is not valid");
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+    private static bool IsValidLastName(string name)
+    {
+        if (IsStrEmpty(name))
+        {
+            throw new Exception("Name cant be empty");
+        }
+        else
+        {
+            if (name.Length < 3)
+            {
+                throw new Exception($"{name} is not valid");
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
 
-    public static void RegisterUser(string username, string password, string street, string postcode, string city, string country)
+    public static void RegisterUser(string username, string password, string firstname, string lastname, string age, string street, string postcode, string city, string country)
     {
         try
         {
             //Validate registration fields
             if (isValidUserName(username))
-                if (IsStreetValid(street))
-                    if (IsPostcodeValid(postcode))
-                        if (IsCityValid(city))
-                            if (IsCountryValid(country))
-                            {
-                                //All validation passed
-                                //hash password
-                                string hashPass = Sha256Hasher.Hash(password);
-                                //create user
-                                User user = new User(username, hashPass, street, postcode, city, country);
-                                //add user to instace list
-                                MoneyApp.Instance.AddUser(user);
-                            }
+                if(IsValidAge(age))
+                    if(IsValidFirstName(firstname))
+                        if(IsValidLastName(lastname))
+                            if (IsStreetValid(street))
+                                if (IsPostcodeValid(postcode))
+                                    if (IsCityValid(city))
+                                        if (IsCountryValid(country))
+                                        {
+                                            //All validation passed
+                                            //hash password
+                                            string hashPass = Sha256Hasher.Hash(password);
+                                            //create user
+                                            User user = new User(username, hashPass, street, postcode, city, country);
+                                            //add user to instace list
+                                            MoneyApp.Instance.AddUser(user);
+                                        }
         }
         catch (Exception ex)
         {
