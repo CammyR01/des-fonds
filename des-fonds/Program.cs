@@ -160,8 +160,10 @@ namespace des_fonds
                 //if login in successfull change name from "suzan" to "susan"
                 string oldName = user.Uname; //get old name from class
                 string newName = "susan"; // the new name
+                string firstname = "frist";
+                string lastname = "griffin";
                 //edit the details
-                UserManager.EditUserDetails(user, newName);
+                UserManager.EditUserDetails(user, newName, firstname, lastname);
                 Console.WriteLine("Edit was successful:\nOld Name: " + oldName + "\nNew Name: " + user.Uname);
 
             }

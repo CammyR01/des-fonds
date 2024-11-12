@@ -82,6 +82,12 @@ public class User
     {
         statements.Add(statement);
     }
+    
+    public string BasicInfo()
+    {
+        string info = string.Format($"Username: {uName}\nFirst Name: {firstName}\nLast Name: {lastName}\nAge: {age}");
+        return info;
+    }
 
     public override string ToString()
     {

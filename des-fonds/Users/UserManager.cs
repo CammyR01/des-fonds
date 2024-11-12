@@ -34,16 +34,25 @@ public static class UserManager
     /// </summary>
     /// <param name="user">the user</param>
     /// <param name="newUsername">the new username</param>
-    public static void EditUserDetails(User user, string newUsername)
+    public static void EditUserDetails(User user, string username, string firstname, string lastname)
     {
         try
         {
             //perform validation
-            if (isValidUserName(newUsername))
+            if (isValidUserName(username))
             {
-                //username is valid, set new name
-                user.Uname = newUsername;
-                Console.WriteLine("user name updated to :" + user.Uname);
+                if (IsValidFirstName(firstname))
+                {
+                    if (IsValidLastName(lastname))
+                    {
+                        //username is valid, set new name
+                        user.Uname = username;
+                        user.FirstName = firstname;
+                        user.LastName = lastname;
+                        Console.WriteLine("user name updated to :" + user.Uname);
+                    }
+                }
+                
             }
 
         }
