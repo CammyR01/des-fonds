@@ -63,6 +63,30 @@ public static class UserManager
             Console.WriteLine(e.Message);
         }
     }
+    public static string Last5Statements(User user)
+    {
+        int lengthOfStatements = user.Statements.Count;
+        if (lengthOfStatements <= 5)
+        {
+            string strout = "";
+            for(int i = 0; i < lengthOfStatements; i++)
+            {
+                strout += user.Statements[i].ToString() + "\n";
+            }
+            return strout;
+        }
+        else
+        {
+            string strout = "";
+            for(int i = (lengthOfStatements - 5);i < lengthOfStatements; i++)
+            {
+                strout += user.Statements[i].ToString() + "\n";
+            }
+            return strout;
+
+        }
+        
+    }
     private static bool IsValidDouble(string value)
     {
         try
