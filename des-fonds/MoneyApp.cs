@@ -1,4 +1,5 @@
-﻿using des_fonds.Finances;
+﻿using des_fonds.Controller;
+using des_fonds.Finances;
 using des_fonds.Users;
 
 namespace des_fonds
@@ -41,6 +42,7 @@ namespace des_fonds
         public void AddUser(User user)
         {
             UserList.Add(user);
+            
         }
         
         /// <summary>
