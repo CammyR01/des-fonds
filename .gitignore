@@ -1,27 +1,6 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
 
-/des-fonds/.vs/des-fonds/FileContentIndex
-/.vs
-/des-fonds/.vs/des-fonds
-/des-fonds/bin/Debug/net8.0
-/des-fonds/obj/Debug/net8.0/refint
-/des-fonds/obj/Debug/net8.0/ref
-*.json
-*.pdb
-*.cache
-*.dll
-*.txt
-*.BuildWithSkipAnalyzers
-/des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfoInputs.cache
-/des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfo.cs
-*.exe
-/des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfoInputs.cache
-/des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfo.cs
-/des-fonds/obj/Debug/net8.0/des-fonds.GeneratedMSBuildEditorConfig.editorconfig
-/des-fonds/obj/des-fonds.csproj.nuget.g.props
-/des-fonds/.vs/ProjectEvaluation
-/des-fonds/.vs/ProjectEvaluation
-/des-fonds/obj/Debug/net8.0/des-fonds.assets.cache
-/des-fonds/obj/Debug/net8.0/des-fonds.GeneratedMSBuildEditorConfig.editorconfig
+des-fonds/obj/Debug/net8.0/.NETCoreApp,Version=v8.0.AssemblyAttributes.cs
+des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfo.cs
+des-fonds/obj/Debug/net8.0/des-fonds.AssemblyInfoInputs.cache
+des-fonds/obj/Debug/net8.0/des-fonds.assets.cache
+des-fonds/obj/Debug/net8.0/des-fonds.GeneratedMSBuildEditorConfig.editorconfig
