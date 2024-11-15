@@ -1,4 +1,5 @@
 ﻿using des_fonds.encrypt;
+using des_fonds.Finances;
 using des_fonds.Mail;
 namespace des_fonds.Users;
 
@@ -61,6 +62,64 @@ public static class UserManager
             //throw not valid message
             Console.WriteLine(e.Message);
         }
+    }
+    private static bool IsValidDouble(string value)
+    {
+        try
+        {
+            Double.Parse(value);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+    private static bool IsValidDate(string strDate)
+    {
+        try
+        {
+            DateTime date = DateTime.Parse(strDate);
+            return true;
+        }
+        catch 
+        {
+            return false;
+        }
+    }
+    public static void AddIncome(User user, string source, string strAmount, string strDate)
+    {
+        if (IsStrEmpty(source))
+        {
+            throw new Exception("Financial name cant be empty");
+        }
+        else if (IsStrEmpty(strAmount))
+        {
+            throw new Exception("Amount cant be empty");
+        }
+        else if (!IsValidDouble(strAmount))
+        {
+            throw new Exception("amount is not in the correct format");
+        }
+        else if (IsStrEmpty(strDate))
+        {
+            throw new Exception("Please select a date");
+        }
+        else if(!IsValidDate(strDate))
+        {
+            throw new Exception("Date is not in the correct format");
+        }
+        else
+        {
+            double amount = double.Parse(strAmount);
+            DateTime date = DateTime.Parse(strDate);
+            Income income = new Income(source, amount, date);
+            user.AddStatement(income);
+        }
+        
+        
+        
+        
     }
     public static void RemoveUser(User user)
     {
