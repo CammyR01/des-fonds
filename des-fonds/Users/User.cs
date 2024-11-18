@@ -38,7 +38,7 @@ public class User
     public User(string uName, string uPass)
     {
         this.uName = uName;
-        this.uPass = uPass;    
+        this.uPass = uPass;
         this.id = ++nextId;
         statements = new List<Statement>();
         this.isHeadOfHouse = false;
@@ -49,19 +49,7 @@ public class User
 
 
     }
-    public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
-    {
-        this.uName = uName;
-        this.uPass = uPass;       
-        this.id = ++nextId;
-        statements = new List<Statement>();
-        this.address = new Address(streetAddress, postCode, city, country);
-        this.isHeadOfHouse = false;
-        messages = new List<Message>();
-        this.newNotification = false;
-        this.notificationCount = 0;
-        
-    }
+
     public User(string uname, string upass, string firstname, string lastname, int age, string street, string postcode, string city, string country)
     {
         this.uName = uname;
@@ -77,6 +65,20 @@ public class User
         this.notificationCount = 0;
         this.address = new Address(street, postcode, city, country);
     }
+    public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
+    {
+        this.uName = uName;
+        this.uPass = uPass;
+        this.id = ++nextId;
+        statements = new List<Statement>();
+        this.address = new Address(streetAddress, postCode, city, country);
+        this.isHeadOfHouse = false;
+        messages = new List<Message>();
+        this.newNotification = false;
+        this.notificationCount = 0;
+
+    }
+
 
     public void AddStatement(Statement statement)
     {
