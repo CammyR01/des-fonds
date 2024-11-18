@@ -80,6 +80,18 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
+        public static void updateUserEntry(int id, string uName)
+        {
+            string update = "UPDATE users SET UName = @uName WHERE ID = @id";
+            MySqlCommand qCmd = new MySqlCommand(update, connection);  
+            qCmd.ExecuteNonQuery();
+        }
+        public static void getUserEntry(int id, string uName)
+        {
+            string select = "SELECT FROM users WHERE ID = @id";
+            MySqlCommand qCmd = new MySqlCommand(select, connection);  
+            qCmd.ExecuteNonQuery();
+        }
         
         public static void createAddressTable()
         {
@@ -101,7 +113,9 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
-
+        public static void updateAddressEntry(int id, string address){}
+        
+        public static void getAddressEntry(int id, string address){}
         
         public static void createIncomeTable()
         {
@@ -134,6 +148,7 @@ namespace des_fonds.Controller
         public static void addExpenseEntry(int id, double expense){}
         
         public static void removeExpenseEntry(int id, double expense){}
+        
         
         
     }
