@@ -20,7 +20,7 @@ namespace des_fonds.Controller
         public void CreateDatabase()
         {
             string connstring = "Data Source = localhost, Integrated Security = True, initial catalog = des_fonds;";
-            string cDB = "UserDB";
+            string cDB = "DB";
             connection = new MySqlConnection(connstring);
             
             if (connection.State == ConnectionState.Closed)
@@ -99,6 +99,19 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
+        public void createIncomeTable(){}
+        
+        public void addIncomeEntry(int id, double income){}
+        
+        public void removeIncomeEntry(int id, double expense){}
+        
+        public void createExpenseTable(){}
+        
+        public void addExpenseEntry(int id, double expense){}
+        
+        public void removeExpenseEntry(int id, double expense){}
+        
+        
     }
 }
     
