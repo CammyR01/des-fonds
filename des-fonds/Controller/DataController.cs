@@ -81,8 +81,8 @@ namespace des_fonds.Controller
         
         public void createAddressTable()
         {
-            string utab = "CREATE TABLE address(ID PRIMARY KEY,Address varchar(100))";
-            MySqlCommand qCmd = new MySqlCommand(utab, connection);
+            string atab = "CREATE TABLE address(ID PRIMARY KEY,Address varchar(100))";
+            MySqlCommand qCmd = new MySqlCommand(atab, connection);
             qCmd.ExecuteNonQuery();
         }
         
@@ -99,13 +99,30 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
-        public void createIncomeTable(){}
+
+        public void createIncomeTable()
+        {
+            string itab = "CREATE TABLE income(source varchar(100), amount varchar(100), date datetime)";
+            MySqlCommand qcmd = new MySqlCommand(itab, connection);
+            qcmd.ExecuteNonQuery();
+        }
         
-        public void addIncomeEntry(int id, double income){}
+        public void addIncomeEntry(string source, double income, DateTime date)
+        {
+            string insert = "INSERT INTO income(source,amount,date) VALUES(source,income,date)";
+                        MySqlCommand qCmd = new MySqlCommand(insert, connection);
+                        qCmd.ExecuteNonQuery();
+            
+        }
         
         public void removeIncomeEntry(int id, double expense){}
-        
-        public void createExpenseTable(){}
+
+        public void createExpenseTable()
+        {
+            string etab = "CREATE TABLE expense(source varchar(100), amount varchar(100), date datetime)";
+            MySqlCommand qcmd = new MySqlCommand(etab, connection);
+            qcmd.ExecuteNonQuery();
+        }
         
         public void addExpenseEntry(int id, double expense){}
         
