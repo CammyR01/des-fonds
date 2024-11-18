@@ -102,6 +102,20 @@ namespace des_fonds
             Expense ex16 = new Expense("games", 20.00, new DateTime(2024, 9, 8));
             Expense ex17 = new Expense("makeup", 14.50, new DateTime(2024, 9, 9));
             Expense ex18 = new Expense("haircut", 408.93, new DateTime(2024, 9, 18));
+
+            //Create Bills
+            Bill bill1 = new Bill("Electricity", Status.Paid, 150.75, new DateTime(2024, 10, 15));
+            Bill bill2 = new Bill("Water", Status.Pending, 75.25, new DateTime(2024, 10, 16));
+            Bill bill3 = new Bill("Gas", Status.Paid, 120.50, new DateTime(2024, 10, 17));
+            Bill bill4 = new Bill("Internet", Status.Pending, 60.00, new DateTime(2024, 10, 20));
+            Bill bill5 = new Bill("Phone", Status.Paid, 50.00, new DateTime(2024, 10, 21));
+            Bill bill6 = new Bill("Insurance", Status.Pending, 200.00, new DateTime(2024, 10, 22));
+            Bill bill7 = new Bill("Credit Card", Status.Paid, 500.00, new DateTime(2024, 10, 25));
+            Bill bill8 = new Bill("Mortgage", Status.Pending, 1200.00, new DateTime(2024, 10, 1));
+            Bill bill9 = new Bill("Streaming Service", Status.Paid, 12.99, new DateTime(2024, 10, 10));
+            Bill bill10 = new Bill("Subscription", Status.Pending, 25.00, new DateTime(2024, 10, 5));
+
+
             //user1
             user1.AddStatement(in2);
             user1.AddStatement(ex6);

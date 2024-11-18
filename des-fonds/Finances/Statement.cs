@@ -25,8 +25,11 @@
         {
             Console.WriteLine("==================== STATEMENT ====================\n");
 
+            //Headers
             Console.WriteLine("{0,-10} | {1,-10} | {2,-15} | {3,-10} | {4,-12}",
                               "Entry ID", "Type", "Category", "Amount", "Date");
+
+            //Seperator
             Console.WriteLine(new string('-', 65));
 
             //int entryId = 1;

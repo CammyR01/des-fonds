@@ -93,7 +93,7 @@ public class User
 
     public override string ToString()
     {
-        string strout = string.Format("User ID: {0}\nUsername: {1}", id, Uname);
+        string strout = string.Format("User ID: {0}\nUsername: {1}\nFirst name: {2}\n Last name: {3}", id, Uname, firstName, lastName);
         strout += "\n" + address;
         return strout;
     }
