@@ -198,7 +198,7 @@ public static class UserManager
             DateTime Duedate = DateTime.Parse(strdueDate);
             status = Status.Pending;
             Bill bill = new Bill(billName, status ,amount, Duedate);
-            user.AddBill(bill);
+            //user.AddBill(bill);
         }
 
 
