@@ -15,6 +15,7 @@ public class User
     private static int nextId = 0;
     private Address address;
     private List<Statement> statements;
+    private List<Bill> bills;
 
     private Household? household;
     private bool isHeadOfHouse;
@@ -26,6 +27,7 @@ public class User
     public string Uname { get => uName; set => uName = value; }
     public Address Address { get => address; set => address = value; }
     public List<Statement> Statements { get => statements; set => statements = value; }
+    public List<Bill> Bills { get => bills; set => bills = value; }
     public List<Message> Messages { get => messages; set => messages = value; }
     public bool NewNotification { get => newNotification; set => newNotification = value; }
     public int NotificationCount { get => notificationCount; set => notificationCount = value; }
@@ -42,6 +44,7 @@ public class User
         this.uPass = uPass;
         this.id = ++nextId;
         statements = new List<Statement>();
+        bills = new List<Bill>();
         this.isHeadOfHouse = false;
         messages = new List<Message>();
         this.newNotification = false;
@@ -61,6 +64,7 @@ public class User
         this.id = ++nextId;
         this.IsHeadOfHouse = false;
         statements = new List<Statement>();
+        bills = new List<Bill>();
         messages = new List<Message>();
         this.newNotification = false;
         this.notificationCount = 0;
@@ -85,7 +89,11 @@ public class User
     {
         statements.Add(statement);
     }
-    
+    public void AddBill(Bill bill)
+    {
+        bills.Add(bill);
+    }
+
     public string BasicInfo()
     {
         string info = string.Format($"Username: {uName}\nFirst Name: {firstName}\nLast Name: {lastName}\nAge: {age}");

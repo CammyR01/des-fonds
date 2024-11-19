@@ -17,7 +17,8 @@ namespace des_fonds
             MoneyApp app = MoneyApp.Instance;
             //CreateIncome();//creates an income.
             //CreateExpense();//creates an expense.
-            //CreateBill();//creates a bill
+            CreateBill();//creates a bill
+            EditStatus();
             //CalcAnnualIncome();//calculate the annual income
             //AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             //TestCalculateMonthlyIncome();
@@ -130,6 +131,30 @@ namespace des_fonds
             Console.WriteLine(bill1 + "\n");
 
         }
+
+        public static void EditStatus()
+        {
+            string billName = "Mug";
+            double amount = 13.50;
+            DateTime dueDate = new DateTime(2924, 12, 20);
+
+            Bill bill1 = new Bill(Status.Pending)
+            {
+                BillName = billName,
+                Amount = amount,
+                DueDate = dueDate
+            };
+
+            // Output the bill before status change
+            Console.WriteLine("Before Status Edit:\n" + bill1 + "\n");
+
+            // Editing the status of the bill
+            bill1.Status = Status.Paid;  // Change the status here
+
+            // Output the bill after status change
+            Console.WriteLine("After Status Edit:\n" + bill1);
+        }
+
 
         public static void RemoveBill()
         {
