@@ -88,30 +88,30 @@ public static class UserManager
         }
         
     }
-    public static string Last5Bills(User user)
-    {
-        int lengthOfBills = user.Bills.Count;
-        if (lengthOfBills <= 5)
-        {
-            string strout = "";
-            for (int i = 0; i < lengthOfBills; i++)
-            {
-                strout += user.Bills[i].ToString() + "\n";
-            }
-            return strout;
-        }
-        else
-        {
-            string strout = "";
-            for (int i = (lengthOfBills - 5); i < lengthOfBills; i++)
-            {
-                strout += user.Bills[i].ToString() + "\n";
-            }
-            return strout;
+    //public static string Last5Bills(User user)
+    //{
+    //    int lengthOfBills = user.Bills.Count;
+    //    if (lengthOfBills <= 5)
+    //    {
+    //        string strout = "";
+    //        for (int i = 0; i < lengthOfBills; i++)
+    //        {
+    //            strout += user.Bills[i].ToString() + "\n";
+    //        }
+    //        return strout;
+    //    }
+    //    else
+    //    {
+    //        string strout = "";
+    //        for (int i = (lengthOfBills - 5); i < lengthOfBills; i++)
+    //        {
+    //            strout += user.Bills[i].ToString() + "\n";
+    //        }
+    //        return strout;
 
-        }
+    //    }
 
-    }
+    //}
     private static bool IsValidDouble(string value)
     {
         try
