@@ -12,30 +12,23 @@ namespace des_fonds.encrypt;
 public class PassManager
 {
 
-    public static string Hash(string password)
-
+    public static string HashPassword(string password)
     {
-
-        using (SHA256 sha256 = SHA256.Create())
+        using SHA256 sha256 = SHA256.Create();
+        //compute hash from password
+        byte[] hashbytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+        //convert byte array to string
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < hashbytes.Length; i++)
         {
-            byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes());
-
-            StringBuilder Hashed = new StringBuilder();
-
-
-            for(int i = 0; i<bytes.Length;i++)
-            {
-                Hashed.append(bytes[i].ToString("x2"));
-            }
-
-            return Hashed.ToString();
+            sb.Append(hashbytes[i].ToString("X2"));
         }
-
-
+        return sb.ToString();
     }
-}
-//afterwards store hash password and do a simple if hashedpass == sha(input) return true
-public bool CheckHash(string pass){
+    public static bool CompareTo(string storedPassword, string password)
+    {
+        string checkPassword = HashPassword(password);
+        return storedPassword.Equals(checkPassword);
+    }
 
-    if(pass == Hash(password)){return true;}
 }

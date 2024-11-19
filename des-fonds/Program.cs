@@ -1,4 +1,5 @@
 ﻿using des_fonds.Calculator;
+using des_fonds.Controller;
 using des_fonds.Finances;
 using des_fonds.Mail;
 using des_fonds.Users;
@@ -14,27 +15,32 @@ namespace des_fonds
         static void Main(string[] args)
         {
             MoneyApp app = MoneyApp.Instance;
-            CreateIncome();//creates an income.
-            CreateExpense();//creates an expense.
-            CreateBill();//creates a bill
-            CalcAnnualIncome();//calculate the annual income
-            AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
-            TestCalculateMonthlyIncome();
-            TestCalculateMonthlyExpense();
-            CreateUser();
-            TestRegisterLogin(app);
-            DisplayStatement();
-            EditUsername(app);
-            //EditDetails();
-            EditAddress(app);
-            RemoveUser(app);
-            CreateHouseHead(app);
-            SendInviteToHousehold(app);
-            receive_invite(app);
-            AcceptInvite(app);
-            CheckAcceptInvite(app);
-            checkAddressChangeForHouseMember(app);
+            //CreateIncome();//creates an income.
+            //CreateExpense();//creates an expense.
+            //CreateBill();//creates a bill
+            //CalcAnnualIncome();//calculate the annual income
+            //AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
+            //TestCalculateMonthlyIncome();
+            //TestCalculateMonthlyExpense();
+            //CreateUser();
+            //TestRegisterLogin(app);
+            //DisplayStatement();
+            //EditUsername(app);
+            ////EditDetails();
+            //EditAddress(app);
+            //RemoveUser(app);
+            //CreateHouseHead(app);
+            //SendInviteToHousehold(app);
+            //receive_invite(app);
+            //AcceptInvite(app);
+            //CheckAcceptInvite(app);
+            //checkAddressChangeForHouseMember(app);
+            databaseTest();
 
+        }
+        private static void databaseTest() 
+        {
+            DataController.CreateDatabase();
         }
         /// <summary>
         /// test method to register a user and then logs user in
