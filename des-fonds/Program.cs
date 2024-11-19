@@ -4,6 +4,7 @@ using des_fonds.Mail;
 using des_fonds.Users;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Xml.Serialization;
 
 namespace des_fonds
@@ -15,7 +16,7 @@ namespace des_fonds
             MoneyApp app = MoneyApp.Instance;
             CreateIncome();//creates an income.
             CreateExpense();//creates an expense.
-            CreateBill();
+            CreateBill();//creates a bill
             CalcAnnualIncome();//calculate the annual income
             AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             TestCalculateMonthlyIncome();
@@ -113,6 +114,18 @@ namespace des_fonds
 
             Console.WriteLine(bill1 + "\n");
 
+        }
+
+        public static void RemoveBill()
+        {
+            string billName = "Electricity";
+            double amount = 15.50;
+            DateTime dueDate = DateTime.Now;
+
+            Bill bill = new Bill(billName, Status.Pending, amount, dueDate);
+            Console.WriteLine("Bill created "+ bill);
+
+            
         }
 
 

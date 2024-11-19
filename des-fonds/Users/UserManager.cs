@@ -145,6 +145,40 @@ public static class UserManager
         
         
     }
+    public static void AddExpense(User user, string source, string strAmount, string strDate)
+    {
+        if (IsStrEmpty(source))
+        {
+            throw new Exception("Financial name cant be empty");
+        }
+        else if (IsStrEmpty(strAmount))
+        {
+            throw new Exception("Amount cant be empty");
+        }
+        else if (!IsValidDouble(strAmount))
+        {
+            throw new Exception("amount is not in the correct format");
+        }
+        else if (IsStrEmpty(strDate))
+        {
+            throw new Exception("Please select a date");
+        }
+        else if (!IsValidDate(strDate))
+        {
+            throw new Exception("Date is not in the correct format");
+        }
+        else
+        {
+            double amount = double.Parse(strAmount);
+            DateTime date = DateTime.Parse(strDate);
+            Expense expense = new Expense(source, amount, date);
+            user.AddStatement(expense);
+        }
+
+
+
+
+    }
     public static void RemoveUser(User user)
     {
         try
