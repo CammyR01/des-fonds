@@ -20,10 +20,9 @@ namespace des_fonds.Controller
         
         public static void CreateDatabase()
         {
-            string connstring = "Server=localhost;UID=root;Password=pass;Database=DB";
-                              
-            string cDB = "DB";
-            connection = new MySqlConnection(connstring);
+            string connString = "Server=127.0.0.1; port=3307; user=root; password=password; database=finance_tracker";
+            
+            connection = new MySqlConnection(connString);
             
             if (connection.State == ConnectionState.Closed)
             {
@@ -32,14 +31,14 @@ namespace des_fonds.Controller
                 try
                 {
                     connection.Open();
-                    Console.WriteLine("Connection established");
-                    MySqlCommand sqlCommand = new MySqlCommand("CREATE DATABASE " + cDB, connection);
-                    sqlCommand.ExecuteNonQuery();
+                    //Console.WriteLine("Connection established");
+                    //MySqlCommand sqlCommand = new MySqlCommand("CREATE DATABASE " + cDB, connection);
+                    //sqlCommand.ExecuteNonQuery();
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    
+                    throw new Exception("couldnt connect");
                 }
 
                 
@@ -62,7 +61,13 @@ namespace des_fonds.Controller
 
         public static void CreateUserTable()
         {
-            string utab = "CREATE TABLE user(ID PRIMARY KEY,UName varchar(100),PWD varchar(100))";
+            
+
+
+
+
+            string utab = "CREATE TABLE user" +
+                "(ID INT PRIMARY KEY AUTO_INCREMENT, UName VARCHAR(100), PWD VARCHAR(100))";
             MySqlCommand qCmd = new MySqlCommand(utab, connection);
             qCmd.ExecuteNonQuery();
         }

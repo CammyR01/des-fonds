@@ -34,6 +34,7 @@ public class User
     public string FirstName { get => firstName; set => firstName = value; }
     public string LastName { get => lastName; set => lastName = value; }
     public int Age { get => age; set => age = value; }
+    public int Id { get => id; set => id = value; }
 
     public User(string uName, string uPass)
     {
@@ -65,19 +66,19 @@ public class User
         this.notificationCount = 0;
         this.address = new Address(street, postcode, city, country);
     }
-    public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
-    {
-        this.uName = uName;
-        this.uPass = uPass;
-        this.id = ++nextId;
-        statements = new List<Statement>();
-        this.address = new Address(streetAddress, postCode, city, country);
-        this.isHeadOfHouse = false;
-        messages = new List<Message>();
-        this.newNotification = false;
-        this.notificationCount = 0;
+    //public User(string uName, string uPass, string streetAddress, string postCode, string city, string country)
+    //{
+    //    this.uName = uName;
+    //    this.uPass = uPass;
+    //    this.id = ++nextId;
+    //    statements = new List<Statement>();
+    //    this.address = new Address(streetAddress, postCode, city, country);
+    //    this.isHeadOfHouse = false;
+    //    messages = new List<Message>();
+    //    this.newNotification = false;
+    //    this.notificationCount = 0;
 
-    }
+    //}
 
 
     public void AddStatement(Statement statement)
