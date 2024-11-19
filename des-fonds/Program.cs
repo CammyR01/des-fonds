@@ -17,8 +17,8 @@ namespace des_fonds
             MoneyApp app = MoneyApp.Instance;
             //CreateIncome();//creates an income.
             //CreateExpense();//creates an expense.
-            CreateBill();//creates a bill
-            EditStatus();
+            //CreateBill();//creates a bill
+            //EditStatus();
             //CalcAnnualIncome();//calculate the annual income
             //AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             //TestCalculateMonthlyIncome();

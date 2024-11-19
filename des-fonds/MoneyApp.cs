@@ -135,10 +135,7 @@ namespace des_fonds
             user1.AddStatement(in12);
             user1.AddStatement(ex14);
             user1.AddStatement(ex13);
-            user1.AddBill(bill8);
-            user2.AddBill(bill7);
-            user2.AddBill(bill6);
-
+          
             //user 2
             user2.AddStatement(in1);
             user2.AddStatement(ex1);
@@ -156,9 +153,7 @@ namespace des_fonds
             user2.AddStatement(in12);
             user2.AddStatement(ex14);
             user2.AddStatement(in13);
-            user2.AddBill(bill5);
-            user1.AddBill(bill4);
-            user2.AddBill(bill3);
+  
             //user3
             user3.AddStatement(ex12);
             user3.AddStatement(in16);
@@ -176,9 +171,7 @@ namespace des_fonds
             user3.AddStatement(in12);
             user3.AddStatement(ex14);
             user3.AddStatement(ex13);
-            user3.AddBill(bill2);
-            user3.AddBill(bill1);
-            user3.AddBill(bill10);
+        
             //user4
             user1.AddStatement(in17);
             user1.AddStatement(in16);
@@ -196,7 +189,7 @@ namespace des_fonds
             user1.AddStatement(in2);
             user1.AddStatement(ex4);
             user1.AddStatement(ex3);
-            user1.AddBill(bill9);
+       
             //add users to the list
             MoneyApp.Instance.AddUser(user1);
             MoneyApp.Instance.AddUser(user2);

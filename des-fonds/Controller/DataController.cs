@@ -20,7 +20,7 @@ namespace des_fonds.Controller
         
         public static void CreateDatabase()
         {
-            string connString = "Server=127.0.0.1; port=3307; user=root; password=password; database=finance_tracker";
+            string connString = "Server=192.168.0.208; port=3306; user=group18; password=password; database=defundsdb";
             
             connection = new MySqlConnection(connString);
             
