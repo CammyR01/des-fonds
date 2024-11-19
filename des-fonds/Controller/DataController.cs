@@ -59,7 +59,7 @@ namespace des_fonds.Controller
 
 
 
-        public static void createUserTable()
+        public static void CreateUserTable()
         {
             string utab = "CREATE TABLE user(ID PRIMARY KEY,UName varchar(100),PWD varchar(100))";
             MySqlCommand qCmd = new MySqlCommand(utab, connection);
@@ -67,7 +67,7 @@ namespace des_fonds.Controller
         }
 
         
-        public static void addUserEntry(int id, string uName, string pwd)
+        public static void AddUserEntry(int id, string uName, string pwd)
         {
             string insert = "INSERT INTO users(ID, UName, PWD) VALUES(id, uName, pwd)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
