@@ -40,7 +40,14 @@ namespace des_fonds
         }
         private static void databaseTest() 
         {
-            DataController.CreateDatabase();
+            try
+            {
+                DataController.CreateDatabase();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         /// <summary>
         /// test method to register a user and then logs user in

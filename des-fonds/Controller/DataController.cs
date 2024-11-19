@@ -1,14 +1,12 @@
-using MySql.Data;
 using MySql.Data.MySqlClient;
 
 using System.Data;
-using System.Data.SqlClient;
 
 namespace des_fonds.Controller
 {
 
-// Basic class for connecting to database
-//database created through mySQl workbench
+    // Basic class for connecting to database
+    //database created through mySQl workbench
 
     public static class DataController
     {
@@ -20,9 +18,9 @@ namespace des_fonds.Controller
         
         public static void CreateDatabase()
         {
-            string connstring = "Data Source = localhost, Integrated Security = True, initial catalog = des_fonds;";
+            string connString = "Server=127.0.0.1; port=3307; user=root; password=password;";
             string cDB = "DB";
-            connection = new MySqlConnection(connstring);
+            connection = new MySqlConnection(connString);
             
             if (connection.State == ConnectionState.Closed)
             {
@@ -37,8 +35,8 @@ namespace des_fonds.Controller
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine(e);
-                    throw;
+                    
+                    throw new Exception("couldnt connect");
                 }
 
                 
