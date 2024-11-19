@@ -450,8 +450,9 @@ public static class UserManager
                                             //All validation passed
                                             //hash password
                                             string hashPass = Sha256Hasher.Hash(password);
+                                            int age1= Convert.ToInt32(age);
                                             //create user
-                                            User user = new User(username, hashPass, street, postcode, city, country);
+                                            User user = new User(username, hashPass,firstname,lastname,age1, street, postcode, city, country);
                                             //add user to instace list
                                             MoneyApp.Instance.AddUser(user);
                                         }
