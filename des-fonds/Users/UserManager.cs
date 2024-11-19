@@ -1,4 +1,5 @@
-﻿using des_fonds.encrypt;
+﻿using des_fonds.Controller;
+using des_fonds.encrypt;
 using des_fonds.Finances;
 using des_fonds.Mail;
 namespace des_fonds.Users;
@@ -455,6 +456,7 @@ public static class UserManager
                                             User user = new User(username, hashPass,firstname,lastname,age1, street, postcode, city, country);
                                             //add user to instace list
                                             MoneyApp.Instance.AddUser(user);
+                                            DataController.AddUserEntry(user.Id, user.Uname, hashPass);
                                         }
         }
         catch (Exception ex)

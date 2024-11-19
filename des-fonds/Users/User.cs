@@ -34,6 +34,7 @@ public class User
     public string FirstName { get => firstName; set => firstName = value; }
     public string LastName { get => lastName; set => lastName = value; }
     public int Age { get => age; set => age = value; }
+    public int Id { get => id; set => id = value; }
 
     public User(string uName, string uPass)
     {
