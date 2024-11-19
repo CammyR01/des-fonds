@@ -20,7 +20,8 @@ namespace des_fonds.Controller
         
         public static void CreateDatabase()
         {
-            string connstring = "Data Source = localhost, Integrated Security = True, initial catalog = des_fonds;";
+            string connstring = "Server=localhost;UID=root;Password=pass;Database=DB";
+                              
             string cDB = "DB";
             connection = new MySqlConnection(connstring);
             
