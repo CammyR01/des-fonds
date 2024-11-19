@@ -2,7 +2,9 @@
 using des_fonds.Finances;
 using des_fonds.Mail;
 using des_fonds.Users;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
+using System.Xml.Serialization;
 
 namespace des_fonds
 {
@@ -13,6 +15,7 @@ namespace des_fonds
             MoneyApp app = MoneyApp.Instance;
             CreateIncome();//creates an income.
             CreateExpense();//creates an expense.
+            CreateBill();
             CalcAnnualIncome();//calculate the annual income
             AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             TestCalculateMonthlyIncome();
@@ -99,6 +102,20 @@ namespace des_fonds
             //display expense
             Console.WriteLine(expense1 + "\n");
         }
+
+        public static void CreateBill()
+        {
+            string billName = "Spotify";
+            double amount = 12.50;
+            DateTime dueDate = new DateTime(2924, 12, 20);
+
+            Bill bill1 = new Bill(billName,Status.Pending, amount, dueDate);
+
+            Console.WriteLine(bill1 + "\n");
+
+        }
+
+
         /// <summary>
         /// test method to calculate the annual income
         /// logs user in and calculates the annual income for the given year
