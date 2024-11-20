@@ -121,7 +121,7 @@ namespace des_fonds.Controller
         public static void UpdateAddressEntry(int id, string address)
         {
             string update = "UPDATE address SET Address = @address WHERE ID = @id";
-            MYSqlCommand qCmd = new MySqlCommand();
+            MySqlCommand qCmd = new MySqlCommand();
             qCmd.ExecuteNonQuery();
         }
 
@@ -154,7 +154,7 @@ namespace des_fonds.Controller
         public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
             string delete ="DELETE from statement WHERE source = @source amount = @amount date = @date type = INCOME";
-            MySqlCommand qCmd = new MySqlCommand(delete, connection)
+            MySqlCommand qCmd = new MySqlCommand(delete, connection);
         }
 
 
