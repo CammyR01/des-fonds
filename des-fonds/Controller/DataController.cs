@@ -99,7 +99,7 @@ namespace des_fonds.Controller
         
         public static void CreateAddressTable()
         {
-            string atab = "CREATE TABLE address(ID PRIMARY KEY,Address varchar(100))";
+            string atab = "CREATE TABLE address(ID FOREIGN KEY,Address varchar(100))";
             MySqlCommand qCmd = new MySqlCommand(atab, connection);
             qCmd.ExecuteNonQuery();
         }
@@ -120,7 +120,7 @@ namespace des_fonds.Controller
         public static void UpdateAddressEntry(int id, string address)
         {
             string update = "UPDATE address SET Address = @address WHERE ID = @id";
-            MYSqlCommand qCmd = new MySqlCommand();
+            MySqlCommand qCmd = new MySqlCommand();
             qCmd.ExecuteNonQuery();
         }
 
@@ -133,12 +133,12 @@ namespace des_fonds.Controller
         
         public static void CreateStatementTable()
         {
-            string stab = "CREATE TABLE statement(source varchar(100),amount varchar(100), date datetime,type varchar(100))";
+            string stab = "CREATE TABLE statement(source varchar(100),amount varchar(100), date datetime,type varchar(100),ID FOREIGN KEY)";
             MySqlCommand qcmd = new MySqlCommand(stab, connection);
             qcmd.ExecuteNonQuery();
         }
         
-        public static void addIncomeEntry(string source,double amount, DateTime date)
+        public static void addIncomeEntry(int id,string source,double amount, DateTime date)
         {//other way to do this is by passing income class and using getter in insert statement
             //Income income
             //income.source
@@ -153,11 +153,12 @@ namespace des_fonds.Controller
         public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
             string delete ="DELETE from statement WHERE source = @source amount = @amount date = @date type = INCOME";
-            MySqlCommand qCmd = new MySqlCommand(delete, connection)
+            MySqlCommand qCmd = new MySqlCommand(delete, connection);
+            qCmd.ExecuteNonQuery();
         }
 
 
-        public static void addExpenseEntry(string source,double expense,DateTime date)
+        public static void addExpenseEntry(int id, string source,double expense,DateTime date)
         {
             string insert = "INSERT INTO statement(source,amount,date,EXPENSE) VALUES(source,amount,date)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
