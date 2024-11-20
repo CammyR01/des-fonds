@@ -117,11 +117,18 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void UpdateAddressEntry(int id, string address){}
+        public static void UpdateAddressEntry(int id, string address)
+        {
+            string update = "UPDATE address SET Address = @address WHERE ID = @id";
+            MYSqlCommand qCmd = new MySqlCommand();
+            qCmd.ExecuteNonQuery();
+        }
 
         public static void GetAddressEntry(int id, string address)
         {
-            
+            string get = "SELECT FROM address where ID = @id";
+            MySqlCommand qCmd = new MySqlCommand(get, connection);
+            qCmd.ExecuteNonQuery();
         }
         
         public static void CreateStatementTable()
@@ -143,9 +150,10 @@ namespace des_fonds.Controller
             
         }
 
-        public static void removeIncomeEntry(int id, double expense)
+        public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
-            
+            string delete ="DELETE from statement WHERE source = @source amount = @amount date = @date type = INCOME";
+            MySqlCommand qCmd = new MySqlCommand(delete, connection)
         }
 
 
@@ -156,10 +164,16 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
         
-        public static void removeExpenseEntry(int id, double expense){}
-        
-        public static void GetStatementTable()
+        public static void removeExpenseEntry(string source, double expense, DateTime date)
         {
+
+        }
+        
+        public static void GetStatementTable(DateTime date)
+        {
+            string get = "SELECT from statement WHERE date = @date";
+            MySqlCommand qCmd = new MySqlCommand(get,connection);
+            qCmd.ExecuteNonQuery();
         }
         
     }
