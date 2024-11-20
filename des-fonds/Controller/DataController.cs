@@ -19,7 +19,7 @@ namespace des_fonds.Controller
         
         public static void CreateDatabase()
         {
-            string connString = "Server=192.168.0.208; port=3306; user=group18; password=password; database=defundsdb";
+            string connString = "Server=192.168.0.208; port=3306; user=root; password=rootpassword; database=defundsdb";
             
             connection = new MySqlConnection(connString);
             
@@ -30,6 +30,7 @@ namespace des_fonds.Controller
                 try
                 {
                     connection.Open();
+                    Console.WriteLine("connection successful");
                     //Console.WriteLine("Connection established");
                     //MySqlCommand sqlCommand = new MySqlCommand("CREATE DATABASE " + cDB, connection);
                     //sqlCommand.ExecuteNonQuery();
@@ -100,7 +101,7 @@ namespace des_fonds.Controller
         
         public static void createAddressTable()
         {
-            string atab = "CREATE TABLE address(ID PRIMARY KEY,Address varchar(100))";
+            string atab = "CREATE TABLE address(ID int PRIMARY KEY,Address varchar(100))";
             MySqlCommand qCmd = new MySqlCommand(atab, connection);
             qCmd.ExecuteNonQuery();
         }

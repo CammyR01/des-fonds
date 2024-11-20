@@ -44,7 +44,8 @@ namespace des_fonds
             try
             {
                 DataController.CreateDatabase();
-                DataController.CreateUserTable();
+                //DataController.CreateUserTable();
+                DataController.createAddressTable();
                 
             }
             catch (Exception ex)
