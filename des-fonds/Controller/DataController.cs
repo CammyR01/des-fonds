@@ -1,13 +1,14 @@
+using MySql.Data;
 using MySql.Data.MySqlClient;
 
 using System.Data;
-using static Mysqlx.Expect.Open.Types.Condition.Types;
+using System.Data.SqlClient;
 
 namespace des_fonds.Controller
 {
 
-    // Basic class for connecting to database
-    //database created through mySQl workbench
+// Basic class for connecting to database
+//database created through mySQl workbench
 
     public static class DataController
     {
@@ -61,11 +62,9 @@ namespace des_fonds.Controller
 
         public static void CreateUserTable()
         {
+
+
             
-
-
-
-
             string utab = "CREATE TABLE user" +
                 "(ID INT PRIMARY KEY AUTO_INCREMENT, UName VARCHAR(100), PWD VARCHAR(100))";
             MySqlCommand qCmd = new MySqlCommand(utab, connection);
@@ -80,83 +79,105 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
 
-        public static void removeUserEntry(int id, string uName, string pwd)
+        public static void RemoveUserEntry(int id, string uName, string pwd)
         {
             string delete = "DELETE FROM users WHere ID = @id)";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void updateUserEntry(int id, string uName)
+        public static void UpdateUserEntry(int id, string uName)
         {
             string update = "UPDATE users SET UName = @uName WHERE ID = @id";
             MySqlCommand qCmd = new MySqlCommand(update, connection);  
             qCmd.ExecuteNonQuery();
         }
-        public static void getUserEntry(int id, string uName)
+        public static void GetUserEntry(int id, string uName)
         {
             string select = "SELECT FROM users WHERE ID = @id";
             MySqlCommand qCmd = new MySqlCommand(select, connection);  
             qCmd.ExecuteNonQuery();
         }
         
-        public static void createAddressTable()
+        public static void CreateAddressTable()
         {
             string atab = "CREATE TABLE address(ID int PRIMARY KEY,Address varchar(100))";
             MySqlCommand qCmd = new MySqlCommand(atab, connection);
             qCmd.ExecuteNonQuery();
         }
         
-        public static void addAddressEntry(int id, string address)
+        public static void AddAddressEntry(int id, string address)
         {
             string insert = "INSERT INTO address(ID,Address) VALUES(id,address)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
             qCmd.ExecuteNonQuery();
         }
 
-        public static void removeAddressEntry(int id, string uName, string pwd)
+        public static void RemoveAddressEntry(int id, string address)
         {
             string delete = "DELETE FROM users WHere ID = @id)";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void updateAddressEntry(int id, string address){}
-        
-        public static void getAddressEntry(int id, string address){}
-        
-        public static void createIncomeTable()
+        public static void UpdateAddressEntry(int id, string address)
         {
-            string itab = "CREATE TABLE income(source varchar(100), amount varchar(100), date datetime)";
-            MySqlCommand qcmd = new MySqlCommand(itab, connection);
+            string update = "UPDATE address SET Address = @address WHERE ID = @id";
+            MYSqlCommand qCmd = new MySqlCommand();
+            qCmd.ExecuteNonQuery();
+        }
+
+        public static void GetAddressEntry(int id, string address)
+        {
+            string get = "SELECT FROM address where ID = @id";
+            MySqlCommand qCmd = new MySqlCommand(get, connection);
+            qCmd.ExecuteNonQuery();
+        }
+        
+        public static void CreateStatementTable()
+        {
+            string stab = "CREATE TABLE statement(source varchar(100),amount varchar(100), date datetime,type varchar(100))";
+            MySqlCommand qcmd = new MySqlCommand(stab, connection);
             qcmd.ExecuteNonQuery();
         }
         
-        public static void addIncomeEntry(string source, double income, DateTime date)
-        {
-            string insert = "INSERT INTO income(source,amount,date) VALUES(source,income,date)";
+        public static void addIncomeEntry(string source,double amount, DateTime date)
+        {//other way to do this is by passing income class and using getter in insert statement
+            //Income income
+            //income.source
+            //income.amount
+            //income.date
+            string insert = "INSERT INTO statement(source,amount,date,INCOME) VALUES(source,amount,date)";
                         MySqlCommand qCmd = new MySqlCommand(insert, connection);
                         qCmd.ExecuteNonQuery();
             
         }
 
-        public static void removeIncomeEntry(int id, double expense)
+        public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
-            
+            string delete ="DELETE from statement WHERE source = @source amount = @amount date = @date type = INCOME";
+            MySqlCommand qCmd = new MySqlCommand(delete, connection)
         }
 
-        
-        public static void createExpenseTable()
+
+        public static void addExpenseEntry(string source,double expense,DateTime date)
         {
-            string etab = "CREATE TABLE expense(source varchar(100), amount varchar(100), date datetime)";
-            MySqlCommand qcmd = new MySqlCommand(etab, connection);
-            qcmd.ExecuteNonQuery();
+            string insert = "INSERT INTO statement(source,amount,date,EXPENSE) VALUES(source,amount,date)";
+            MySqlCommand qCmd = new MySqlCommand(insert, connection);
+            qCmd.ExecuteNonQuery();
         }
         
-        public static void addExpenseEntry(int id, double expense){}
+        public static void removeExpenseEntry(string source, double expense, DateTime date)
+        {
+
+        }
         
-        public static void removeExpenseEntry(int id, double expense){}
-        
-        
+        public static void GetStatementTable(DateTime date)
+        {
+            string get = "SELECT from statement WHERE date = @date";
+            MySqlCommand qCmd = new MySqlCommand(get,connection);
+            qCmd.ExecuteNonQuery();
+        }
         
     }
+    
 }
     

@@ -37,6 +37,7 @@ namespace des_fonds
             //CheckAcceptInvite(app);
             //checkAddressChangeForHouseMember(app);
             databaseTest();
+            //databaseLoader();
 
         }
         private static void databaseTest() 
@@ -44,9 +45,25 @@ namespace des_fonds
             try
             {
                 DataController.CreateDatabase();
-                DataController.CreateUserTable();
-                //DataController.createAddressTable();
+                DataController.CreateAddressTable();
                 
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        private static void databaseLoader()
+        {
+            try
+            {
+                DataController.CreateDatabase();
+                DataController.CreateUserTable();
+                DataController.CreateAddressTable();
+                DataController.CreateStatementTable();
+
+
             }
             catch (Exception ex)
             {
