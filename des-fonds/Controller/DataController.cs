@@ -1,3 +1,4 @@
+using des_fonds.Users;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -18,7 +19,7 @@ namespace des_fonds.Controller
         
         
         
-        public static void CreateDatabase()
+        public static void OpenConnection()
         {
             string connString = "Server=80.195.174.63; port=3306; user=group18; password=password; database=defundsdb; sslMode=Required";
             
@@ -36,7 +37,7 @@ namespace des_fonds.Controller
                     //MySqlCommand sqlCommand = new MySqlCommand("CREATE DATABASE " + cDB, connection);
                     //sqlCommand.ExecuteNonQuery();
                 }
-                catch (Exception e)
+                catch
                 {
                     
                     throw new Exception("couldnt connect");
@@ -47,36 +48,35 @@ namespace des_fonds.Controller
 
         }
 
-
-
-
         public static void Close()
         {
             connection.Close();
             Console.WriteLine("Connection closed");
         }
 
-
-
-
-
         public static void CreateUserTable()
         {
-
-
-            
-            string utab = "CREATE TABLE user" +
-                "(ID INT PRIMARY KEY AUTO_INCREMENT, UName VARCHAR(100), PWD VARCHAR(100))";
+            OpenConnection();
+            string utab = "CREATE TABLE users" +
+                "(ID INT PRIMARY KEY AUTO_INCREMENT," +
+                "First_Name VARCHAR(35)," +
+                "Last_Name VARCHAR(35)," +
+                "Age INT," +
+                "UName VARCHAR(45)," +
+                "PWD VARCHAR(255))";
             MySqlCommand qCmd = new MySqlCommand(utab, connection);
             qCmd.ExecuteNonQuery();
+            Close();
         }
 
         
-        public static void AddUserEntry(int id, string uName, string pwd)
+        public static void AddUserEntry(int id,string first_name, string last_name, int age, string uName, string pwd)
         {
-            string insert = "INSERT INTO users(ID, UName, PWD) VALUES(id, uName, pwd)";
+            OpenConnection();
+            string insert = "INSERT INTO users(ID, First_name, Last_Name, Age, UName, PWD) VALUES(id, first_name, last_name, age, uName, pwd)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
             qCmd.ExecuteNonQuery();
+            Close();
         }
 
         public static void RemoveUserEntry(int id, string uName, string pwd)
@@ -91,11 +91,36 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(update, connection);  
             qCmd.ExecuteNonQuery();
         }
-        public static void GetUserEntry(int id, string uName)
+        public static User GetUserEntry(int id, string uName)
         {
-            string select = "SELECT FROM users WHERE ID = @id";
-            MySqlCommand qCmd = new MySqlCommand(select, connection);  
-            qCmd.ExecuteNonQuery();
+            OpenConnection();
+            string select = "SELECT ID, First_Name, Last_Name, Age, UName FROM users WHERE ID = @ID";
+            using (MySqlCommand command = new MySqlCommand(select, connection))
+            {
+                command.Parameters.AddWithValue("@ID", id);
+
+                using(MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userId = reader.GetInt32("ID");
+                        string fname = reader["First_Name"].ToString();
+                        string lname = reader["Last_Name"].ToString();
+                        int age = int.Parse(reader["Age"].ToString());
+                        string uname = reader["UName"].ToString();
+                        Close();
+                        return new User(userId, fname, lname, age, uname);
+                        
+                    }
+                    else
+                    {
+                        Close();
+                        throw new Exception("User not found");
+                    }
+                }
+            }
+
+            
         }
         
         public static void CreateAddressTable()
