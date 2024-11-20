@@ -44,7 +44,7 @@ namespace des_fonds
             try
             {
                 DataController.CreateDatabase();
-                DataController.createAddressTable();
+                DataController.CreateAddressTable();
                 
 
             }

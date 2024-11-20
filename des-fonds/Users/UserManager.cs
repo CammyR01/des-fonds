@@ -164,6 +164,7 @@ public static class UserManager
             DateTime date = DateTime.Parse(strDate);
             Income income = new Income(source, amount, date);
             user.AddStatement(income);
+           // DataController.addIncomeEntry(source, amount, date);
         }
         
         
@@ -233,6 +234,7 @@ public static class UserManager
             DateTime date = DateTime.Parse(strDate);
             Expense expense = new Expense(source, amount, date);
             user.AddStatement(expense);
+           //DataController.addExpenseEntry(source,amount,date);
         }
 
 
