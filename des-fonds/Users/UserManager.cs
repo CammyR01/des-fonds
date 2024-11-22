@@ -63,33 +63,39 @@ public static class UserManager
     /// </summary>
     /// <param name="user"></param>
     /// <returns>last 5 statements in users statement list</returns>
-    public static string Last5Statements(User user)
-    {
-        //it the length of the statements list
-        int lengthOfStatements = user.Statements.Count;
-        //if the length of statements is less than 5 or equal to 5 print the list out
-        if (lengthOfStatements <= 5)
-        {
-            string strout = "";
-            for(int i = 0; i < lengthOfStatements; i++)
-            {
-                strout += user.Statements[i].ToString() + "\n";
-            }
-            return strout;
-        }
-        else
-        {
-            //list is longer than 5
-            string strout = "";
-            //get the length and take a way five start loop from here
-            for(int i = (lengthOfStatements - 5);i < lengthOfStatements; i++)
-            {
-                strout += user.Statements[i].ToString() + "\n";
-            }
-            return strout;
+    //public static string Last5Statements(User user)
+    //{
+    //    //it the length of the statements list
+    //    int lengthOfStatements = user.Statements.Count;
+    //    //if the length of statements is less than 5 or equal to 5 print the list out
+    //    if (lengthOfStatements <= 5)
+    //    {
+    //        string strout = "";
+    //        for(int i = 0; i < lengthOfStatements; i++)
+    //        {
+    //            strout += user.Statements[i].ToString() + "\n";
+    //        }
+    //        return strout;
+    //    }
+    //    else
+    //    {
+    //        //list is longer than 5
+    //        string strout = "";
+    //        //get the length and take a way five start loop from here
+    //        for(int i = (lengthOfStatements - 5);i < lengthOfStatements; i++)
+    //        {
+    //            strout += user.Statements[i].ToString() + "\n";
+    //        }
+    //        return strout;
 
-        }
+    //    }
         
+    //}
+    public static List<Statement> Last5Statements(User user)
+    {
+
+        int count = user.Statements.Count;
+        return user.Statements.Skip(Math.Max(0, count - 5)).ToList();
     }
     //public static string Last5Bills(User user)
     //{
