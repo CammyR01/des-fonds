@@ -193,41 +193,7 @@ public static class UserManager
 
     }
 
-    public static void AddBill(User user, string billName, string strAmount,Status status, string strdueDate)
-    {
-        if (IsStrEmpty(billName))
-        {
-            throw new Exception("Financial name cant be empty");
-        }
-        else if (IsStrEmpty(strAmount))
-        {
-            throw new Exception("Amount cant be empty");
-        }
-        else if (!IsValidDouble(strAmount))
-        {
-            throw new Exception("amount is not in the correct format");
-        }
-        else if (IsStrEmpty(strdueDate))
-        {
-            throw new Exception("Please select a date");
-        }
-        else if (!IsValidDate(strdueDate))
-        {
-            throw new Exception("Date is not in the correct format");
-        }
-        else
-        {
-            double amount = double.Parse(strAmount);
-            DateTime Duedate = DateTime.Parse(strdueDate);
-            status = Status.Pending;
-            Bill bill = new Bill(billName, status ,amount, Duedate);
-            //user.AddBill(bill);
-        }
-
-
-
-
-    }
+ 
     public static void AddExpense(User user, string source, string strAmount, string strDate)
     {
         if (IsStrEmpty(source))

@@ -108,10 +108,6 @@ public class User
     {
         statements.Add(statement);
     }
-    //public void AddBill(Bill bill)
-    //{
-    //    bills.Add(bill);
-    //}
 
     public string BasicInfo()
     {

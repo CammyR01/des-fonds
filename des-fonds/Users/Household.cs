@@ -41,9 +41,26 @@ namespace des_fonds.Users
                 Console.WriteLine(e.Message);
             }
         }
-        //remove Members
 
-            //share bills
+        public bool RemoveBill(Bill bill)
+        {
+            if (bill != null && bills.Contains(bill))
+            {
+                bills.Remove(bill);
+                return true;
+            }
+            return false;
+        }
+
+
+        public static List<Bill> Last5Bills(Household household)
+        {
+           
+            int count = household.Bills.Count;
+            return household.Bills.Skip(Math.Max(0, count - 5)).ToList();
+        }
+
+        //share bills
 
         public override string ToString()
         {
