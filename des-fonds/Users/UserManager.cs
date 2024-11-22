@@ -429,7 +429,7 @@ public static class UserManager
             if (user.Uname == username)
             {
                 //check password
-                if (Sha256Hasher.CheckHash(user.Upass, password))
+                if (PassManager.CheckHash(user.Upass, password))
                 {
                     return user;
                 }
@@ -529,7 +529,7 @@ public static class UserManager
                                         {
                                             //All validation passed
                                             //hash password
-                                            string hashPass = Sha256Hasher.Hash(password);
+                                            string hashPass = PassManager.HashPassword(password);
                                             int age1= Convert.ToInt32(age);
                                             //create user
                                             User user = new User(username, hashPass,firstname,lastname,age1, street, postcode, city, country);
