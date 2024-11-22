@@ -115,7 +115,7 @@ public static class UserManager
     //    }
 
     //}
-    private static bool IsValidDouble(string value)
+    public static bool IsValidDouble(string value)
     {
         try
         {
@@ -127,7 +127,7 @@ public static class UserManager
             return false;
         }
     }
-    private static bool IsValidDate(string strDate)
+    public static bool IsValidDate(string strDate)
     {
         try
         {
@@ -439,7 +439,7 @@ public static class UserManager
         throw new Exception("Username or password incorrect");
 
     }
-    private static bool IsStrEmpty(string str)
+    public static bool IsStrEmpty(string str)
     {
         //check if string is empty or null
         if (string.IsNullOrEmpty(str))
