@@ -1,3 +1,4 @@
+using des_fonds.Users;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -79,8 +80,18 @@ namespace des_fonds.Controller
         public static void AddUserEntry(int id,string first_name, string last_name, int age, string uName, string pwd)
         {
             OpenConnection();
-            string insert = "INSERT INTO users(ID, First_name, Last_Name, Age, UName, PWD) VALUES(id, first_name, last_name, age, uName, pwd)";
+            string insert = "INSERT INTO users(ID, First_name, Last_Name, Age, UName, PWD) " +
+                "VALUES(@id, @first_name, @last_name, @age, @uName, @pwd)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
+
+            //adding parameters
+            qCmd.Parameters.AddWithValue("@id", id);
+            qCmd.Parameters.AddWithValue("@first_name", first_name);
+            qCmd.Parameters.AddWithValue("@last_name", last_name);
+            qCmd.Parameters.AddWithValue("@age", age);
+            qCmd.Parameters.AddWithValue("@uName", uName);
+            qCmd.Parameters.AddWithValue("@pwd", pwd);
+            
             qCmd.ExecuteNonQuery();
             Close();
         }
