@@ -1,4 +1,3 @@
-using des_fonds.Users;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
@@ -48,11 +47,18 @@ namespace des_fonds.Controller
 
         }
 
+
+
+
         public static void Close()
         {
             connection.Close();
             Console.WriteLine("Connection closed");
         }
+
+
+
+
 
         public static void CreateUserTable()
         {
