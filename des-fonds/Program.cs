@@ -3,6 +3,7 @@ using des_fonds.Controller;
 using des_fonds.Finances;
 using des_fonds.Mail;
 using des_fonds.Users;
+using des_fonds.encrypt;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -44,8 +45,25 @@ namespace des_fonds
         {
             try
             {
-                DataController.CreateDatabase();
-                DataController.CreateAddressTable();
+                DataController.OpenConnection();//connecects to database
+                DataController.CreateUserTable();//create user table
+
+                // add a user
+                int id = 1000;
+                string fname = "testname";
+                string lname = "lastName";
+                int age = 44;
+                string uname = "testmeUsername";
+                string password = PassManager.HashPassword("password");
+
+                DataController.AddUserEntry(id, fname, lname, age, uname, password);
+                Console.WriteLine("adduserentry success");
+
+                User user = DataController.GetUserEntry(1000, uname);
+                Console.WriteLine("got user back");
+                Console.WriteLine(user);
+
+                //DataController.CreateAddressTable();// create address table
                 
 
             }
@@ -58,7 +76,7 @@ namespace des_fonds
         {
             try
             {
-                DataController.CreateDatabase();
+                DataController.OpenConnection();
                 DataController.CreateUserTable();
                 DataController.CreateAddressTable();
                 DataController.CreateStatementTable();

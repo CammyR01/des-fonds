@@ -6,33 +6,10 @@ namespace des_fonds.Users;
 
 public static class UserManager
 {
-    //private User user;
-    //private Address address;
-
-    //public UserManager()
-    //{
-    //    //should this be a static class and dont think this is needed it should get all that info from the users class
-
-    //    //also if static you dont need a constructor you can call it directly 
-    //    // like UserManager.GetUserDetails(User user) and get attributes with
-    //    // user.Uname or Address address = user.Address; i will give you a message later bud
-    //    // Default user details
-
-    //    string uName = "Sugar";
-    //    string uPass = "Sugar1";
-
-    //    string streetAddress = "808 Kanye West";
-    //    string postCode = "TLOP";
-    //    string city = "Chicago";
-    //    string country = "America";
-
-    //    address = new Address(streetAddress, postCode, city, country);
-    //    // Initialise the User and Address
-    //    user = new User(uName, uPass, address);
-    //}
+    
 
     /// <summary>
-    /// edits users username if its a valid username
+    /// edits users username info
     /// </summary>
     /// <param name="user">the user</param>
     /// <param name="newUsername">the new username</param>
@@ -41,20 +18,35 @@ public static class UserManager
         try
         {
             //perform validation
+            //is username valid
             if (isValidUserName(username))
             {
+                //is first name valid
                 if (IsValidFirstName(firstname))
                 {
+                    //is last name valid
                     if (IsValidLastName(lastname))
                     {
-                        //username is valid, set new name
+                        //everything is valid set
                         user.Uname = username;
                         user.FirstName = firstname;
                         user.LastName = lastname;
                         Console.WriteLine("user name updated to :" + user.Uname);
                     }
+                    else
+                    {
+                        throw new Exception("Last name not valid");
+                    }
+                }
+                else
+                {
+                    throw new Exception("first name not valid");
                 }
                 
+            }
+            else
+            {
+                throw new Exception("username not valid");
             }
 
         }
@@ -64,9 +56,18 @@ public static class UserManager
             Console.WriteLine(e.Message);
         }
     }
+    /// <summary>
+    /// gets the last 5 statements in the users statements list
+    /// adds them to a string
+    /// returns the string
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns>last 5 statements in users statement list</returns>
     public static string Last5Statements(User user)
     {
+        //it the length of the statements list
         int lengthOfStatements = user.Statements.Count;
+        //if the length of statements is less than 5 or equal to 5 print the list out
         if (lengthOfStatements <= 5)
         {
             string strout = "";
@@ -78,7 +79,9 @@ public static class UserManager
         }
         else
         {
+            //list is longer than 5
             string strout = "";
+            //get the length and take a way five start loop from here
             for(int i = (lengthOfStatements - 5);i < lengthOfStatements; i++)
             {
                 strout += user.Statements[i].ToString() + "\n";
@@ -136,41 +139,60 @@ public static class UserManager
             return false;
         }
     }
+    /// <summary>
+    /// adds income to user statements
+    /// </summary>
+    /// <param name="user">the user adding the income</param>
+    /// <param name="source">the source of income</param>
+    /// <param name="strAmount">the amount of income</param>
+    /// <param name="strDate">the date the income came in</param>
+    /// <exception cref="Exception">throws an exception if the income is not valid</exception>
     public static void AddIncome(User user, string source, string strAmount, string strDate)
     {
+        // check if source string is empty
         if (IsStrEmpty(source))
         {
+            //string is empty
             throw new Exception("Financial name cant be empty");
         }
+        // check amount string is empty
         else if (IsStrEmpty(strAmount))
         {
+            //string is empty
             throw new Exception("Amount cant be empty");
         }
+        //check if amount is a valid double
         else if (!IsValidDouble(strAmount))
         {
+            // is not valid
             throw new Exception("amount is not in the correct format");
         }
+        //check if date string is empty
         else if (IsStrEmpty(strDate))
         {
+            //string is empty
             throw new Exception("Please select a date");
         }
+        // check date is valid
         else if(!IsValidDate(strDate))
         {
+            // date is not in the correct format
             throw new Exception("Date is not in the correct format");
         }
+        //validation complete
         else
         {
+            //create income
             double amount = double.Parse(strAmount);
             DateTime date = DateTime.Parse(strDate);
             Income income = new Income(source, amount, date);
+            //add to users statements
             user.AddStatement(income);
-           // DataController.addIncomeEntry(source, amount, date);
+           // DataController.addIncomeEntry(income.id, user.id, source, amount, date);
         }
-        
-        
-        
-        
+
     }
+
     public static void AddBill(User user, string billName, string strAmount,Status status, string strdueDate)
     {
         if (IsStrEmpty(billName))
@@ -234,12 +256,8 @@ public static class UserManager
             DateTime date = DateTime.Parse(strDate);
             Expense expense = new Expense(source, amount, date);
             user.AddStatement(expense);
-           //DataController.addExpenseEntry(source,amount,date);
+           //DataController.addExpenseEntry(expense.id, user.id, source, amount, date);
         }
-
-
-
-
     }
     public static void RemoveUser(User user)
     {
@@ -411,7 +429,7 @@ public static class UserManager
             if (user.Uname == username)
             {
                 //check password
-                if (Sha256Hasher.CheckHash(user.Upass, password))
+                if (PassManager.CheckHash(user.Upass, password))
                 {
                     return user;
                 }
@@ -511,13 +529,13 @@ public static class UserManager
                                         {
                                             //All validation passed
                                             //hash password
-                                            string hashPass = Sha256Hasher.Hash(password);
+                                            string hashPass = PassManager.HashPassword(password);
                                             int age1= Convert.ToInt32(age);
                                             //create user
                                             User user = new User(username, hashPass,firstname,lastname,age1, street, postcode, city, country);
                                             //add user to instace list
                                             MoneyApp.Instance.AddUser(user);
-                                            DataController.AddUserEntry(user.Id, user.Uname, hashPass);
+                                            DataController.AddUserEntry(user.Id,user.FirstName, user.LastName, user.Age, user.Uname, hashPass);
                                         }
         }
         catch (Exception ex)

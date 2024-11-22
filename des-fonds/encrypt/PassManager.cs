@@ -3,10 +3,10 @@ using System.Security.Cryptography;
 
 namespace des_fonds.encrypt
 {
-    public static class Sha256Hasher
+    public static class PassManager
     {
         // Hash the given password using SHA-256
-        public static string Hash(string password)
+        public static string HashPassword(string password)
         {
             // Create a SHA256 instance
             using (SHA256 sha256 = SHA256.Create())
@@ -33,7 +33,7 @@ namespace des_fonds.encrypt
         public static bool CheckHash(string storedHash, string input)
         {
             // Compare the stored hash with the hash of the input
-            return storedHash.Equals(Hash(input), StringComparison.OrdinalIgnoreCase);
+            return storedHash.Equals(HashPassword(input), StringComparison.OrdinalIgnoreCase);
         }
     }
 }

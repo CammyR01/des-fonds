@@ -38,6 +38,25 @@ public class User
     public int Age { get => age; set => age = value; }
     public int Id { get => id; set => id = value; }
 
+    /// <summary>
+    /// constructor used to create user when retrieving from db
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="fname"></param>
+    /// <param name="lname"></param>
+    /// <param name="age"></param>
+    /// <param name="username"></param>
+    public User(int id, string fname, string lname, int age, string username)
+    {
+        this.id = id;
+        this.firstName = fname;
+        this.lastName = lname;
+        this.age = age;
+        this.uName = username;
+        // dont require anything else yet
+    }
+    
+    
     public User(string uName, string uPass)
     {
         this.uName = uName;
