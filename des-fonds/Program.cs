@@ -219,7 +219,7 @@ namespace des_fonds
                 //log user in 
                 User user = UserManager.LoginUser("suzan", "pass3");
                 //calculate annual income using finance calculator class and calculateAnnualIncome method
-                annualIncome = FinanceCalculator.CalculateAnnualIncome(user, year);
+                annualIncome = FinanceCalculator.CalculateIncome(user, year);
                 //display user and annual income total
                 Console.WriteLine(user + "\n" + "annual Income: £" + annualIncome);
             }
@@ -415,7 +415,7 @@ namespace des_fonds
             // calculate monthly income
             int month = 11;
             int year = 2024;
-            double monthly_total = FinanceCalculator.CalculateMonthlyIncome(user1, month, year);
+            double monthly_total = FinanceCalculator.CalculateIncome(user1, month, year);
             // two incomes "in1" + "in2" total to 1284.87
             Console.WriteLine("The total for " + month + "/" + year + " is £" + monthly_total + "\n");
         }
@@ -447,7 +447,7 @@ namespace des_fonds
             int year = 2024;
             double monthly_expense;
 
-            monthly_expense = FinanceCalculator.CalculateMonthlyExpense(user2, month, year);
+            monthly_expense = FinanceCalculator.CalculateExpense(user2, month, year);
             Console.WriteLine("The monthly expense total is: £" + monthly_expense);
         }
         public static void CreateHouseHead(MoneyApp app)

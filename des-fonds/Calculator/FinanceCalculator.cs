@@ -15,7 +15,7 @@ namespace des_fonds.Calculator
         /// <param name="month">the month in number representation</param>
         /// <param name="year">the year the user specified</param>
         /// <returns>the total income for the specified month and year for all income statements</returns>
-        public static double CalculateMonthlyIncome(User user, int month, int year)
+        public static double CalculateIncome(User user, int month, int year)
         {
             ///wouldnt this take in month and income as parameters instead of year?
             ///but wouldnt that then look at all the statements with that month regardless of the year,
@@ -49,7 +49,7 @@ namespace des_fonds.Calculator
         /// <param name="month">the month in number representation</param>
         /// <param name="year">the year the user specified</param>
         /// <returns>the total expense for specified month and year for all expenses statements</returns>
-        public static double CalculateMonthlyExpense(User user, int month, int year)
+        public static double CalculateExpense(User user, int month, int year)
         {
             // set the yearly total to 0
             double monthly_total = 0;
@@ -75,7 +75,7 @@ namespace des_fonds.Calculator
         /// </summary>
         /// <param name="year">the year specified</param>
         /// <returns>the total annual Income for specified year</returns>
-        public static double CalculateAnnualIncome(User user,int year)
+        public static double CalculateIncome(User user,int year)
         {
             //set yearly total to 0
             double yearly_total = 0;
@@ -100,7 +100,7 @@ namespace des_fonds.Calculator
         /// </summary>
         /// <param name="year">the year specified</param>
         /// <returns></returns>
-        public static double CalculateAnnualExpense(User user,int year)
+        public static double CalculateExpense(User user,int year)
         {
             //set yearly expense to 0
             double yearly_expense = 0;
@@ -128,7 +128,7 @@ namespace des_fonds.Calculator
         /// <param name="month">the month specified</param>
         /// <param name="year">the year specified</param>
         /// <returns>the total specified item income for specific month and year</returns>
-        public static double CalculateItemIncomeMonthly(string item, int month, int year)
+        public static double CalculateIncome(User user, string item, int month, int year)
         {
             //still to be implemented
             return 0.00;
@@ -140,10 +140,50 @@ namespace des_fonds.Calculator
         /// <param name="month">the month specified</param>
         /// <param name="year">the year specified</param>
         /// <returns></returns>
-        public static double CalculateItemExpenseMonthly(string item, int month, int year)
+        public static double CalculateExpense(User user, string item, int month, int year)
         {
             //still to be implemented
             return 0.00;
         }
+        public static bool IsValidYear(string strNumber)
+        {
+            try
+            {
+                int number = int.Parse(strNumber);
+                if (number is < 1900 || number > 9999)
+                {
+                    throw new Exception("year must be greater than 1900 and less than 9999!");
+                }
+                else
+                {
+                    return true;
+                }
+
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public static bool IsValidMonth(string strNumber)
+        {
+            try
+            {
+                int number = int.Parse(strNumber);
+                if (number <= 0 || number <= 12)
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("Month must be between 1 - 12 representing the months");
+                    
+                }
+            }
+            catch
+            {
+                return false;
+            }
+    }
     }
 }

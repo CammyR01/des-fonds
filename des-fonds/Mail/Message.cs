@@ -1,7 +1,7 @@
 ﻿using des_fonds.Users;
 namespace des_fonds.Mail
 {
-    public abstract class Message
+    public class Message
     {
         private DateTime createdAt;
         private User partyA;

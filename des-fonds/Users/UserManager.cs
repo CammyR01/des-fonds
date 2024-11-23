@@ -121,6 +121,7 @@ public static class UserManager
     //    }
 
     //}
+    
     public static bool IsValidDouble(string value)
     {
         try
@@ -530,6 +531,22 @@ public static class UserManager
         catch (Exception ex)
         {
             Console.WriteLine(ex.Message);
+        }
+    }
+    public static void SendMessage(User partyA, string username, string message)
+    {
+        try
+        {
+            User partyB = GetUserByUsername(username);
+            if (UserManager.IsStrEmpty(message))
+            {
+                throw new Exception("Message cant be empty");
+            }
+            Message msg = new Message(DateTime.Now, partyA, partyB, message);
+        }
+        catch 
+        {
+            throw new Exception("Message not sent user not found");
         }
     }
     public static void ReturnAcceptInvite(Invite acceptedInvite)
