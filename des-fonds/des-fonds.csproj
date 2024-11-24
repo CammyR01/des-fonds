@@ -6,11 +6,7 @@
     <RootNamespace>des_fonds</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="9.1.0" />
-  </ItemGroup>
+  </PropertyGroup>  
 
   <ItemGroup>
     <PackageReference Include="MySql.Data" Version="9.1.0" />

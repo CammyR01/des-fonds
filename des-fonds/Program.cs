@@ -37,7 +37,7 @@ namespace des_fonds
             //AcceptInvite(app);
             //CheckAcceptInvite(app);
             //checkAddressChangeForHouseMember(app);
-            databaseTest();
+            //databaseTest();
             //databaseLoader();
 
         }
@@ -47,6 +47,7 @@ namespace des_fonds
             {
                 DataController.OpenConnection();//connecects to database
                 DataController.CreateUserTable();//create user table
+                DataController.CreateAddressTable();//create addresses table
 
                 // add a user
                 int id = 1000;
@@ -55,11 +56,15 @@ namespace des_fonds
                 int age = 44;
                 string uname = "testmeUsername";
                 string password = PassManager.HashPassword("password");
+                string street = "15 Main street";
+                string city = "Glasgow";
+                string postcode = "G71 7bk";
+                string country = "scotland";
 
-                DataController.AddUserEntry(id, fname, lname, age, uname, password);
+                DataController.AddUserEntry(fname, lname, age, uname, password, street, postcode, city, country, out int lastId) ;
                 Console.WriteLine("adduserentry success");
 
-                User user = DataController.GetUserEntry(1000, uname);
+                User user = DataController.GetUserEntry(uname);
                 Console.WriteLine("got user back");
                 Console.WriteLine(user);
 
@@ -242,16 +247,16 @@ namespace des_fonds
         /// creates a user
         /// displays the users
         /// </summary>
-        public static void CreateUser()
-        {
-            string uName = "JOSH";
-            string uPass = "MCI";
-            User user = new User(uName, uPass);
-            User user1 = new User("Ash", "passowrd");
+        //public static void CreateUser()
+        //{
+        //    string uName = "JOSH";
+        //    string uPass = "MCI";
+        //    User user = new User(uName, uPass);
+        //    User user1 = new User("Ash", "passowrd");
 
-            Console.WriteLine(user);
-            Console.WriteLine(user1);
-        }
+        //    Console.WriteLine(user);
+        //    Console.WriteLine(user1);
+        //}
         public static void EditUsername(MoneyApp app)
         {
             //login in suzan
@@ -358,8 +363,8 @@ namespace des_fonds
         public static void AddIncomeExpenseToUserStatments()
         {
             //create users
-            User user1 = UserPopulate("ash", "pass");
-            User user2 = UserPopulate("bob", "pass2");
+            //User user1 = UserPopulate("ash", "pass");
+            //User user2 = UserPopulate("bob", "pass2");
             //create income
             Income in1 = CreateIncomePopulate("Wage", 1234.99, new DateTime(2024, 11, 1));
             Income in2 = CreateIncomePopulate("Side Hustle", 49.88, new DateTime(2024, 11, 2));
@@ -369,25 +374,25 @@ namespace des_fonds
             Expense ex2 = CreateExpensePopulate("spotify", 19.99, new DateTime(2024, 10, 2));
             Expense ex3 = CreateExpensePopulate("wifi", 62.00, new DateTime(2024, 10, 2));
             //add income and expense to users statements
-            user1.AddStatement(in1);
-            user1.AddStatement(in2);
-            user1.AddStatement(ex1);
-            user1.AddStatement(ex2);
-            user2.AddStatement(in3);
-            user2.AddStatement(ex3);
+            //user1.AddStatement(in1);
+            //user1.AddStatement(in2);
+            //user1.AddStatement(ex1);
+            //user1.AddStatement(ex2);
+            //user2.AddStatement(in3);
+            //user2.AddStatement(ex3);
             //list all statements for user1
             Console.WriteLine("USER 1 STATEMENTS\n");
-            foreach (Statement s in user1.Statements)
-            {
+            //foreach (Statement s in user1.Statements)
+            //{
 
-                Console.WriteLine(s + "\n");
-            }
-            //list all statements for user2
-            Console.WriteLine("USER 2 STATEMENTS");
-            foreach (Statement s1 in user2.Statements)
-            {
-                Console.WriteLine(s1 + "\n");
-            }
+            //    Console.WriteLine(s + "\n");
+            //}
+            ////list all statements for user2
+            //Console.WriteLine("USER 2 STATEMENTS");
+            //foreach (Statement s1 in user2.Statements)
+            //{
+            //    Console.WriteLine(s1 + "\n");
+            //}
         }
         /// <summary>
         /// Tests method to calculate monthly income
@@ -395,8 +400,8 @@ namespace des_fonds
         public static void TestCalculateMonthlyIncome()
         {
             // add income and expenses to users
-            User user1 = UserPopulate("ash", "pass");
-            User user2 = UserPopulate("bob", "pass2");
+            //User user1 = UserPopulate("ash", "pass");
+            //User user2 = UserPopulate("bob", "pass2");
             //create income
             Income in1 = CreateIncomePopulate("Wage", 1234.99, new DateTime(2024, 11, 1));
             Income in2 = CreateIncomePopulate("Side Hustle", 49.88, new DateTime(2024, 11, 2));
@@ -406,18 +411,18 @@ namespace des_fonds
             Expense ex2 = CreateExpensePopulate("spotify", 19.99, new DateTime(2024, 10, 2));
             Expense ex3 = CreateExpensePopulate("wifi", 62.00, new DateTime(2024, 10, 2));
             //add income and expense to users statements
-            user1.AddStatement(in1);
-            user1.AddStatement(in2);
-            user1.AddStatement(ex1);
-            user1.AddStatement(ex2);
-            user2.AddStatement(in3);
-            user2.AddStatement(ex3);
+            //user1.AddStatement(in1);
+            //user1.AddStatement(in2);
+            //user1.AddStatement(ex1);
+            //user1.AddStatement(ex2);
+            //user2.AddStatement(in3);
+            //user2.AddStatement(ex3);
             // calculate monthly income
             int month = 11;
             int year = 2024;
-            double monthly_total = FinanceCalculator.CalculateIncome(user1, month, year);
+            //double monthly_total = FinanceCalculator.CalculateIncome(user1, month, year);
             // two incomes "in1" + "in2" total to 1284.87
-            Console.WriteLine("The total for " + month + "/" + year + " is £" + monthly_total + "\n");
+            //Console.WriteLine("The total for " + month + "/" + year + " is £" + monthly_total + "\n");
         }
         /// <summary>
         /// test method to calculate the montly expenses
@@ -425,8 +430,8 @@ namespace des_fonds
         public static void TestCalculateMonthlyExpense()
         {
             // add income and expenses to users
-            User user1 = UserPopulate("ash", "pass");
-            User user2 = UserPopulate("bob", "pass2");
+            //User user1 = UserPopulate("ash", "pass");
+            //User user2 = UserPopulate("bob", "pass2");
             //create income
             Income in1 = CreateIncomePopulate("Wage", 1234.99, new DateTime(2024, 11, 1));
             Income in2 = CreateIncomePopulate("Side Hustle", 49.88, new DateTime(2024, 11, 2));
@@ -436,19 +441,19 @@ namespace des_fonds
             Expense ex2 = CreateExpensePopulate("spotify", 19.99, new DateTime(2024, 10, 2));
             Expense ex3 = CreateExpensePopulate("wifi", 62.00, new DateTime(2024, 10, 2));
             //add income and expense to users statements
-            user1.AddStatement(in1);
-            user1.AddStatement(in2);
-            user1.AddStatement(ex1);
-            user1.AddStatement(ex2);
-            user2.AddStatement(in3);
-            user2.AddStatement(ex3);
+            //user1.AddStatement(in1);
+            //user1.AddStatement(in2);
+            //user1.AddStatement(ex1);
+            //user1.AddStatement(ex2);
+            //user2.AddStatement(in3);
+            //user2.AddStatement(ex3);
 
             int month = 10;
             int year = 2024;
             double monthly_expense;
 
-            monthly_expense = FinanceCalculator.CalculateExpense(user2, month, year);
-            Console.WriteLine("The monthly expense total is: £" + monthly_expense);
+            //monthly_expense = FinanceCalculator.CalculateExpense(user2, month, year);
+            //Console.WriteLine("The monthly expense total is: £" + monthly_expense);
         }
         public static void CreateHouseHead(MoneyApp app)
         {
@@ -601,10 +606,10 @@ namespace des_fonds
             }
         }
         // Creates users
-        public static User UserPopulate(string uname, string upass)
-        {
-            return new User(uname, upass);
-        }
+        //public static User UserPopulate(string uname, string upass)
+        //{
+        //    return new User(uname, upass);
+        //}
         // creates incomes
         public static Income CreateIncomePopulate(string source, double amount, DateTime date)
         {

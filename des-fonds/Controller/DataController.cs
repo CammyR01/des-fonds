@@ -66,34 +66,74 @@ namespace des_fonds.Controller
             OpenConnection();
             string utab = "CREATE TABLE users" +
                 "(ID INT PRIMARY KEY AUTO_INCREMENT," +
-                "First_Name VARCHAR(35)," +
-                "Last_Name VARCHAR(35)," +
-                "Age INT," +
-                "UName VARCHAR(45)," +
-                "PWD VARCHAR(255))";
+                "First_Name VARCHAR(35) NOT NULL," +
+                "Last_Name VARCHAR(35) NOT NULL," +
+                "Age INT NOT NULL," +
+                "UName VARCHAR(45) NOT NULL," +
+                "PWD VARCHAR(255) NOT NULL)";
             MySqlCommand qCmd = new MySqlCommand(utab, connection);
             qCmd.ExecuteNonQuery();
             Close();
         }
-
-        
-        public static void AddUserEntry(int id,string first_name, string last_name, int age, string uName, string pwd)
+        public static void CreateAddressTable()
         {
             OpenConnection();
-            string insert = "INSERT INTO users(ID, First_name, Last_Name, Age, UName, PWD) " +
-                "VALUES(@id, @first_name, @last_name, @age, @uName, @pwd)";
-            MySqlCommand qCmd = new MySqlCommand(insert, connection);
-
-            //adding parameters
-            qCmd.Parameters.AddWithValue("@id", id);
-            qCmd.Parameters.AddWithValue("@first_name", first_name);
-            qCmd.Parameters.AddWithValue("@last_name", last_name);
-            qCmd.Parameters.AddWithValue("@age", age);
-            qCmd.Parameters.AddWithValue("@uName", uName);
-            qCmd.Parameters.AddWithValue("@pwd", pwd);
-            
+            string atab = "CREATE TABLE addresses" +
+                "(ID int PRIMARY KEY AUTO_INCREMENT," +
+                "street varchar(50) NOT NULL," +
+                "postcode VARCHAR(10) NOT NULL," +
+                "city VARCHAR(50) NOT NULL," +
+                "country VARCHAR(50) NOT NULL," +
+                "user_id INT NOT NULL," +
+                "FOREIGN KEY (user_id) REFERENCES users(ID))";
+            MySqlCommand qCmd = new MySqlCommand(atab, connection);
             qCmd.ExecuteNonQuery();
-            Close();
+        }
+
+
+        public static void AddUserEntry(string first_name, string last_name, int age, string uName, string pwd, string street, string postcode, string city, string country, out int lastId)
+        {
+            try
+            {
+                OpenConnection();
+                string insert = "INSERT INTO users(First_name, Last_Name, Age, UName, PWD) " +
+                    "VALUES(@first_name, @last_name, @age, @uName, @pwd)";
+                MySqlCommand qCmd = new MySqlCommand(insert, connection);
+
+                //adding parameters
+                
+                qCmd.Parameters.AddWithValue("@first_name", first_name);
+                qCmd.Parameters.AddWithValue("@last_name", last_name);
+                qCmd.Parameters.AddWithValue("@age", age);
+                qCmd.Parameters.AddWithValue("@uName", uName);
+                qCmd.Parameters.AddWithValue("@pwd", pwd);
+
+                qCmd.ExecuteNonQuery();
+                string getLastId = "SELECT LAST_INSERT_ID()";
+                using MySqlCommand lastIdcmd = new MySqlCommand(getLastId, connection);
+                lastId = Convert.ToInt32(lastIdcmd.ExecuteScalar());
+
+                string insertAddress = "INSERT INTO addresses(street, postcode, city, country, user_id)" +
+                    "VALUES(@street, @postcode, @city, @country, @user_id)";
+                MySqlCommand addAddress = new MySqlCommand(insertAddress, connection);
+
+                //adding parameters
+                addAddress.Parameters.AddWithValue("@street", street);
+                addAddress.Parameters.AddWithValue("@postcode", postcode);
+                addAddress.Parameters.AddWithValue("@city", city);
+                addAddress.Parameters.AddWithValue("@country", country);
+                addAddress.Parameters.AddWithValue("@user_id", lastId);
+
+                addAddress.ExecuteNonQuery();
+
+
+                Close();
+
+            }
+            catch(Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         public static void RemoveUserEntry(int id, string uName, string pwd)
@@ -108,25 +148,36 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(update, connection);  
             qCmd.ExecuteNonQuery();
         }
-        public static User GetUserEntry(int id, string uName)
+        public static User GetUserEntry(string uName)
         {
+            
             OpenConnection();
-            string select = "SELECT ID, First_Name, Last_Name, Age, UName FROM users WHERE ID = @ID";
+            string select = "SELECT u.ID, u.First_Name, u.Last_Name, u.Age, u.UName, u.PWD," +
+                " a.street, a.postcode, a.city, a.country" +
+                " FROM users u" +
+                " LEFT JOIN addresses a ON u.ID = a.user_id" +
+                " WHERE UName = @uName";
             using (MySqlCommand command = new MySqlCommand(select, connection))
             {
-                command.Parameters.AddWithValue("@ID", id);
+                command.Parameters.AddWithValue("@uName", uName);
+                
 
                 using(MySqlDataReader reader = command.ExecuteReader())
                 {
                     if (reader.Read())
                     {
-                        int userId = reader.GetInt32("ID");
-                        string fname = reader["First_Name"].ToString();
-                        string lname = reader["Last_Name"].ToString();
-                        int age = int.Parse(reader["Age"].ToString());
-                        string uname = reader["UName"].ToString();
+                        int userId = reader.GetInt32(0);
+                        string fname = reader.GetString(1);
+                        string lname = reader.GetString(2);
+                        int age = reader.GetInt32(3);
+                        string uname = reader.GetString(4);
+                        string pwd = reader.GetString(5);
+                        string street = reader.GetString(6);
+                        string postcode = reader.GetString(7);
+                        string city = reader.GetString(8);
+                        string country = reader.GetString(9);
                         Close();
-                        return new User(userId, fname, lname, age, uname);
+                        return new User(userId, uname, pwd, fname, lname, age, street, postcode, city, country);
                         
                     }
                     else
@@ -140,12 +191,7 @@ namespace des_fonds.Controller
             
         }
         
-        public static void CreateAddressTable()
-        {
-            string atab = "CREATE TABLE address(ID int PRIMARY KEY,Address varchar(100))";
-            MySqlCommand qCmd = new MySqlCommand(atab, connection);
-            qCmd.ExecuteNonQuery();
-        }
+        
         
         public static void AddAddressEntry(int id, string address)
         {
