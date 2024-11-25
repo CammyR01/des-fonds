@@ -48,6 +48,7 @@ namespace des_fonds
                 DataController.OpenConnection();//connecects to database
                 DataController.CreateUserTable();//create user table
                 DataController.CreateAddressTable();//create addresses table
+                DataController.CreateStatementTable();
 
                 // add a user
                 int id = 1000;

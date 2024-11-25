@@ -22,6 +22,7 @@ namespace des_fonds
                     DataController.OpenConnection();
                     DataController.CreateUserTable();
                     DataController.CreateAddressTable();
+                    DataController.CreateStatementTable();
 
                     
                     app = new MoneyApp();
