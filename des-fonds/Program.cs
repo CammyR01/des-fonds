@@ -49,6 +49,7 @@ namespace des_fonds
                 DataController.CreateUserTable();//create user table
                 DataController.CreateAddressTable();//create addresses table
                 DataController.CreateStatementTable();
+                DataController.CreateMessageTable();
 
                 // add a user
                 int id = 1000;
@@ -463,7 +464,7 @@ namespace des_fonds
                 User user = UserManager.LoginUser("susan", "pass3");
 
                 user.CreateHousehold();
-
+                string a = user.Address.Street;
                 Console.WriteLine("\nis user a househead: " + user.IsHeadOfHouse);
                 Console.WriteLine("The household Address is:\n" + user.Household.Head.Address);
             }

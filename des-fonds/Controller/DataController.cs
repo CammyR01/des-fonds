@@ -90,10 +90,12 @@ namespace des_fonds.Controller
                 "FOREIGN KEY (user_id) REFERENCES users(ID))";
             MySqlCommand qCmd = new MySqlCommand(atab, connection);
             qCmd.ExecuteNonQuery();
+            Close();
         }
 
         public static void CreateStatementTable()
-        {
+        {  
+            OpenConnection();
             string stab = "CREATE TABLE statement" +
                 "(ID  int PRIMARY KEY AUTO_INCREMENT," +
                 "source varchar(100) NOT NULL," + 
@@ -104,14 +106,31 @@ namespace des_fonds.Controller
                 "FOREIGN KEY (user_id) REFERENCES users(ID))";
             MySqlCommand qcmd = new MySqlCommand(stab, connection);
             qcmd.ExecuteNonQuery();
+            Close();
         }
 
         public static void CreateMessageTable()
         {
-            OpenConnection();
-            string create = "CREATE TABLE message"
+                OpenConnection();
+                string create = "CREATE TABLE message" +
+                "(Sender varchar(100)" +
+                "Receiver varchar(100)" +
+                "ReceiverID INT" +
+                "Message varchar(100)";
+                MySqlCommand qCmd = new MySqlCommand(create, connection);
+                qCmd.ExecuteNonQuery();
+                 Close();
         }
+       // public static void CreateHousehold(string HouseHoldName) 
+        //{ OpenConnection();
+          //  string create = "CREATE TABLE @household" +
+            //   "(User_ID INT NOT NULL," +
+              // ;
 
+            //MySqlCommand qCmd = new MySqlCommand(create, connection);
+            //qCmd.Parameters.AddWithValue("@household", HouseHoldName)
+            //qCmd.ExecuteNonQuery();
+               // }
 
         public static void AddUserEntry(string first_name, string last_name, int age, string uName, string pwd, string street, string postcode, string city, string country, out int lastId)
         {
