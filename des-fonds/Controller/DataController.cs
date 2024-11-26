@@ -96,6 +96,7 @@ namespace des_fonds.Controller
         public static void CreateStatementTable()
         {  
             OpenConnection();
+
             string stab = "CREATE TABLE statements" +
                 "(ID  int PRIMARY KEY AUTO_INCREMENT," +
                 "source varchar(100) NOT NULL," + 
@@ -345,7 +346,28 @@ namespace des_fonds.Controller
         {
             string get = "SELECT from message WHERE ReceiverID = @recId";
             MySqlCommand qCmd = new MySqlCommand(get,connection);
-            qCmd.ExecuteNonQuery();
+            using (MySqlDataReader reader = qCmd.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    
+                    string sender = reader.GetString(0);
+                    int senderID = reader.GetInt32(1);
+                    string Receiver = reader.GetString(3);
+                    int ReceiverID = reader.GetInt32(4);
+                    string message = reader.GetString(5);
+
+                    
+                    Close();
+                    return new Message();
+
+                }
+                else
+                {
+                    Close();
+                    throw new Exception("User not found");
+                }
+                
         }
          
     }
