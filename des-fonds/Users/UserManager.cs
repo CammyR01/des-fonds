@@ -197,7 +197,7 @@ public static class UserManager
             //add to users statements
             user.AddStatement(income);
             string type = "INCOME";
-           DataController.addIncomeEntry(source, amount, date, type,user.Id);
+            DataController.addIncomeEntry(source, amount, date, type,user.Id);
         }
 
     }

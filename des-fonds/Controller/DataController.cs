@@ -48,18 +48,11 @@ namespace des_fonds.Controller
 
         }
 
-
-
-
         public static void Close()
         {
             connection.Close();
             Console.WriteLine("Connection closed");
         }
-
-
-
-
 
         public static void CreateUserTable()
         {
@@ -118,17 +111,7 @@ namespace des_fonds.Controller
                 MySqlCommand qCmd = new MySqlCommand(create, connection);
                 qCmd.ExecuteNonQuery();
                  Close();
-        }
-        // public static void CreateHousehold(string HouseHoldName) 
-        //{ OpenConnection();
-        //  string create = "CREATE TABLE @household" +
-        //   "(User_ID INT NOT NULL," +
-        // ;
-
-        //MySqlCommand qCmd = new MySqlCommand(create, connection);
-        //qCmd.Parameters.AddWithValue("@household", HouseHoldName)
-        //qCmd.ExecuteNonQuery();
-        // }
+        }       
 
         public static void CreateHouseHoldTable()
         {
@@ -152,7 +135,26 @@ namespace des_fonds.Controller
                 "FOREIGN KEY (mem6_id) REFERENCES users(ID))";
             MySqlCommand cmd = new MySqlCommand(houseTable, connection);
             cmd.ExecuteNonQuery();
+            Close();
         }
+
+        public static void InsertHouseholdHead(User user)
+        {            
+            string insertHouse = "INSERT INTO households" +
+                "(user_id)" +
+                "VALUES(@user_id)";
+            OpenConnection();
+            MySqlCommand cmd = new MySqlCommand(insertHouse, connection);
+
+            //adding parameters
+            cmd.Parameters.AddWithValue("@user_id", user.Id);
+            cmd.ExecuteNonQuery();
+            Close();
+        }
+
+
+
+
         public static void CreateBillTable()
         {
             OpenConnection();
@@ -305,12 +307,6 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
         
-      //  public static void CreateStatementTable()
-        //{
-          //  string stab = "CREATE TABLE statement(source varchar(100),amount varchar(100), date datetime,type varchar(100))";
-            //MySqlCommand qcmd = new MySqlCommand(stab, connection);
-            //qcmd.ExecuteNonQuery();
-        //}
         
         public static void addIncomeEntry(string source,double amount, DateTime date, string type, int uid)
         {//other way to do this is by passing income class and using getter in insert statement
