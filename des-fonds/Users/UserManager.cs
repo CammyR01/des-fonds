@@ -201,8 +201,22 @@ public static class UserManager
         }
 
     }
+    public static void GetIncomes(User user) 
+    
+    {
+        DataController.GetIncomeStatements(user.Id);
 
- 
+    }
+
+    public static void GetExpense(User user) 
+    {
+
+        DataController.GetExpenseStatements(user.Id);
+
+    
+    }
+
+
     public static void AddExpense(User user, string source, string strAmount, string strDate)
     {
         if (IsStrEmpty(source))
@@ -607,6 +621,7 @@ public static class UserManager
 
           Message message =  DataController.GetMessage(partyB.Id);
             return message;
+
         }
         catch
         {

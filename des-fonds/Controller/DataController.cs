@@ -555,7 +555,7 @@ namespace des_fonds.Controller
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader())
                 {
-                    if (reader.Read())
+                    while (reader.Read())
                     {
 
 
@@ -570,11 +570,11 @@ namespace des_fonds.Controller
 
 
                     }
-                    else
-                    {
+                    
+                    
                         Close();
                         throw new Exception("No Expense Available");
-                    }
+                    
                 }
 
 
