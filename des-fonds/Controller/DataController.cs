@@ -48,18 +48,11 @@ namespace des_fonds.Controller
 
         }
 
-
-
-
         public static void Close()
         {
             connection.Close();
             Console.WriteLine("Connection closed");
         }
-
-
-
-
 
         public static void CreateUserTable()
         {
@@ -126,12 +119,12 @@ namespace des_fonds.Controller
         // public static void CreateHousehold(string HouseHoldName) 
         //{ OpenConnection();
         //  string create = "CREATE TABLE @household" +
-<<<<<<< HEAD
+
         //   "(HouseHold_ID PRIMARY KEY NOT NULL," +
         // "user_id" +
         // "member_id;
         //household id  user_id, member_id
-=======
+
         //   "(User_ID INT NOT NULL," +
         // ;
 
@@ -158,7 +151,26 @@ namespace des_fonds.Controller
                 "FOREIGN KEY (mem6_id) REFERENCES users(ID))";
             MySqlCommand cmd = new MySqlCommand(houseTable, connection);
             cmd.ExecuteNonQuery();
+            Close();
         }
+
+        public static void InsertHouseholdHead(User user)
+        {            
+            string insertHouse = "INSERT INTO households" +
+                "(user_id)" +
+                "VALUES(@user_id)";
+            OpenConnection();
+            MySqlCommand cmd = new MySqlCommand(insertHouse, connection);
+
+            //adding parameters
+            cmd.Parameters.AddWithValue("@user_id", user.Id);
+            cmd.ExecuteNonQuery();
+            Close();
+        }
+
+
+
+
         public static void CreateBillTable()
         {
             OpenConnection();
@@ -384,31 +396,43 @@ namespace des_fonds.Controller
 
         public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
         {
-        stirng insert = "INSERT into messages(Sender,SenderID,Receiver,ReceiverID,Message) VALUES(@sender,@senid,@receiver,@recid,@message";
-        MySqlCommand qCmd = new MySqlCommand(insert,connection)
-       qCmd.Param
-        qCmd.Execute
-        Close();
+            OpenConnection();
+            string insert = "INSERT INTO messages (Sender, SenderID, Receiver, ReceiverID, Message) " +
+                        "VALUES (@sender, @senid, @receiver, @recid, @message)";
+
+            using (MySqlCommand qCmd = new MySqlCommand(insert, connection))
+            {
+                qCmd.Parameters.AddWithValue("@sender", sender);
+                qCmd.Parameters.AddWithValue("@senid", senid);
+                qCmd.Parameters.AddWithValue("@receiver", receiver);
+                qCmd.Parameters.AddWithValue("@recid", recid);
+                qCmd.Parameters.AddWithValue("@message", message);
+
+                qCmd.ExecuteNonQuery();
+            }
+            Close();
         }
 
         public static void CheckForMessage(int recId)
         {
-            string get = "SELECT from message WHERE ReceiverID = @recId";
+            OpenConnection();
+            string get = "SELECT Sender, SenderID,Receiver,ReceiverID,Message,from messages WHERE ReceiverID = @recId";
+
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             using (MySqlDataReader reader = qCmd.ExecuteReader())
             {
                 if (reader.Read())
                 {
 
-                    string sender = reader.GetString(0);
-                    int senderID = reader.GetInt32(1);
-                    string Receiver = reader.GetString(3);
-                    int ReceiverID = reader.GetInt32(4);
-                    string message = reader.GetString(5);
+                    string sender = reader.GetString("Sender");
+                    int senderID = reader.GetInt32("SenderID");
+                    string Receiver = reader.GetString("Receiver");
+                    int ReceiverID = reader.GetInt32("ReceiverID");
+                    string message = reader.GetString("Message");
 
 
+                   
                     Close();
-                    //return new Message();
 
                 }
                 else

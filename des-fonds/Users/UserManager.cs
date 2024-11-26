@@ -197,7 +197,7 @@ public static class UserManager
             //add to users statements
             user.AddStatement(income);
             string type = "INCOME";
-           DataController.addIncomeEntry(source, amount, date, type,user.Id);
+            DataController.addIncomeEntry(source, amount, date, type,user.Id);
         }
 
     }
@@ -569,7 +569,8 @@ public static class UserManager
             {
                 throw new Exception("Message cant be empty");
             }
-            Message msg = new Message(DateTime.Now, partyA, partyB, message);
+           // Message msg = new Message(DateTime.Now, partyA, partyB, message);
+            DataController.AddMessageEntry(partyA.Uname, partyA.Id, partyB.Uname, partyB.Id, message);
            
         }
         catch 

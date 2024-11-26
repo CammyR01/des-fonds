@@ -39,7 +39,7 @@ namespace des_fonds
             //checkAddressChangeForHouseMember(app);
             databaseTest();
             //databaseLoader();
-            DataController.CreateMessageTable();
+           
         }
         private static void databaseTest() 
         {
@@ -53,27 +53,8 @@ namespace des_fonds
                 DataController.CreateHouseHoldTable();
                 DataController.CreateBillTable();
 
-                // add a user
-                int id = 1000;
-                string fname = "testname";
-                string lname = "lastName";
-                int age = 44;
-                string uname = "testmeUsername";
-                string password = PassManager.HashPassword("password");
-                string street = "15 Main street";
-                string city = "Glasgow";
-                string postcode = "G71 7bk";
-                string country = "scotland";
 
-                DataController.AddUserEntry(fname, lname, age, uname, password, street, postcode, city, country, out int lastId) ;
-                Console.WriteLine("adduserentry success");
-
-                User user = DataController.GetUserEntry(uname);
-                Console.WriteLine("got user back");
-                Console.WriteLine(user);
-
-                //DataController.CreateAddressTable();// create address table
-                
+               
 
             }
             catch (Exception ex)
