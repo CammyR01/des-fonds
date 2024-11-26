@@ -590,9 +590,14 @@ public static class UserManager
         partyA.Household.Members.Add(acceptedInvite.PartyB);
         
     }
-    public static void AcceptInvite(User user, Invite invite)
+    public static void AcceptInvite(User user)
     {
-        invite.Accept();
+       
+        
+    }
+
+    public static void RejectInvite(User user)
+    {
         
     }
     public static Message ReceiveMessage(User partyB) 
@@ -609,7 +614,7 @@ public static class UserManager
         }
 
     }
-    private static User GetUserByUsername(string username)
+   private static User GetUserByUsername(string username)
     {
         foreach (User u in MoneyApp.Instance.UserList)
         {

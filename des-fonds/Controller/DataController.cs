@@ -503,12 +503,81 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void GetIncomeStatements()
+        public static void GetIncomeStatements(int id)
         {
-            string get = "SELECT from statements WHERE type = 'INCOME';";
+            string get = "SELECT source, amount, date user_id from statements WHERE type = 'INCOME' user_id = @id;";
+            using (MySqlCommand qCmd = new MySqlCommand(get, connection)) 
+            {
+                qCmd.Parameters.AddWithValue("@id", id);
+                int totalIncome = 0;
+                List<int> incomes = new List<int>();
+
+                using (MySqlDataReader reader = qCmd.ExecuteReader()) 
+                {
+                    while (reader.Read())
+                    {
+                        
+              
+                            string source = reader.GetString("source");
+                            int amount = reader.GetInt32("amount");
+                            DateTime date = reader.GetDateTime("date");
+                            int uID = reader.GetInt32("user_id");
+
+                            Close();
+                            incomes.Add(amount);
+                        totalIncome += amount;
+                            
+                        
+
+                    }
+                    
+               
+                    Close();
+                        
+                    
+                }
+            
+
+            }   
         }
 
-        public static void GetExpenseStatements() { }
+        public static Expense GetExpenseStatements(int id) 
+        {
+            string get = "SELECT source, amount, date user_id from statements WHERE type = 'EXPENSE' user_id = @id;";
+            using (MySqlCommand qCmd = new MySqlCommand(get, connection))
+            {
+                qCmd.Parameters.AddWithValue("@id", id);
+
+                using (MySqlDataReader reader = qCmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+
+
+                        string source = reader.GetString("source");
+                        int amount = reader.GetInt32("amount");
+                        DateTime date = reader.GetDateTime("date");
+                        int uID = reader.GetInt32("user_id");
+
+                        Close();
+
+                        return new Expense(source, amount, date);
+
+
+                    }
+                    else
+                    {
+                        Close();
+                        throw new Exception("No Expense Available");
+                    }
+                }
+
+
+            }
+
+
+
+        }
 
 
         public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
@@ -529,32 +598,7 @@ namespace des_fonds.Controller
             }
             Close();
         }
-        //public static bool CheckForMessage(int recId) 
-        //{   OpenConnection();
-          //  string get = "SELECT ReceiverID from messages WHERE ReceiverID=@recID";
-            
-            //MySqlCommand qCmd = new MySqlCommand(get, connection);
-
-            //qCmd.Parameters.AddWithValue("@recID", recId);
-            //using (MySqlDataReader reader = qCmd.ExecuteReader())
-            //{
-              //  if (reader.Read())
-                //{
-                  //  int ReceiverID = reader.GetInt32("ReceiverID");
-
-                    //if(ReceiverID == null) { }
-
-                    //Close();
-
-                //}
-                //else
-                //{
-                  //  throw new Exception("error");
-                    //Close();
-                //}
-                
-
-//            }
+      
 
         public static Message GetMessage(int recId)
         {
@@ -577,9 +621,11 @@ namespace des_fonds.Controller
                     string message = reader.GetString("Message");
                     User partyA = GetUserEntry(sender);
                     User partyB = GetUserEntry(Receiver);
-
-                    return new Message(DateTime.Now,partyA,partyB,message);
+                   
                     Close();
+                    
+                    return new Message(DateTime.Now,partyA,partyB,message);
+                    
 
                 }
                 else
