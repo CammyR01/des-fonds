@@ -339,7 +339,7 @@ namespace des_fonds.Controller
             //income.amount
             //income.date
             OpenConnection();
-            string insert = "INSERT INTO statement(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
+            string insert = "INSERT INTO statements(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
 
             qCmd.Parameters.AddWithValue("@source", source);
@@ -355,15 +355,20 @@ namespace des_fonds.Controller
 
         public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
-            string delete = "DELETE from statement WHERE source = @source amount = @amount date = @date type = INCOME";
+            string delete = "DELETE from statements WHERE source = @source amount = @amount date = @date type = INCOME";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
         }
 
+        public static void removeExpenseEntry(string source, double expense, DateTime date)
+        {
+            string delete = "DELETE from statements WHERE source = @source amount = @expense date = @date type = EXPENSE";
+            MySqlCommand qCmd = new MySqlCommand(delete, connection);
+        }
 
         public static void addExpenseEntry(string source, double amount, DateTime date, string type, int uid)
         {
             OpenConnection();
-            string insert = "INSERT INTO statement(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
+            string insert = "INSERT INTO statements(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
 
             qCmd.Parameters.AddWithValue("@source", source);
@@ -376,20 +381,23 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
 
-        public static void removeExpenseEntry(string source, double expense, DateTime date)
-        {
-
-        }
+  
 
         public static void GetStatementTable(DateTime date)
         {
-            string get = "SELECT from statement WHERE date = @date";
+            string get = "SELECT from statements WHERE date = @date";
+            MySqlCommand qCmd = new MySqlCommand(get, connection);
+            qCmd.ExecuteNonQuery();
+        }
+        public static void GetStatements(int id)
+        {
+            string get = "SELECT from statements WHERE user_id = '@id';";
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             qCmd.ExecuteNonQuery();
         }
         public static void GetIncomeStatements()
         {
-            string get = "SELECT from statement WHERE type = 'INCOME';";
+            string get = "SELECT from statements WHERE type = 'INCOME';";
         }
 
         public static void GetExpenseStatements() { }
