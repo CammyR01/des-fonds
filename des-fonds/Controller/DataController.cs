@@ -536,12 +536,16 @@ namespace des_fonds.Controller
             }   
         }
 
-        public static Expense GetExpenseStatements(int id) 
+        public static void GetExpenseStatements(int id) 
         {
             string get = "SELECT source, amount, date user_id from statements WHERE type = 'EXPENSE' user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection))
             {
                 qCmd.Parameters.AddWithValue("@id", id);
+
+                int totalExpense = 0;
+                List<int> expenses = new List<int>();
+
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader())
                 {
@@ -555,8 +559,8 @@ namespace des_fonds.Controller
                         int uID = reader.GetInt32("user_id");
 
                         Close();
-
-                        return new Expense(source, amount, date);
+                        expenses.Add(amount);
+                        totalExpense += amount;
 
 
                     }
