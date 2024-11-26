@@ -161,7 +161,7 @@ namespace des_fonds.Controller
         public static void DeleteUser(int id, string uName, string pwd)
         {
             OpenConnection();
-            string delete = "DELETE FROM users WHere ID = @id)";
+            string delete = "DELETE FROM users WHERE ID = @id)";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
@@ -207,7 +207,7 @@ namespace des_fonds.Controller
                         string city = reader.GetString(8);
                         string country = reader.GetString(9);
                         Close();
-                        return new User(userId, uname, pwd, fname, lname, age, street, postcode, city, country);
+                        return new User(userId, uname, pwd,fname,lname,age, street, postcode, city, country);
                         
                     }
                     else
