@@ -416,22 +416,23 @@ namespace des_fonds.Controller
         public static void CheckForMessage(int recId)
         {
             OpenConnection();
-            string get = "SELECT from messages WHERE ReceiverID = @recId";
+            string get = "SELECT Sender, SenderID,Receiver,ReceiverID,Message,from messages WHERE ReceiverID = @recId";
+
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             using (MySqlDataReader reader = qCmd.ExecuteReader())
             {
                 if (reader.Read())
                 {
 
-                    string sender = reader.GetString(0);
-                    int senderID = reader.GetInt32(1);
-                    string Receiver = reader.GetString(3);
-                    int ReceiverID = reader.GetInt32(4);
-                    string message = reader.GetString(5);
+                    string sender = reader.GetString("Sender");
+                    int senderID = reader.GetInt32("SenderID");
+                    string Receiver = reader.GetString("Receiver");
+                    int ReceiverID = reader.GetInt32("ReceiverID");
+                    string message = reader.GetString("Message");
 
 
+                   
                     Close();
-                    //return new Message();
 
                 }
                 else
