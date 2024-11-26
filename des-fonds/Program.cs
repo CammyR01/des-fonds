@@ -20,7 +20,7 @@ namespace des_fonds
             //CreateExpense();//creates an expense.
             //CreateBill();//creates a bill
             //EditStatus();
-            CalcAnnualIncome();//calculate the annual income
+            //CalcAnnualIncome();//calculate the annual income
             //AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             //TestCalculateMonthlyIncome();
             //TestCalculateMonthlyExpense();
@@ -37,7 +37,7 @@ namespace des_fonds
             //AcceptInvite(app);
             //CheckAcceptInvite(app);
             //checkAddressChangeForHouseMember(app);
-            //databaseTest();
+            databaseTest();
             //databaseLoader();
             DataController.CreateMessageTable();
         }
@@ -50,6 +50,8 @@ namespace des_fonds
                 DataController.CreateAddressTable();//create addresses table
                 DataController.CreateStatementTable();
                 DataController.CreateMessageTable();
+                DataController.CreateHouseHoldTable();
+                DataController.CreateBillTable();
 
                 // add a user
                 int id = 1000;
@@ -235,20 +237,7 @@ namespace des_fonds
                 //annualIncome = FinanceCalculator.CalculateIncome(user, year);
                 //display user and annual income total
                 //Console.WriteLine(user + "\n" + "annual Income: £" + annualIncome);
-                string type = "";
-                List <Statement> list = user.Statements;
-                foreach(Statement s in list)
-                {
-                    if(s is Income income)
-                    {
-                        type = income.GetType().ToString();
-                    }
-                    else if (s is Expense expense)
-                    {
-                        type = expense.GetType().ToString();
-                    }
-                    Console.WriteLine(type);
-                }
+               
                 
             }
             catch (Exception ex)
