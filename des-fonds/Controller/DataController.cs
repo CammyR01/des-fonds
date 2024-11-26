@@ -397,15 +397,20 @@ namespace des_fonds.Controller
         public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
         {
             OpenConnection();
-            string insert = "INSERT into messages(Sender,SenderID,Receiver,ReceiverID,Message) VALUES(@sender,@senid,@receiver,@recid,@message)";
-            MySqlCommand qCmd = new MySqlCommand(insert, connection);
-            qCmd.Parameters.AddWithValue("@sender", sender);
-            qCmd.Parameters.AddWithValue("@senid", senid);
-            qCmd.Parameters.AddWithValue("@receiver", receiver);
-            qCmd.Parameters.AddWithValue("@recid", recid);
-            qCmd.Parameters.AddWithValue("@message", message);
-            qCmd.ExecuteNonQuery();
-        Close();
+            string insert = "INSERT INTO messages (Sender, SenderID, Receiver, ReceiverID, Message) " +
+                        "VALUES (@sender, @senid, @receiver, @recid, @message)";
+
+            using (MySqlCommand qCmd = new MySqlCommand(insert, connection))
+            {
+                qCmd.Parameters.AddWithValue("@sender", sender);
+                qCmd.Parameters.AddWithValue("@senid", senid);
+                qCmd.Parameters.AddWithValue("@receiver", receiver);
+                qCmd.Parameters.AddWithValue("@recid", recid);
+                qCmd.Parameters.AddWithValue("@message", message);
+
+                qCmd.ExecuteNonQuery();
+            }
+            Close();
         }
 
         public static void CheckForMessage(int recId)
