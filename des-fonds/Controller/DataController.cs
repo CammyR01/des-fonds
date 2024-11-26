@@ -217,9 +217,9 @@ namespace des_fonds.Controller
                 List<User> members = new List<User>();
                 if (reader.Read())
                 {
-                    members = new List<User>();
-                    id = reader.GetInt32(0);
-                    headId = reader.GetInt32(1);
+                    
+                    id = reader.GetInt32(1);
+                    headId = reader.GetInt32(0);
                     
                     for (int i = 2; i < 8; i++)
                     {
@@ -629,8 +629,9 @@ namespace des_fonds.Controller
 
                 }
                 else {
-                    return new Exception("issue");
-                        Close(); }
+                    Close();
+                    throw new Exception("issue");
+                         }
 
                 
                  

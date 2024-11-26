@@ -37,7 +37,7 @@ namespace des_fonds
             //AcceptInvite(app);
             //CheckAcceptInvite(app);
             //checkAddressChangeForHouseMember(app);
-            databaseTest();
+           // databaseTest();
             //databaseLoader();
            
         }
