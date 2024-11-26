@@ -294,6 +294,48 @@ namespace des_fonds.Controller
 
 
         }
+        public static User GetUserEntry(int uId)
+        {
+
+            OpenConnection();
+            string select = "SELECT u.ID, u.First_Name, u.Last_Name, u.Age, u.UName, u.PWD," +
+                " a.street, a.postcode, a.city, a.country" +
+                " FROM users u" +
+                " LEFT JOIN addresses a ON u.ID = a.user_id" +
+                " WHERE ID = @uid";
+            using (MySqlCommand command = new MySqlCommand(select, connection))
+            {
+                command.Parameters.AddWithValue("@uid", uId);
+
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userId = reader.GetInt32(0);
+                        string fname = reader.GetString(1);
+                        string lname = reader.GetString(2);
+                        int age = reader.GetInt32(3);
+                        string uname = reader.GetString(4);
+                        string pwd = reader.GetString(5);
+                        string street = reader.GetString(6);
+                        string postcode = reader.GetString(7);
+                        string city = reader.GetString(8);
+                        string country = reader.GetString(9);
+                        Close();
+                        return new User(userId, uname, pwd, fname, lname, age, street, postcode, city, country);
+
+                    }
+                    else
+                    {
+                        Close();
+                        throw new Exception("User not found");
+                    }
+                }
+            }
+
+
+        }
 
 
 
