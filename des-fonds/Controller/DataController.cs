@@ -194,64 +194,34 @@ namespace des_fonds.Controller
                 "VALUES(@house_id, @name, @amount, @date)";
             using MySqlCommand cmd = new MySqlCommand(insertBill, connection);
             Household house = GetHousehold(user);
-            cmd.Parameters.AddWithValue("@house_id", house.Id);
-            cmd.Parameters.AddWithValue("@name", billName);
-            cmd.Parameters.AddWithValue("@amount", amount);
-            cmd.Parameters.AddWithValue("@date", date);
-            cmd.ExecuteNonQuery();
+            cmd.Parameters.AddWithValue("@house_id",  )
             Close();
             
         }
         public static Household GetHousehold(User user)
         {
-            string gethouse = "SELECT * FROM households " +
+            string gethouse = "SELECT * FROM households" +
                 "WHERE user_id = @user_id";
             using MySqlCommand cmd = new MySqlCommand(gethouse, connection);
             cmd.Parameters.AddWithValue("@user_id", user.Id);
             using MySqlDataReader reader = cmd.ExecuteReader();
-
-            try
-            {
-                int id = 0;
-                int headId = 0;
-                List<User> members = new List<User>();
-                if (reader.Read())
+            int[] membersIDs = new int[6];
+            int id = reader.GetInt32(0);
+            int headId = reader.GetInt32(1);           
+            for(int i = 1; i < 8; i++)
+            {                
+                if(reader.IsDBNull(i))
                 {
-                    members = new List<User>();
-                    id = reader.GetInt32(0);
-                    headId = reader.GetInt32(1);
-                    
-                    for (int i = 2; i < 8; i++)
-                    {
-                        if (reader.IsDBNull(i))
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            int memberid = reader.GetInt32(i);
-                            User member = GetUserEntry(memberid);
-                            members.Add(member);
-                        }
-                    }
-                    if (!reader.IsDBNull(8))
-                    {
-                        int bill_id = reader.GetInt32(8);
-                    }
-
+                    break;
                 }
-
-
-                return new Household(id, headId, members);
-
+                int memberid = reader.GetInt32(i);
+                User user = GetUserEntry()
+                membersIDs.Append(memberid);
             }
-            catch(Exception e)
-            {
-                throw new Exception(e.Message);
-            }
+            int bill_id = reader.GetInt32(8);
+
+            Household = new Household();
                         
-                
-            
             
 
 
