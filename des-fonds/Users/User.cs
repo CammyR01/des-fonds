@@ -73,7 +73,7 @@ public class User
 
     }
 
-    public User(string uname, string upass, string firstname, string lastname, int age, string street, string postcode, string city, string country)
+    public User(int userId, string uname, string upass, string firstname, string lastname, int age, string street, string postcode, string city, string country)
     {
         this.uName = uname;
         this.uPass = upass;

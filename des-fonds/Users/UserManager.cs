@@ -31,6 +31,7 @@ public static class UserManager
                         user.Uname = username;
                         user.FirstName = firstname;
                         user.LastName = lastname;
+                        DataController.UpdateUserEntry(user.Id, username, firstname, lastname);
                         Console.WriteLine("user name updated to :" + user.Uname);
                     }
                     else
@@ -195,7 +196,8 @@ public static class UserManager
             Income income = new Income(source, amount, date);
             //add to users statements
             user.AddStatement(income);
-           // DataController.addIncomeEntry(income.id, user.id, source, amount, date);
+            string type = "INCOME";
+           DataController.addIncomeEntry(source, amount, date, type,user.Id);
         }
 
     }
@@ -229,7 +231,8 @@ public static class UserManager
             DateTime date = DateTime.Parse(strDate);
             Expense expense = new Expense(source, amount, date);
             user.AddStatement(expense);
-           //DataController.addExpenseEntry(expense.id, user.id, source, amount, date);
+            string type = "EXPENSE";
+           DataController.addExpenseEntry(source,amount, date,type,user.Id);
         }
     }
     public static void RemoveUser(User user)
@@ -396,20 +399,39 @@ public static class UserManager
     }
     public static User LoginUser(string username, string password)
     {
-        MoneyApp app = MoneyApp.Instance;
-        foreach (User user in app.UserList)
+        //MoneyApp app = MoneyApp.Instance;
+
+        //foreach (User user in app.UserList)
+        //{
+        //    if (user.Uname == username)
+        //    {
+        //        //check password
+        //        if (PassManager.CheckHash(user.Upass, password))
+        //        {
+        //            return user;
+        //        }
+        //        break;
+        //    }
+        //}
+        try
         {
-            if (user.Uname == username)
+            
+            User user = DataController.GetUserEntry(username);
+            if (PassManager.CheckHash(user.Upass, password))
             {
-                //check password
-                if (PassManager.CheckHash(user.Upass, password))
-                {
-                    return user;
-                }
-                break;
+                return user;
             }
+            else
+            {
+                throw new Exception("User name or password incorrect");
+            }
+            
         }
-        throw new Exception("Username or password incorrect");
+        catch(Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+        
 
     }
     public static bool IsStrEmpty(string str)
@@ -486,13 +508,13 @@ public static class UserManager
         }
     }
 
-    public static void RegisterUser(string username, string password, string firstname, string lastname, string age, string street, string postcode, string city, string country)
+    public static void RegisterUser(string username, string password, string firstname, string lastname, string strAge, string street, string postcode, string city, string country)
     {
         try
         {
             //Validate registration fields
             if (isValidUserName(username))
-                if(IsValidAge(age))
+                if(IsValidAge(strAge))
                     if(IsValidFirstName(firstname))
                         if(IsValidLastName(lastname))
                             if (IsStreetValid(street))
@@ -503,18 +525,22 @@ public static class UserManager
                                             //All validation passed
                                             //hash password
                                             string hashPass = PassManager.HashPassword(password);
-                                            int age1= Convert.ToInt32(age);
+                                            int age= Convert.ToInt32(strAge);
                                             //create user
-                                            User user = new User(username, hashPass,firstname,lastname,age1, street, postcode, city, country);
+                                            DataController.AddUserEntry(firstname, lastname, age, username, hashPass, street, postcode, city, country, out int lastId);
+                                            
+                                            User user = new User(lastId, username, hashPass,firstname,lastname,age, street, postcode, city, country);
                                             //add user to instace list
-                                            MoneyApp.Instance.AddUser(user);
-                                            DataController.AddUserEntry(user.Id,user.FirstName, user.LastName, user.Age, user.Uname, hashPass);
+                                            //MoneyApp.Instance.AddUser(user);
+                                            
                                         }
         }
         catch (Exception ex)
         {
             //a validation failed, print message
+
             Console.WriteLine(ex.Message);
+            throw new Exception(ex.Message);
         }
 
     }

@@ -17,8 +17,15 @@ namespace des_fonds
         {
             get
             {
-                if(app == null)
+                if (app == null)
                 {
+                    DataController.OpenConnection();
+                    DataController.CreateUserTable();
+                    DataController.CreateAddressTable();
+                    DataController.CreateStatementTable();
+
+                
+                    
                     app = new MoneyApp();
                     app.populate(); //populates the userlist with users includeing address and incomes and statements
                 }
@@ -61,11 +68,11 @@ namespace des_fonds
         private void populate()
         {
             //create users with addresses
-            User user1 = new User("ash", PassManager.HashPassword("pass"),"John","De",12, "1 Some Street", "g123bh","A City", "Somewhere");
-            User user2 = new User("bob", PassManager.HashPassword("pass2"), "Joe", "Di", 12, "2 Another Street", "g098cg", "Another City", "SomeWhere Else");
-            User user3 = new User("suzan", PassManager.HashPassword("pass3"), "Ti", "Last", 12, "3 Some Lane", "g389sd", "Greater City", "Somewhere");
-            User user4 = new User("mel", PassManager.HashPassword("pass4"), "John", "Doe", 12, "4 Another Lane", "g128jh", "City of Another", "SomeWhere too");
-
+            //User user1 = new User("ash", PassManager.HashPassword("pass"),"John","De",12, "1 Some Street", "g123bh","A City", "Somewhere");
+            //User user2 = new User("bob", PassManager.HashPassword("pass2"), "Joe", "Di", 12, "2 Another Street", "g098cg", "Another City", "SomeWhere Else");
+            //User user3 = new User("suzan", PassManager.HashPassword("pass3"), "Ti", "Last", 12, "3 Some Lane", "g389sd", "Greater City", "Somewhere");
+            //User user4 = new User("mel", PassManager.HashPassword("pass4"), "John", "Doe", 12, "4 Another Lane", "g128jh", "City of Another", "SomeWhere too");
+            
             //Create incomes for users
             Income in1 = new Income("Wage", 1234.99, new DateTime(2024, 10, 1));
             Income in2 = new Income("Side Hustle", 49.88, new DateTime(2024, 10, 2));
@@ -120,82 +127,87 @@ namespace des_fonds
 
 
             //user1
-            user1.AddStatement(in2);
-            user1.AddStatement(ex6);
-            user1.AddStatement(in7);
-            user1.AddStatement(in3);
-            user1.AddStatement(in6);
-            user1.AddStatement(in2);
-            user1.AddStatement(in14);
-            user1.AddStatement(in13);
-            user1.AddStatement(ex2);
-            user1.AddStatement(in6);
-            user1.AddStatement(ex7);
-            user1.AddStatement(ex3);
-            user1.AddStatement(ex6);
-            user1.AddStatement(in12);
-            user1.AddStatement(ex14);
-            user1.AddStatement(ex13);
+            //user1.AddStatement(in2);
+            //user1.AddStatement(ex6);
+            //user1.AddStatement(in7);
+            //user1.AddStatement(in3);
+            //user1.AddStatement(in6);
+            //user1.AddStatement(in2);
+            //user1.AddStatement(in14);
+            //user1.AddStatement(in13);
+            //user1.AddStatement(ex2);
+            //user1.AddStatement(in6);
+            //user1.AddStatement(ex7);
+            //user1.AddStatement(ex3);
+            //user1.AddStatement(ex6);
+            //user1.AddStatement(in12);
+            //user1.AddStatement(ex14);
+            //user1.AddStatement(ex13);
           
-            //user 2
-            user2.AddStatement(in1);
-            user2.AddStatement(ex1);
-            user2.AddStatement(in7);
-            user2.AddStatement(in3);
-            user2.AddStatement(in6);
-            user2.AddStatement(ex18);
-            user2.AddStatement(in14);
-            user2.AddStatement(in13);
-            user2.AddStatement(ex2);
-            user2.AddStatement(ex6);
-            user2.AddStatement(ex7);
-            user2.AddStatement(ex3);
-            user2.AddStatement(in6);
-            user2.AddStatement(in12);
-            user2.AddStatement(ex14);
-            user2.AddStatement(in13);
+            ////user 2
+            //user2.AddStatement(in1);
+            //user2.AddStatement(ex1);
+            //user2.AddStatement(in7);
+            //user2.AddStatement(in3);
+            //user2.AddStatement(in6);
+            //user2.AddStatement(ex18);
+            //user2.AddStatement(in14);
+            //user2.AddStatement(in13);
+            //user2.AddStatement(ex2);
+            //user2.AddStatement(ex6);
+            //user2.AddStatement(ex7);
+            //user2.AddStatement(ex3);
+            //user2.AddStatement(in6);
+            //user2.AddStatement(in12);
+            //user2.AddStatement(ex14);
+            //user2.AddStatement(in13);
   
-            //user3
-            user3.AddStatement(ex12);
-            user3.AddStatement(in16);
-            user3.AddStatement(ex17);
-            user3.AddStatement(ex13);
-            user3.AddStatement(ex16);
-            user3.AddStatement(in12);
-            user3.AddStatement(ex14);
-            user3.AddStatement(ex13);
-            user3.AddStatement(in12);
-            user3.AddStatement(ex17);
-            user3.AddStatement(in17);
-            user3.AddStatement(in3);
-            user3.AddStatement(ex6);
-            user3.AddStatement(in12);
-            user3.AddStatement(ex14);
-            user3.AddStatement(ex13);
+            ////user3
+            //user3.AddStatement(ex12);
+            //user3.AddStatement(in16);
+            //user3.AddStatement(ex17);
+            //user3.AddStatement(ex13);
+            //user3.AddStatement(ex16);
+            //user3.AddStatement(in12);
+            //user3.AddStatement(ex14);
+            //user3.AddStatement(ex13);
+            //user3.AddStatement(in12);
+            //user3.AddStatement(ex17);
+            //user3.AddStatement(in17);
+            //user3.AddStatement(in3);
+            //user3.AddStatement(ex6);
+            //user3.AddStatement(in12);
+            //user3.AddStatement(ex14);
+            //user3.AddStatement(ex13);
         
-            //user4
-            user1.AddStatement(in17);
-            user1.AddStatement(in16);
-            user1.AddStatement(in17);
-            user1.AddStatement(in13);
-            user1.AddStatement(in16);
-            user1.AddStatement(in12);
-            user1.AddStatement(in14);
-            user1.AddStatement(in13);
-            user1.AddStatement(ex12);
-            user1.AddStatement(in16);
-            user1.AddStatement(ex17);
-            user1.AddStatement(ex13);
-            user1.AddStatement(ex16);
-            user1.AddStatement(in2);
-            user1.AddStatement(ex4);
-            user1.AddStatement(ex3);
-       
+            ////user4
+            //user1.AddStatement(in17);
+            //user1.AddStatement(in16);
+            //user1.AddStatement(in17);
+            //user1.AddStatement(in13);
+            //user1.AddStatement(in16);
+            //user1.AddStatement(in12);
+            //user1.AddStatement(in14);
+            //user1.AddStatement(in13);
+            //user1.AddStatement(ex12);
+            //user1.AddStatement(in16);
+            //user1.AddStatement(ex17);
+            //user1.AddStatement(ex13);
+            //user1.AddStatement(ex16);
+            //user1.AddStatement(in2);
+            //user1.AddStatement(ex4);
+            //user1.AddStatement(ex3);
+
             //add users to the list
-            MoneyApp.Instance.AddUser(user1);
-            MoneyApp.Instance.AddUser(user2);
-            MoneyApp.Instance.AddUser(user3);
-            MoneyApp.Instance.AddUser(user4);
+            //MoneyApp.Instance.AddUser(user1);
+            //MoneyApp.Instance.AddUser(user2);
+            //MoneyApp.Instance.AddUser(user3);
+            //MoneyApp.Instance.AddUser(user4);
+            //adding users to database
+            UserManager.RegisterUser("ash", PassManager.HashPassword("pass"), "John", "deee", "34", "1 Some Street", "g123bh", "A City", "Somewhere");
+            UserManager.RegisterUser("bob", PassManager.HashPassword("pass2"), "joe", "diiii", "24", "2 Another Street", "g098cg", "Another City", "SomeWhere Else");
+            UserManager.RegisterUser("suzan", PassManager.HashPassword("pass3"), "tiaa", "last", "66", "3 Some Lane", "g389sd", "Greater City", "Somewhere");
+            UserManager.RegisterUser("mel", PassManager.HashPassword("pass4"), "john", "doe", "52", "4 Another Lane", "g128jh", "City of Another", "SomeWhere too");
         }
         
             
