@@ -392,7 +392,10 @@ namespace des_fonds.Controller
             string get = "SELECT from statement WHERE type = 'INCOME';";
         }
 
-        public static void GetExpenseStatements() { }
+        public static void GetExpenseStatements() 
+        {
+        
+        }
 
 
         public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
@@ -413,32 +416,7 @@ namespace des_fonds.Controller
             }
             Close();
         }
-        //public static bool CheckForMessage(int recId) 
-        //{   OpenConnection();
-          //  string get = "SELECT ReceiverID from messages WHERE ReceiverID=@recID";
-            
-            //MySqlCommand qCmd = new MySqlCommand(get, connection);
-
-            //qCmd.Parameters.AddWithValue("@recID", recId);
-            //using (MySqlDataReader reader = qCmd.ExecuteReader())
-            //{
-              //  if (reader.Read())
-                //{
-                  //  int ReceiverID = reader.GetInt32("ReceiverID");
-
-                    //if(ReceiverID == null) { }
-
-                    //Close();
-
-                //}
-                //else
-                //{
-                  //  throw new Exception("error");
-                    //Close();
-                //}
-                
-
-//            }
+      
 
         public static Message GetMessage(int recId)
         {
