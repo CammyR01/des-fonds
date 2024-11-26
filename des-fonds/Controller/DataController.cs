@@ -628,11 +628,13 @@ namespace des_fonds.Controller
                     
 
                 }
-                else
-                {
-                    Close();
-                    throw new Exception("MESSAGE CANT BE SENT!!!");
-                }
+                else {
+                    return new Exception("issue");
+                        Close(); }
+
+                
+                 
+                
 
             }
 
