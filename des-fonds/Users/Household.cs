@@ -22,11 +22,11 @@ namespace des_fonds.Users
         private int bill_id;
 
         //may no longer be needed
-        private List<User>? members = new List<User>();
+        private List<User> members = new List<User>();
         private User? head;
         private List<Bill>? bills;
 
-        public List<User>? Members { get => members; set => members = value; }
+        public List<User> Members { get => members; set => members = value; }
         public User? Head { get => head; set => head = value; }
         public List<Bill>? Bills { get => bills; set => bills = value; }
         public int Id { get => id; set => id = value; }

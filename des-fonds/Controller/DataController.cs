@@ -168,10 +168,43 @@ namespace des_fonds.Controller
             cmd.ExecuteNonQuery();
             Close();
         }
-        public static void InsertHouseholdMember(User user) 
+        public static void InsertHouseholdMember(Message message)
         {
-            string insert = "INSERT INTO household";
-            Household house = GetHousehold(user);
+            try
+            {
+                Household house = GetHousehold(message.PartyA);
+                int membercount = house.Members.Count;
+                string query = "";
+
+                if ((membercount + 1) < 6)
+                {
+
+                    query = $"INSERT INTO households " +
+                        "(mem{membercount + 1}_id)" +
+                        "VALUES(@mem)";
+                }
+                else
+                {
+                    throw new Exception("Members List is Full");
+                }
+
+                using MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                cmd.Parameters.AddWithValue("@mem", message.PartyB.Id);
+                cmd.ExecuteNonQuery();
+                Close();
+
+            }
+            catch
+            {
+                throw new Exception("Failed to add member");
+            }
+
+            
+            
+                
+            
+
             
         }
 
