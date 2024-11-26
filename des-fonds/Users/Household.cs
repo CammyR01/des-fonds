@@ -11,19 +11,50 @@ namespace des_fonds.Users
 {
     public class Household
     {
-        private List<User> members;
-        private User head;
-        private List<Bill> bills;
+        private int id;
+        private int user_id;
+        private int mem1_id;
+        private int mem2_id;
+        private int mem3_id;
+        private int mem4_id;
+        private int mem5_id;
+        private int mem6_id;
+        private int bill_id;
 
-        public List<User> Members { get => members; set => members = value; }
-        public User Head { get => head; set => head = value; }
-        public List<Bill> Bills { get => bills; set => bills = value; }
+        //may no longer be needed
+        private List<User>? members = new List<User>();
+        private User? head;
+        private List<Bill>? bills;
+
+        public List<User>? Members { get => members; set => members = value; }
+        public User? Head { get => head; set => head = value; }
+        public List<Bill>? Bills { get => bills; set => bills = value; }
+        public int Id { get => id; set => id = value; }
+        public int User_id { get => user_id; set => user_id = value; }
+        public int Mem1_id { get => mem1_id; set => mem1_id = value; }
+        public int Mem2_id { get => mem2_id; set => mem2_id = value; }
+        public int Mem3_id { get => mem3_id; set => mem3_id = value; }
+        public int Mem4_id { get => mem4_id; set => mem4_id = value; }
+        public int Mem5_id { get => mem5_id; set => mem5_id = value; }
+        public int Mem6_id { get => mem6_id; set => mem6_id = value; }
+        public int Bill_id { get => bill_id; set => bill_id = value; }
 
         public Household(User user)
         {
             this.head = user;
             members = new List<User>();
             bills = new List<Bill>();
+        }
+        public Household(int id, int user_id, int mem1_id, int mem2_id, int mem3_id, int mem4_id, int mem5_id, int mem6_id, int bill_id)
+        {
+            this.id = id;
+            this.user_id = user_id;
+            
+            this.bill_id = bill_id;
+        }
+        public Household()
+        {
+
         }
 
 

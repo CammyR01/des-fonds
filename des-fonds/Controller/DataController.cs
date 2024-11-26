@@ -185,6 +185,46 @@ namespace des_fonds.Controller
             cmd.ExecuteNonQuery();
         }
 
+        public static void InsertBill(User user, string billName, double amount, DateTime date)
+        {
+            OpenConnection();
+            string insertBill = "INSERT INTO bills" +
+                "(house_id, name, amount, due_date)" +
+                "VALUES(@house_id, @name, @amount, @date)";
+            using MySqlCommand cmd = new MySqlCommand(insertBill, connection);
+            Household house = GetHousehold(user);
+            cmd.Parameters.AddWithValue("@house_id",  )
+            Close();
+            
+        }
+        public static Household GetHousehold(User user)
+        {
+            string gethouse = "SELECT * FROM households" +
+                "WHERE user_id = @user_id";
+            using MySqlCommand cmd = new MySqlCommand(gethouse, connection);
+            cmd.Parameters.AddWithValue("@user_id", user.Id);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            int[] membersIDs = new int[6];
+            int id = reader.GetInt32(0);
+            int headId = reader.GetInt32(1);           
+            for(int i = 1; i < 8; i++)
+            {                
+                if(reader.IsDBNull(i))
+                {
+                    break;
+                }
+                int memberid = reader.GetInt32(i);
+                User user = GetUserEntry()
+                membersIDs.Append(memberid);
+            }
+            int bill_id = reader.GetInt32(8);
+
+            Household = new Household();
+                        
+            
+
+
+        }
 
         public static void AddUserEntry(string first_name, string last_name, int age, string uName, string pwd, string street, string postcode, string city, string country, out int lastId)
         {
@@ -260,35 +300,31 @@ namespace des_fonds.Controller
                 " FROM users u" +
                 " LEFT JOIN addresses a ON u.ID = a.user_id" +
                 " WHERE UName = @uName";
-            using (MySqlCommand command = new MySqlCommand(select, connection))
+            using MySqlCommand command = new MySqlCommand(select, connection);
+            command.Parameters.AddWithValue("@uName", uName);
+
+
+            using MySqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
             {
-                command.Parameters.AddWithValue("@uName", uName);
+                int userId = reader.GetInt32(0);
+                string fname = reader.GetString(1);
+                string lname = reader.GetString(2);
+                int age = reader.GetInt32(3);
+                string uname = reader.GetString(4);
+                string pwd = reader.GetString(5);
+                string street = reader.GetString(6);
+                string postcode = reader.GetString(7);
+                string city = reader.GetString(8);
+                string country = reader.GetString(9);
+                Close();
+                return new User(userId, uname, pwd, fname, lname, age, street, postcode, city, country);
 
-
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        int userId = reader.GetInt32(0);
-                        string fname = reader.GetString(1);
-                        string lname = reader.GetString(2);
-                        int age = reader.GetInt32(3);
-                        string uname = reader.GetString(4);
-                        string pwd = reader.GetString(5);
-                        string street = reader.GetString(6);
-                        string postcode = reader.GetString(7);
-                        string city = reader.GetString(8);
-                        string country = reader.GetString(9);
-                        Close();
-                        return new User(userId, uname, pwd, fname, lname, age, street, postcode, city, country);
-
-                    }
-                    else
-                    {
-                        Close();
-                        throw new Exception("User not found");
-                    }
-                }
+            }
+            else
+            {
+                Close();
+                throw new Exception("User not found");
             }
 
 
