@@ -48,18 +48,11 @@ namespace des_fonds.Controller
 
         }
 
-
-
-
         public static void Close()
         {
             connection.Close();
             Console.WriteLine("Connection closed");
         }
-
-
-
-
 
         public static void CreateUserTable()
         {
@@ -158,7 +151,26 @@ namespace des_fonds.Controller
                 "FOREIGN KEY (mem6_id) REFERENCES users(ID))";
             MySqlCommand cmd = new MySqlCommand(houseTable, connection);
             cmd.ExecuteNonQuery();
+            Close();
         }
+
+        public static void InsertHouseholdHead(User user)
+        {            
+            string insertHouse = "INSERT INTO households" +
+                "(user_id)" +
+                "VALUES(@user_id)";
+            OpenConnection();
+            MySqlCommand cmd = new MySqlCommand(insertHouse, connection);
+
+            //adding parameters
+            cmd.Parameters.AddWithValue("@user_id", user.Id);
+            cmd.ExecuteNonQuery();
+            Close();
+        }
+
+
+
+
         public static void CreateBillTable()
         {
             OpenConnection();
