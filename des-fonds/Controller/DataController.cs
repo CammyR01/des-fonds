@@ -382,6 +382,15 @@ namespace des_fonds.Controller
         public static void GetExpenseStatements() { }
 
 
+        public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
+        {
+        stirng insert = "INSERT into messages(Sender,SenderID,Receiver,ReceiverID,Message) VALUES(@sender,@senid,@receiver,@recid,@message";
+        MySqlCommand qCmd = new MySqlCommand(insert,connection)
+       qCmd.Param
+        qCmd.Execute
+        Close();
+        }
+
         public static void CheckForMessage(int recId)
         {
             string get = "SELECT from message WHERE ReceiverID = @recId";
