@@ -33,9 +33,7 @@ namespace des_fonds.Controller
                 {
                     connection.Open();
                     Console.WriteLine("connection successful");
-                    //Console.WriteLine("Connection established");
-                    //MySqlCommand sqlCommand = new MySqlCommand("CREATE DATABASE " + cDB, connection);
-                    //sqlCommand.ExecuteNonQuery();
+                    
                 }
                 catch
                 {
