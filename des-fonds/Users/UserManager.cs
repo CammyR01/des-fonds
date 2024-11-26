@@ -569,8 +569,8 @@ public static class UserManager
             {
                 throw new Exception("Message cant be empty");
             }
-            Message msg = new Message(DateTime.Now, partyA, partyB, message);
-           
+           // Message msg = new Message(DateTime.Now, partyA, partyB, message);
+            DataController.AddMessageEntry(partyA.Uname, partyA.Id, partyB.Uname, partyB.Id, message);
         }
         catch 
         {
