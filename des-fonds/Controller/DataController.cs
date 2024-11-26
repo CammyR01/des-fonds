@@ -109,7 +109,7 @@ namespace des_fonds.Controller
         public static void CreateMessageTable()
         {
             OpenConnection();
-            string create = "CREATE TABLE message"
+            string create = "CREATE TABLE message";
         }
 
 
