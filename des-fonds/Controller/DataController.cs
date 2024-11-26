@@ -168,6 +168,12 @@ namespace des_fonds.Controller
             cmd.ExecuteNonQuery();
             Close();
         }
+        public static void InsertHouseholdMember(User user) 
+        {
+            string insert = "INSERT INTO household"
+            Household house = GetHousehold(user);
+            
+        }
 
 
 
