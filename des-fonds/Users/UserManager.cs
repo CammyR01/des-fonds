@@ -563,7 +563,8 @@ public static class UserManager
     {
         try
         {
-            User partyB = GetUserByUsername(username);
+            User partyB = DataController.GetUserEntry(username);
+           //User partyB = GetUserByUsername(username);
             if (UserManager.IsStrEmpty(message))
             {
                 throw new Exception("Message cant be empty");
