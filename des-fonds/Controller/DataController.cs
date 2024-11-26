@@ -110,6 +110,7 @@ namespace des_fonds.Controller
 
         public static void CreateMessageTable()
         {
+
             OpenConnection();
             string create = "CREATE TABLE messages" +
             "(Sender varchar(100)," +
@@ -120,18 +121,20 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(create, connection);
             qCmd.ExecuteNonQuery();
             Close();
+
         }
         // public static void CreateHousehold(string HouseHoldName) 
         //{ OpenConnection();
         //  string create = "CREATE TABLE @household" +
+<<<<<<< HEAD
         //   "(HouseHold_ID PRIMARY KEY NOT NULL," +
         // "user_id" +
         // "member_id;
         //household id  user_id, member_id
-        //MySqlCommand qCmd = new MySqlCommand(create, connection);
-        //qCmd.Parameters.AddWithValue("@household", HouseHoldName)
-        //qCmd.ExecuteNonQuery();
-        // }
+=======
+        //   "(User_ID INT NOT NULL," +
+        // ;
+
 
         public static void CreateHouseHoldTable()
         {
@@ -169,6 +172,7 @@ namespace des_fonds.Controller
             MySqlCommand cmd = new MySqlCommand(billTable, connection);
             cmd.ExecuteNonQuery();
         }
+
 
         public static void AddUserEntry(string first_name, string last_name, int age, string uName, string pwd, string street, string postcode, string city, string country, out int lastId)
         {
