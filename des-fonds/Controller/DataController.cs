@@ -1,9 +1,11 @@
+using des_fonds.Finances;
 using des_fonds.Users;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
 using System.Data;
 using System.Data.SqlClient;
+using System.Transactions;
 
 namespace des_fonds.Controller
 {
@@ -90,6 +92,26 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
 
+        public static void CreateStatementTable()
+        {
+            string stab = "CREATE TABLE statement" +
+                "(ID  int PRIMARY KEY AUTO_INCREMENT," +
+                "source varchar(100) NOT NULL," + 
+                "amount varchar(100)," + 
+                "date datetime," + 
+                "type ENUM('INCOME','EXPENSE') NOT NULL," +
+                 "user_id INT NOT NULL," +
+                "FOREIGN KEY (user_id) REFERENCES users(ID))";
+            MySqlCommand qcmd = new MySqlCommand(stab, connection);
+            qcmd.ExecuteNonQuery();
+        }
+
+        public static void CreateMessageTable()
+        {
+            OpenConnection();
+            string create = "CREATE TABLE message";
+        }
+
 
         public static void AddUserEntry(string first_name, string last_name, int age, string uName, string pwd, string street, string postcode, string city, string country, out int lastId)
         {
@@ -136,16 +158,24 @@ namespace des_fonds.Controller
             }
         }
 
-        public static void RemoveUserEntry(int id, string uName, string pwd)
+        public static void DeleteUser(int id, string uName, string pwd)
         {
+            OpenConnection();
             string delete = "DELETE FROM users WHere ID = @id)";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void UpdateUserEntry(int id, string uName)
+        public static void UpdateUserEntry(int id, string uName,string fname,string Lname)
         {
-            string update = "UPDATE users SET UName = @uName WHERE ID = @id";
+            OpenConnection();
+            string update = "UPDATE users SET UName = @uName, First_Name = @fname, Last_Name = @lname WHERE ID = @id";
             MySqlCommand qCmd = new MySqlCommand(update, connection);  
+           
+            qCmd.Parameters.AddWithValue ("@id", id);
+            qCmd.Parameters.AddWithValue("@uName", uName);
+            qCmd.Parameters.AddWithValue("@fname", fname);
+            qCmd.Parameters.AddWithValue("@lname", Lname);
+
             qCmd.ExecuteNonQuery();
         }
         public static User GetUserEntry(string uName)
@@ -193,15 +223,16 @@ namespace des_fonds.Controller
         
         
         
-        public static void AddAddressEntry(int id, string address)
-        {
-            string insert = "INSERT INTO address(ID,Address) VALUES(id,address)";
-            MySqlCommand qCmd = new MySqlCommand(insert, connection);
-            qCmd.ExecuteNonQuery();
-        }
+    //    public static void AddAddressEntry(int id, string address,)
+      //  {
+        //    string insert = "INSERT INTO address(ID,Address) VALUES(id,address)";
+         //   MySqlCommand qCmd = new MySqlCommand(insert, connection);
+          //  qCmd.ExecuteNonQuery();
+       // }
 
         public static void RemoveAddressEntry(int id, string address)
         {
+            
             string delete = "DELETE FROM users WHere ID = @id)";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
             qCmd.ExecuteNonQuery();
@@ -220,22 +251,31 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
         
-        public static void CreateStatementTable()
-        {
-            string stab = "CREATE TABLE statement(source varchar(100),amount varchar(100), date datetime,type varchar(100))";
-            MySqlCommand qcmd = new MySqlCommand(stab, connection);
-            qcmd.ExecuteNonQuery();
-        }
+      //  public static void CreateStatementTable()
+        //{
+          //  string stab = "CREATE TABLE statement(source varchar(100),amount varchar(100), date datetime,type varchar(100))";
+            //MySqlCommand qcmd = new MySqlCommand(stab, connection);
+            //qcmd.ExecuteNonQuery();
+        //}
         
-        public static void addIncomeEntry(string source,double amount, DateTime date)
+        public static void addIncomeEntry(string source,double amount, DateTime date, string type, int uid)
         {//other way to do this is by passing income class and using getter in insert statement
             //Income income
             //income.source
             //income.amount
             //income.date
-            string insert = "INSERT INTO statement(source,amount,date,INCOME) VALUES(source,amount,date)";
+            OpenConnection();
+            string insert = "INSERT INTO statement(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
                         MySqlCommand qCmd = new MySqlCommand(insert, connection);
-                        qCmd.ExecuteNonQuery();
+            
+            qCmd.Parameters.AddWithValue("@source", source);
+            qCmd.Parameters.AddWithValue("@amount", amount);
+            qCmd.Parameters.AddWithValue("@date", date);
+            qCmd.Parameters.AddWithValue("@type", type);
+            qCmd.Parameters.AddWithValue("@uid", uid);
+            
+            
+            qCmd.ExecuteNonQuery();
             
         }
 
@@ -246,10 +286,19 @@ namespace des_fonds.Controller
         }
 
 
-        public static void addExpenseEntry(string source,double expense,DateTime date)
+        public static void addExpenseEntry(string source, double amount, DateTime date, string type, int uid)
         {
-            string insert = "INSERT INTO statement(source,amount,date,EXPENSE) VALUES(source,amount,date)";
+            OpenConnection();
+            string insert = "INSERT INTO statement(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
+
+            qCmd.Parameters.AddWithValue("@source", source);
+            qCmd.Parameters.AddWithValue("@amount", amount);
+            qCmd.Parameters.AddWithValue("@date", date);
+            qCmd.Parameters.AddWithValue("@type", type);
+            qCmd.Parameters.AddWithValue("@uid", uid);
+
+
             qCmd.ExecuteNonQuery();
         }
         
@@ -264,7 +313,13 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(get,connection);
             qCmd.ExecuteNonQuery();
         }
-        
+        public static void GetIncomeStatements() {
+            string get = "SELECT from statement WHERE type = 'INCOME';";
+        }
+
+        public static void GetExpenseStatements() { }
+
+         
     }
     
 }

@@ -31,6 +31,7 @@ public static class UserManager
                         user.Uname = username;
                         user.FirstName = firstname;
                         user.LastName = lastname;
+                        DataController.UpdateUserEntry(user.Id, username, firstname, lastname);
                         Console.WriteLine("user name updated to :" + user.Uname);
                     }
                     else
@@ -195,7 +196,8 @@ public static class UserManager
             Income income = new Income(source, amount, date);
             //add to users statements
             user.AddStatement(income);
-           // DataController.addIncomeEntry(income.id, user.id, source, amount, date);
+            string type = "INCOME";
+           DataController.addIncomeEntry(source, amount, date, type,user.Id);
         }
 
     }
@@ -229,7 +231,8 @@ public static class UserManager
             DateTime date = DateTime.Parse(strDate);
             Expense expense = new Expense(source, amount, date);
             user.AddStatement(expense);
-           //DataController.addExpenseEntry(expense.id, user.id, source, amount, date);
+            string type = "EXPENSE";
+           DataController.addExpenseEntry(source,amount, date,type,user.Id);
         }
     }
     public static void RemoveUser(User user)
