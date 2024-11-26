@@ -598,9 +598,11 @@ namespace des_fonds.Controller
                     
 
                 }
-                else {
-                    return new Exception("issue");
-                        Close(); }
+                else 
+                {
+                    Close();
+                    throw new Exception("issue");
+                }
 
                 
                  
