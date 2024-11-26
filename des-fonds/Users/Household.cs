@@ -52,9 +52,11 @@ namespace des_fonds.Users
             
             this.bill_id = bill_id;
         }
-        public Household()
+        public Household(int id, int userId, List<User> members)
         {
-
+            this.id = id;
+            this.user_id= userId;
+            this.members = members;
         }
 
 
