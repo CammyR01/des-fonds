@@ -50,6 +50,8 @@ namespace des_fonds
                 DataController.CreateAddressTable();//create addresses table
                 DataController.CreateStatementTable();
                 DataController.CreateMessageTable();
+                DataController.CreateHouseHoldTable();
+                DataController.CreateBillTable();
 
                 // add a user
                 int id = 1000;
