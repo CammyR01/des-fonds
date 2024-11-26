@@ -39,7 +39,7 @@ namespace des_fonds
             //checkAddressChangeForHouseMember(app);
             //databaseTest();
             //databaseLoader();
-
+            DataController.CreateMessageTable();
         }
         private static void databaseTest() 
         {
@@ -87,6 +87,7 @@ namespace des_fonds
                 DataController.CreateUserTable();
                 DataController.CreateAddressTable();
                 DataController.CreateStatementTable();
+                DataController.CreateMessageTable();
 
 
             }

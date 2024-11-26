@@ -96,7 +96,7 @@ namespace des_fonds.Controller
         public static void CreateStatementTable()
         {  
             OpenConnection();
-            string stab = "CREATE TABLE statement" +
+            string stab = "CREATE TABLE statements" +
                 "(ID  int PRIMARY KEY AUTO_INCREMENT," +
                 "source varchar(100) NOT NULL," + 
                 "amount varchar(100)," + 
@@ -112,11 +112,12 @@ namespace des_fonds.Controller
         public static void CreateMessageTable()
         {
                 OpenConnection();
-                string create = "CREATE TABLE message" +
-                "(Sender varchar(100)" +
-                "Receiver varchar(100)" +
-                "ReceiverID INT" +
-                "Message varchar(100)";
+                string create = "CREATE TABLE messages" +
+                "(Sender varchar(100)," +
+                "SenderID INT,"+
+                "Receiver varchar(100)," +
+                "ReceiverID INT," +
+                "Message varchar(100))";
                 MySqlCommand qCmd = new MySqlCommand(create, connection);
                 qCmd.ExecuteNonQuery();
                  Close();
@@ -124,9 +125,10 @@ namespace des_fonds.Controller
        // public static void CreateHousehold(string HouseHoldName) 
         //{ OpenConnection();
           //  string create = "CREATE TABLE @household" +
-            //   "(User_ID INT NOT NULL," +
-              // ;
-
+            //   "(HouseHold_ID PRIMARY KEY NOT NULL," +
+              // "user_id" +
+              // "member_id;
+              //household id  user_id, member_id
             //MySqlCommand qCmd = new MySqlCommand(create, connection);
             //qCmd.Parameters.AddWithValue("@household", HouseHoldName)
             //qCmd.ExecuteNonQuery();
@@ -338,6 +340,13 @@ namespace des_fonds.Controller
 
         public static void GetExpenseStatements() { }
 
+
+        public static void CheckForMessage(int recId) 
+        {
+            string get = "SELECT from message WHERE ReceiverID = @recId";
+            MySqlCommand qCmd = new MySqlCommand(get,connection);
+            qCmd.ExecuteNonQuery();
+        }
          
     }
     

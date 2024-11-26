@@ -570,6 +570,7 @@ public static class UserManager
                 throw new Exception("Message cant be empty");
             }
             Message msg = new Message(DateTime.Now, partyA, partyB, message);
+           
         }
         catch 
         {
