@@ -595,13 +595,13 @@ public static class UserManager
         invite.Accept();
         
     }
-    public static void ReceiveMessage(User partyB) 
+    public static Message ReceiveMessage(User partyB) 
     {
         try
         {
 
-            DataController.GetMessage(partyB.Id);
-            
+          Message message =  DataController.GetMessage(partyB.Id);
+            return message;
         }
         catch
         {
