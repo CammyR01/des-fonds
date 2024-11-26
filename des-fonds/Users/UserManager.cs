@@ -415,6 +415,7 @@ public static class UserManager
         //}
         try
         {
+            
             User user = DataController.GetUserEntry(username);
             if (PassManager.CheckHash(user.Upass, password))
             {

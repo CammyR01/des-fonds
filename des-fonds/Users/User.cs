@@ -10,8 +10,9 @@ public class User
     private string firstName;
     private string lastName;
     private int age;
-    private int id;
     
+    private int id;
+    private static int nextId = 0;
     private Address address;
     private List<Statement> statements;
     private List<Bill> bills;
@@ -37,51 +38,49 @@ public class User
     public int Age { get => age; set => age = value; }
     public int Id { get => id; set => id = value; }
 
-
     /// <summary>
     /// constructor used to create user when retrieving from db
     /// </summary>
-    /// 
+    /// <param name="id"></param>
     /// <param name="fname"></param>
     /// <param name="lname"></param>
     /// <param name="age"></param>
     /// <param name="username"></param>
-    //public User(int id, string fname, string lname, int age, string username, string pwd)
-    //{
-    //    this.id = id;
-    //    this.firstName = fname;
-    //    this.lastName = lname;
-    //    this.age = age;
-    //    this.uName = username;
-    //    this.uPass = pwd;
-    //    // dont require anything else yet
-    //}
+    public User(int id, string fname, string lname, int age, string username)
+    {
+        this.id = id;
+        this.firstName = fname;
+        this.lastName = lname;
+        this.age = age;
+        this.uName = username;
+        // dont require anything else yet
+    }
+    
+    
+    public User(string uName, string uPass)
+    {
+        this.uName = uName;
+        this.uPass = uPass;
+        this.id = ++nextId;
+        statements = new List<Statement>();
+        bills = new List<Bill>();
+        this.isHeadOfHouse = false;
+        messages = new List<Message>();
+        this.newNotification = false;
+        this.notificationCount = 0;
+        
 
 
-    //public User(string uName, string uPass)
-    //{
-    //    this.uName = uName;
-    //    this.uPass = uPass;
-    //    this.id = ++nextId;
-    //    statements = new List<Statement>();
-    //    bills = new List<Bill>();
-    //    this.isHeadOfHouse = false;
-    //    messages = new List<Message>();
-    //    this.newNotification = false;
-    //    this.notificationCount = 0;
+    }
 
-
-
-    //}
-
-    public User(int user_id, string uname, string upass, string firstname, string lastname, int age, string street, string postcode, string city, string country)
+    public User(int userId, string uname, string upass, string firstname, string lastname, int age, string street, string postcode, string city, string country)
     {
         this.uName = uname;
         this.uPass = upass;
         this.firstName = firstname;
         this.lastName = lastname;
         this.age = age;
-        this.id = user_id;
+        this.id = ++nextId;
         this.IsHeadOfHouse = false;
         statements = new List<Statement>();
         bills = new List<Bill>();
