@@ -571,6 +571,7 @@ public static class UserManager
             }
            // Message msg = new Message(DateTime.Now, partyA, partyB, message);
             DataController.AddMessageEntry(partyA.Uname, partyA.Id, partyB.Uname, partyB.Id, message);
+           
         }
         catch 
         {

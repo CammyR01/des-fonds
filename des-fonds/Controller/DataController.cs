@@ -385,7 +385,7 @@ namespace des_fonds.Controller
         public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
         {
             OpenConnection();
-            string insert = "INSERT into messages(Sender,SenderID,Receiver,ReceiverID,Message) VALUES(@sender,@senid,@receiver,@recid,@message";
+            string insert = "INSERT into messages(Sender,SenderID,Receiver,ReceiverID,Message) VALUES(@sender,@senid,@receiver,@recid,@message)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
             qCmd.Parameters.AddWithValue("@sender", sender);
             qCmd.Parameters.AddWithValue("@senid", senid);
