@@ -1,8 +1,7 @@
 
 using des_fonds.Finances;
 using des_fonds.Mail;
-using System.Runtime.Serialization.DataContracts;
-using des_fonds.Controller;
+
 namespace des_fonds.Users;
 
 public class User
@@ -132,8 +131,7 @@ public class User
         }
         else
         {
-            DataController.InsertHouseholdHead(this);
-            //this.household = new Household(user.id);
+            this.household = new Household(this);
             this.isHeadOfHouse = true;
 
         }
