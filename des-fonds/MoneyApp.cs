@@ -17,13 +17,14 @@ namespace des_fonds
         {
             get
             {
-                if(app == null)
+                if (app == null)
                 {
                     DataController.OpenConnection();
                     DataController.CreateUserTable();
                     DataController.CreateAddressTable();
                     DataController.CreateStatementTable();
 
+                
                     
                     app = new MoneyApp();
                     app.populate(); //populates the userlist with users includeing address and incomes and statements
