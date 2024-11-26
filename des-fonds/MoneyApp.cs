@@ -19,9 +19,9 @@ namespace des_fonds
             {
                 if(app == null)
                 {
-                    DataController.OpenConnection();
-                    DataController.CreateUserTable();
-                    DataController.CreateAddressTable();
+                    //DataController.OpenConnection();
+                    //DataController.CreateUserTable();
+                    //DataController.CreateAddressTable();
 
                     
                     app = new MoneyApp();

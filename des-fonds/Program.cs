@@ -15,12 +15,12 @@ namespace des_fonds
     {
         static void Main(string[] args)
         {
-            MoneyApp app = MoneyApp.Instance;
+            //MoneyApp app = MoneyApp.Instance;
             //CreateIncome();//creates an income.
             //CreateExpense();//creates an expense.
             //CreateBill();//creates a bill
             //EditStatus();
-            //CalcAnnualIncome();//calculate the annual income
+            CalcAnnualIncome();//calculate the annual income
             //AddIncomeExpenseToUserStatments(); // creates users, incomes, expenses, and display a list of each users statements
             //TestCalculateMonthlyIncome();
             //TestCalculateMonthlyExpense();
@@ -217,22 +217,42 @@ namespace des_fonds
         public static void CalcAnnualIncome()
         {
             // set variables annual income and year to calculate
-            double annualIncome = 0;
-            int year = 2024;
+            //double annualIncome = 0;
+            //int year = 2024;
             try
             {
                 //log user in 
-                User user = UserManager.LoginUser("suzan", "pass3");
+                User user = UserManager.LoginUser("kruel", "password");
+                user.Statements.Add(new Expense("wage", 1234.44, DateTime.Now));
+                user.Statements.Add(new Income("wage", 1234.44, DateTime.Now));
+                user.Statements.Add(new Income("wage", 1234.44, DateTime.Now));
+                user.Statements.Add(new Expense("wage", 1234.44, DateTime.Now));
+                user.Statements.Add(new Expense("wage", 1234.44, DateTime.Now));
                 //calculate annual income using finance calculator class and calculateAnnualIncome method
-                annualIncome = FinanceCalculator.CalculateIncome(user, year);
+                //annualIncome = FinanceCalculator.CalculateIncome(user, year);
                 //display user and annual income total
-                Console.WriteLine(user + "\n" + "annual Income: £" + annualIncome);
+                //Console.WriteLine(user + "\n" + "annual Income: £" + annualIncome);
+                string type = "";
+                List <Statement> list = user.Statements;
+                foreach(Statement s in list)
+                {
+                    if(s is Income income)
+                    {
+                        type = income.GetType().ToString();
+                    }
+                    else if (s is Expense expense)
+                    {
+                        type = expense.GetType().ToString();
+                    }
+                    Console.WriteLine(type);
+                }
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-
+            
         }
         public static void DisplayStatement()
         {
