@@ -604,9 +604,9 @@ public static class UserManager
         partyA.Household.Members.Add(acceptedInvite.PartyB);
         
     }
-    public static void AcceptInvite(User user)
+    public static void AcceptInvite(Message message)
     {
-       
+        DataController.InsertHouseholdMember(message);
         
     }
 
