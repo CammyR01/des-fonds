@@ -1,4 +1,5 @@
-﻿using des_fonds.Finances;
+﻿using des_fonds.Controller;
+using des_fonds.Finances;
 using des_fonds.Mail;
 using Org.BouncyCastle.Pqc.Crypto.Bike;
 using System;
@@ -31,12 +32,7 @@ namespace des_fonds.Users
         public List<Bill>? Bills { get => bills; set => bills = value; }
         public int Id { get => id; set => id = value; }
         public int User_id { get => user_id; set => user_id = value; }
-        public int Mem1_id { get => mem1_id; set => mem1_id = value; }
-        public int Mem2_id { get => mem2_id; set => mem2_id = value; }
-        public int Mem3_id { get => mem3_id; set => mem3_id = value; }
-        public int Mem4_id { get => mem4_id; set => mem4_id = value; }
-        public int Mem5_id { get => mem5_id; set => mem5_id = value; }
-        public int Mem6_id { get => mem6_id; set => mem6_id = value; }
+
         public int Bill_id { get => bill_id; set => bill_id = value; }
 
         public Household(User user)
@@ -52,9 +48,11 @@ namespace des_fonds.Users
             
             this.bill_id = bill_id;
         }
-        public Household()
+        public Household(int id, int user_id, List<User> members)
         {
-
+            this.id = id;
+            this.user_id = user_id;
+            this.members = members;
         }
 
 
@@ -84,12 +82,12 @@ namespace des_fonds.Users
         }
 
 
-        public static List<Bill> Last5Bills(Household household)
-        {
-           
-            int count = household.Bills.Count;
-            return household.Bills.Skip(Math.Max(0, count - 5)).ToList();
-        }
+        //public static List<Bill> Last5Bills(User user)
+        //{
+        //    Household house = DataController.GetHousehold(user);
+
+            
+        //}
 
         //share bills
 
