@@ -170,7 +170,7 @@ namespace des_fonds.Controller
         }
         public static void InsertHouseholdMember(User user) 
         {
-            string insert = "INSERT INTO household"
+            string insert = "INSERT INTO household";
             Household house = GetHousehold(user);
             
         }
