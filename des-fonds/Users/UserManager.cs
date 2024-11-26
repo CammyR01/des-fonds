@@ -595,6 +595,20 @@ public static class UserManager
         invite.Accept();
         
     }
+    public static void ReceiveMessage(User partyB) 
+    {
+        try
+        {
+
+            DataController.GetMessage(partyB.Id);
+            
+        }
+        catch
+        {
+            throw new Exception("issue");
+        }
+
+    }
     private static User GetUserByUsername(string username)
     {
         foreach (User u in MoneyApp.Instance.UserList)
