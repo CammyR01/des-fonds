@@ -23,7 +23,8 @@ namespace des_fonds.Mail
 
         public override string ToString()
         {
-            return message_text;
+            string strout = $"From: {partyA.Uname}\nMessage: {message_text}";
+            return strout;
         }
     }
 }
