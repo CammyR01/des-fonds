@@ -187,7 +187,7 @@ namespace des_fonds.Controller
                 int membercount = house.Members.Count;
                 string query = "";
 
-                if ((membercount + 1) < 6)
+                if (membercount < 6)
                 {
 
                     query = $"INSERT INTO household_members " +
