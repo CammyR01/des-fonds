@@ -277,7 +277,7 @@ namespace des_fonds.Controller
 
                 }
 
-                Close();
+            
                 return new Household(id, headId, members);
                 
             }
@@ -536,12 +536,14 @@ namespace des_fonds.Controller
         }
         public static finalstatement GetIncomeStatements(int id)
         {
-            string get = "SELECT source, amount, date user_id FROM statements WHERE type = 'INCOME' AND user_id = @id;";
+            OpenConnection();
+            string get = "SELECT source, amount, user_id FROM statements WHERE type = 'INCOME' AND user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection)) 
             {
                 qCmd.Parameters.AddWithValue("@id", id);
                 int totalIncome = 0;
                 List<int> incomes = new List<int>();
+                List<string> sources = new List<string>();
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader()) 
                 {
@@ -551,17 +553,18 @@ namespace des_fonds.Controller
               
                             string source = reader.GetString("source");
                             int amount = reader.GetInt32("amount");
-                            DateTime date = reader.GetDateTime("date");
+                            //DateTime date = reader.GetDateTime("date");
                             int uID = reader.GetInt32("user_id");
 
-                            Close();
-                            incomes.Add(amount);
+                            
+                        incomes.Add(amount);
+                        sources.Add(source);
                         totalIncome += amount;
                         
                         
 
                     }
-                    return new finalstatement(incomes, totalIncome);
+                    return new finalstatement(incomes, totalIncome,sources);
 
 
                     Close();
@@ -575,13 +578,15 @@ namespace des_fonds.Controller
 
         public static finalstatement GetExpenseStatements(int id) 
         {
-            string get = "SELECT source, amount, date user_id FROM statements WHERE type = 'EXPENSE' AND user_id = @id;";
+            OpenConnection();
+            string get = "SELECT source, amount, user_id FROM statements WHERE type = 'EXPENSE' AND user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection))
             {
                 qCmd.Parameters.AddWithValue("@id", id);
 
                 int totalExpense = 0;
                 List<int> expenses = new List<int>();
+                List<string> sources = new List<string>();
 
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader())
@@ -592,20 +597,21 @@ namespace des_fonds.Controller
 
                         string source = reader.GetString("source");
                         int amount = reader.GetInt32("amount");
-                        DateTime date = reader.GetDateTime("date");
+                        //DateTime date = reader.GetDateTime("date");
                         int uID = reader.GetInt32("user_id");
 
-                        Close();
+                       
                         expenses.Add(amount);
+                        sources.Add(source);
                         totalExpense += amount;
 
 
                     }
-                    return new finalstatement(expenses, totalExpense);
+                    return new finalstatement(expenses, totalExpense,sources);
 
 
                     Close();
-                        throw new Exception("No Expense Available");
+                        
                     
                 }
 
