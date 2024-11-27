@@ -55,6 +55,33 @@ namespace des_fonds.Controller
             connection.Close();
             Console.WriteLine("Connection closed");
         }
+        //kruel has multiple households T-T
+        //idk how to delete them
+        public static bool IsHouseHead(int id)
+        {
+
+            OpenConnection();
+            string commandText = "SELECT COUNT(1) FROM households WHERE user_id = @id";
+
+            try
+            {
+
+                using (MySqlCommand command = new MySqlCommand(commandText, connection))
+                {
+                    command.Parameters.AddWithValue("@id", id);
+
+
+                    int result = Convert.ToInt32(command.ExecuteScalar());
+                    return result > 0; //return true if they;re the househead
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+                return false;
+            }
+        }
+
 
         public static void CreateUserTable()
         {
@@ -535,12 +562,13 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void GetStatements(int id)
-        {
-            string get = "SELECT from statements WHERE user_id = '@id';";
-            MySqlCommand qCmd = new MySqlCommand(get, connection);
-            qCmd.ExecuteNonQuery();
-        }
+        //public static void GetStatements(int id)
+        //{
+        //    OpenConnection ();
+        //    string get = "SELECT from statements WHERE user_id = '@id';";
+        //    MySqlCommand qCmd = new MySqlCommand(get, connection);
+        //    qCmd.ExecuteNonQuery();
+        //}
         public static finalstatement GetIncomeStatements(int id)
         {
             OpenConnection();

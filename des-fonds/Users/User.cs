@@ -127,7 +127,7 @@ public class User
         //check if user is in a household
         if (isHeadOfHouse)
         {
-            throw new Exception("Already in a household!");
+            Console.WriteLine("Already in household");
         }
         else
         {
