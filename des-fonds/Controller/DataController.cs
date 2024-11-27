@@ -537,9 +537,9 @@ namespace des_fonds.Controller
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void GetIncomeStatements(int id)
+        public static finalstatement GetIncomeStatements(int id)
         {
-            string get = "SELECT source, amount, date user_id from statements WHERE type = 'INCOME' user_id = @id;";
+            string get = "SELECT source, amount, date user_id FROM statements WHERE type = 'INCOME' AND user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection)) 
             {
                 qCmd.Parameters.AddWithValue("@id", id);
@@ -560,12 +560,13 @@ namespace des_fonds.Controller
                             Close();
                             incomes.Add(amount);
                         totalIncome += amount;
-                            
+                        
                         
 
                     }
-                    
-               
+                    return new finalstatement(incomes, totalIncome);
+
+
                     Close();
                         
                     
@@ -575,9 +576,9 @@ namespace des_fonds.Controller
             }   
         }
 
-        public static void GetExpenseStatements(int id) 
+        public static finalstatement GetExpenseStatements(int id) 
         {
-            string get = "SELECT source, amount, date user_id from statements WHERE type = 'EXPENSE' user_id = @id;";
+            string get = "SELECT source, amount, date user_id FROM statements WHERE type = 'EXPENSE' AND user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection))
             {
                 qCmd.Parameters.AddWithValue("@id", id);
@@ -603,9 +604,10 @@ namespace des_fonds.Controller
 
 
                     }
-                    
-                    
-                        Close();
+                    return new finalstatement(expenses, totalExpense);
+
+
+                    Close();
                         throw new Exception("No Expense Available");
                     
                 }
@@ -674,6 +676,46 @@ namespace des_fonds.Controller
                 
                  
                 
+
+            }
+
+        }
+        public static List<Message> GetMessageList(int recId)
+        {
+            OpenConnection();
+            string get = "SELECT Sender, SenderID,Receiver,ReceiverID,Message from messages WHERE ReceiverID = @recId";
+
+            MySqlCommand qCmd = new MySqlCommand(get, connection);
+
+            List<Message> messages = new List<Message>();
+
+            qCmd.Parameters.AddWithValue("@recID", recId);
+
+            using (MySqlDataReader reader = qCmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                   
+                    string sender = reader.GetString("Sender");
+                    int senderID = reader.GetInt32("SenderID");
+                    string Receiver = reader.GetString("Receiver");
+                    int ReceiverID = reader.GetInt32("ReceiverID");
+                    string message = reader.GetString("Message");
+                    User partyA = GetUserEntry(sender);
+                    User partyB = GetUserEntry(Receiver);
+
+                    Close();
+
+                    messages.Add(new Message(DateTime.Now,partyA,partyB,message));
+
+
+                }
+                return messages;
+               
+
+
+
+
 
             }
 

@@ -201,18 +201,18 @@ public static class UserManager
         }
 
     }
-    public static void GetIncomes(User user) 
+    public static finalstatement GetIncomes(User user) 
     
     {
-        DataController.GetIncomeStatements(user.Id);
-
+       finalstatement incomings = DataController.GetIncomeStatements(user.Id);
+        return incomings;
     }
 
-    public static void GetExpense(User user) 
+    public static finalstatement GetExpenses(User user) 
     {
 
-        DataController.GetExpenseStatements(user.Id);
-
+      finalstatement outgoings =  DataController.GetExpenseStatements(user.Id);
+        return outgoings;
     
     }
 
