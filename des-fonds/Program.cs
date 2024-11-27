@@ -51,8 +51,9 @@ namespace des_fonds
                 DataController.CreateStatementTable();
                 DataController.CreateMessageTable();
                 DataController.CreateHouseHoldTable();
-                DataController.CreateBillTable();
                 DataController.createHouseholdMemberTable();
+                DataController.CreateBillTable();
+               
 
 
                

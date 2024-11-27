@@ -118,17 +118,7 @@ namespace des_fonds.Controller
             Close();
 
         }
-        // public static void CreateHousehold(string HouseHoldName) 
-        //{ OpenConnection();
-        //  string create = "CREATE TABLE @household" +
-
-        //   "(HouseHold_ID PRIMARY KEY NOT NULL," +
-        // "user_id" +
-        // "member_id;
-        //household id  user_id, member_id
-
-        //   "(User_ID INT NOT NULL," +
-        // ;
+        
 
 
         public static void CreateHouseHoldTable()
@@ -136,27 +126,15 @@ namespace des_fonds.Controller
             OpenConnection();
             string houseTable = "CREATE TABLE households" +
                 "(ID int PRIMARY KEY AUTO_INCREMENT," +
-                "user_id INT NOT NULL," +
-                "mem1_id INT," +
-                "mem2_id INT," +
-                "mem3_id INT," +
-                "mem4_id INT," +
-                "mem5_id INT," +
-                "mem6_id INT," +
-                "bill_id INT," +
-                "FOREIGN KEY (user_id) REFERENCES users(ID)," +
-                "FOREIGN KEY (mem1_id) REFERENCES users(ID)," +
-                "FOREIGN KEY (mem2_id) REFERENCES users(ID)," +
-                "FOREIGN KEY (mem3_id) REFERENCES users(ID)," +
-                "FOREIGN KEY (mem4_id) REFERENCES users(ID)," +
-                "FOREIGN KEY (mem5_id) REFERENCES users(ID)," +
-                "FOREIGN KEY (mem6_id) REFERENCES users(ID))";
-            MySqlCommand cmd = new MySqlCommand(houseTable, connection);
+                "user_id INT NOT NULL," +                
+                "FOREIGN KEY (user_id) REFERENCES users(ID))";
+            using MySqlCommand cmd = new MySqlCommand(houseTable, connection);
             cmd.ExecuteNonQuery();
             Close();
         }
         public static void createHouseholdMemberTable()
         {
+            OpenConnection();
             string memberTab = "CREATE TABLE household_members " +
                 "(house_id INT NOT NULL," +
                 "user_id INT NOT NULL," +
@@ -164,8 +142,7 @@ namespace des_fonds.Controller
                 "FOREIGN KEY (user_id) REFERENCES users(id))";
             using MySqlCommand cmd = new MySqlCommand(memberTab, connection);
             cmd.ExecuteNonQuery();
-            
-
+            Close();
         }
         public static void InsertHouseholdHead(User user)
         {            
@@ -210,7 +187,42 @@ namespace des_fonds.Controller
 
   
         }
+        //check if user is head of house
+        public static bool IsHeadOfHouse(User user)
+        {
+            string headQuery = "SELECT user_id FROM households " +
+                "WHERE user_id = @userid";
 
+            using MySqlCommand cmd = new MySqlCommand(headQuery, connection);
+            cmd.Parameters.AddWithValue("@userid", user.Id);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            if(user.Id == reader.GetInt32(1))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool IsMemberOfHouse(User user)
+        {
+            string memberQuery = "SELECT house_id, user_id FROM household_members " +
+                "WHERE user_id = @userid";
+            using MySqlCommand cmd = new MySqlCommand(memberQuery, connection);
+            
+            cmd.Parameters.AddWithValue("userid", user.Id);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            if(reader.GetInt32(1) == user.Id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
 
 
 
