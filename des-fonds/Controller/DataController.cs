@@ -6,6 +6,7 @@ using MySql.Data.MySqlClient;
 
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 using System.Transactions;
 
 namespace des_fonds.Controller
@@ -154,7 +155,18 @@ namespace des_fonds.Controller
             cmd.ExecuteNonQuery();
             Close();
         }
+        public static void createHouseholdMemberTable()
+        {
+            string memberTab = "CREATE TABLE household_members " +
+                "(house_id INT NOT NULL," +
+                "user_id INT NOT NULL," +
+                "FOREIGN KEY (house_id) REFERENCES households(id)," +
+                "FOREIGN KEY (user_id) REFERENCES users(id))";
+            using MySqlCommand cmd = new MySqlCommand(memberTab, connection);
+            cmd.ExecuteNonQuery();
+            
 
+        }
         public static void InsertHouseholdHead(User user)
         {            
             string insertHouse = "INSERT INTO households " +
@@ -178,9 +190,11 @@ namespace des_fonds.Controller
                 if ((membercount + 1) < 6)
                 {
 
-                    query = $"INSERT INTO households " +
-                        "(mem{membercount + 1}_id)" +
-                        "VALUES(@mem)";
+                    query = $"INSERT INTO household_members " +
+                        "(house_id, user_id)" +
+                        "VALUES(@house_id, @user_id)";
+
+                    
                 }
                 else
                 {
@@ -188,20 +202,13 @@ namespace des_fonds.Controller
                 }
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
-                
-                cmd.Parameters.AddWithValue("@mem", message.PartyB.Id);
+            
+                cmd.Parameters.AddWithValue("@house_id", house.Id);
+                cmd.Parameters.AddWithValue("@user_id", message.PartyB.Id);
                 cmd.ExecuteNonQuery();
                 Close();
 
-            
-            
-
-            
-            
-                
-            
-
-            
+  
         }
 
 
@@ -277,7 +284,7 @@ namespace des_fonds.Controller
 
                 }
 
-                Close();
+                
                 return new Household(id, headId, members);
                 
             }

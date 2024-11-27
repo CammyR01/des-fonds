@@ -619,7 +619,7 @@ public static class UserManager
         try
         {
 
-          Message message =  DataController.GetMessage(partyB.Id);
+            Message message =  DataController.GetMessage(partyB.Id);
             return message;
 
         }
