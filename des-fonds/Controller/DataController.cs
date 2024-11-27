@@ -190,40 +190,40 @@ namespace des_fonds.Controller
         //check if user is head of house
         public static bool IsHeadOfHouse(User user)
         {
+            OpenConnection();
             string headQuery = "SELECT user_id FROM households " +
                 "WHERE user_id = @userid";
 
             using MySqlCommand cmd = new MySqlCommand(headQuery, connection);
             cmd.Parameters.AddWithValue("@userid", user.Id);
             using MySqlDataReader reader = cmd.ExecuteReader();
-            if(user.Id == reader.GetInt32(1))
+            if (reader.Read())
             {
                 return true;
+
             }
-            else
-            {
-                return false;
-            }
+            return false;
+            
         }
         public static bool IsMemberOfHouse(User user)
         {
+            OpenConnection();
             string memberQuery = "SELECT house_id, user_id FROM household_members " +
                 "WHERE user_id = @userid";
             using MySqlCommand cmd = new MySqlCommand(memberQuery, connection);
-            
-            cmd.Parameters.AddWithValue("userid", user.Id);
+
+            cmd.Parameters.AddWithValue("@userid", user.Id);
             using MySqlDataReader reader = cmd.ExecuteReader();
-            if(reader.GetInt32(1) == user.Id)
+            if (reader.Read())
             {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+                int user_id = reader.GetInt32(1);
+                if(user_id == user.Id)
+                {
+                    return true;
+                }
+            }                                                  
+            return false;
         }
-
 
 
         public static void CreateBillTable()
