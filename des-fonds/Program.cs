@@ -37,7 +37,7 @@ namespace des_fonds
             //AcceptInvite(app);
             //CheckAcceptInvite(app);
             //checkAddressChangeForHouseMember(app);
-           // databaseTest();
+            databaseTest();
             //databaseLoader();
            
         }
@@ -52,6 +52,7 @@ namespace des_fonds
                 DataController.CreateMessageTable();
                 DataController.CreateHouseHoldTable();
                 DataController.CreateBillTable();
+                DataController.createHouseholdMemberTable();
 
 
                
