@@ -94,7 +94,6 @@ public static class UserManager
     //}
     public static List<Statement> Last5Statements(User user)
     {
-
         int count = user.Statements.Count;
         return user.Statements.Skip(Math.Max(0, count - 5)).ToList();
     }
