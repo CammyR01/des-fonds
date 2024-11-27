@@ -170,8 +170,7 @@ namespace des_fonds.Controller
         }
         public static void InsertHouseholdMember(Message message)
         {
-            try
-            {
+            OpenConnection();
                 Household house = GetHousehold(message.PartyA);
                 int membercount = house.Members.Count;
                 string query = "";
@@ -189,16 +188,13 @@ namespace des_fonds.Controller
                 }
 
                 using MySqlCommand cmd = new MySqlCommand(query, connection);
-
+                
                 cmd.Parameters.AddWithValue("@mem", message.PartyB.Id);
                 cmd.ExecuteNonQuery();
                 Close();
 
-            }
-            catch
-            {
-                throw new Exception("Failed to add member");
-            }
+            
+            
 
             
             
@@ -243,6 +239,7 @@ namespace des_fonds.Controller
         }
         public static Household GetHousehold(User user)
         {
+            OpenConnection();
             string gethouse = "SELECT * FROM households " +
                 "WHERE user_id = @user_id";
             using MySqlCommand cmd = new MySqlCommand(gethouse, connection);
@@ -280,9 +277,9 @@ namespace des_fonds.Controller
 
                 }
 
-
+                Close();
                 return new Household(id, headId, members);
-
+                
             }
             catch (Exception e)
             {
