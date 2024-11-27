@@ -1,10 +1,12 @@
 using des_fonds.Finances;
+using des_fonds.Mail;
 using des_fonds.Users;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
 using System.Transactions;
 
 namespace des_fonds.Controller
@@ -153,10 +155,21 @@ namespace des_fonds.Controller
             cmd.ExecuteNonQuery();
             Close();
         }
+        public static void createHouseholdMemberTable()
+        {
+            string memberTab = "CREATE TABLE household_members " +
+                "(house_id INT NOT NULL," +
+                "user_id INT NOT NULL," +
+                "FOREIGN KEY (house_id) REFERENCES households(id)," +
+                "FOREIGN KEY (user_id) REFERENCES users(id))";
+            using MySqlCommand cmd = new MySqlCommand(memberTab, connection);
+            cmd.ExecuteNonQuery();
+            
 
+        }
         public static void InsertHouseholdHead(User user)
         {            
-            string insertHouse = "INSERT INTO households" +
+            string insertHouse = "INSERT INTO households " +
                 "(user_id)" +
                 "VALUES(@user_id)";
             OpenConnection();
@@ -166,6 +179,36 @@ namespace des_fonds.Controller
             cmd.Parameters.AddWithValue("@user_id", user.Id);
             cmd.ExecuteNonQuery();
             Close();
+        }
+        public static void InsertHouseholdMember(Message message)
+        {
+            OpenConnection();
+                Household house = GetHousehold(message.PartyA);
+                int membercount = house.Members.Count;
+                string query = "";
+
+                if (membercount < 6)
+                {
+
+                    query = $"INSERT INTO household_members " +
+                        "(house_id, user_id)" +
+                        "VALUES(@house_id, @user_id)";
+
+                    
+                }
+                else
+                {
+                    throw new Exception("Members List is Full");
+                }
+
+                using MySqlCommand cmd = new MySqlCommand(query, connection);
+            
+                cmd.Parameters.AddWithValue("@house_id", house.Id);
+                cmd.Parameters.AddWithValue("@user_id", message.PartyB.Id);
+                cmd.ExecuteNonQuery();
+                Close();
+
+  
         }
 
 
@@ -185,7 +228,73 @@ namespace des_fonds.Controller
             cmd.ExecuteNonQuery();
         }
 
+        public static void InsertBill(User user, string billName, double amount, DateTime date)
+        {
+            OpenConnection();
+            string insertBill = "INSERT INTO bills" +
+                "(house_id, name, amount, due_date)" +
+                "VALUES(@house_id, @name, @amount, @date)";
+            using MySqlCommand cmd = new MySqlCommand(insertBill, connection);
+            Household house = GetHousehold(user);
+            cmd.Parameters.AddWithValue("@house_id", house.Id);
+            cmd.Parameters.AddWithValue("@name", billName);
+            cmd.Parameters.AddWithValue("@amount", amount);
+            cmd.Parameters.AddWithValue("@date", date);
+            cmd.ExecuteNonQuery();
+            Close();
 
+        }
+        public static Household GetHousehold(User user)
+        {
+            OpenConnection();
+            string gethouse = "SELECT * FROM households " +
+                "WHERE user_id = @user_id";
+            using MySqlCommand cmd = new MySqlCommand(gethouse, connection);
+            cmd.Parameters.AddWithValue("@user_id", user.Id);
+            using MySqlDataReader reader = cmd.ExecuteReader();
+
+            try
+            {
+                int id = 0;
+                int headId = 0;
+                List<User> members = new List<User>();
+                if (reader.Read())
+                {
+
+                    id = reader.GetInt32(1);
+                    headId = reader.GetInt32(0);
+
+                    for (int i = 2; i < 8; i++)
+                    {
+                        if (reader.IsDBNull(i))
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            int memberid = reader.GetInt32(i);
+                            User member = GetUserEntry(memberid);
+                            members.Add(member);
+                        }
+                    }
+                    if (!reader.IsDBNull(8))
+                    {
+                        int bill_id = reader.GetInt32(8);
+                    }
+
+                }
+
+            
+                return new Household(id, headId, members);
+                
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+        
+    }
         public static void AddUserEntry(string first_name, string last_name, int age, string uName, string pwd, string street, string postcode, string city, string country, out int lastId)
         {
             try
@@ -260,9 +369,47 @@ namespace des_fonds.Controller
                 " FROM users u" +
                 " LEFT JOIN addresses a ON u.ID = a.user_id" +
                 " WHERE UName = @uName";
+            using MySqlCommand command = new MySqlCommand(select, connection);
+            command.Parameters.AddWithValue("@uName", uName);
+
+
+            using MySqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                int userId = reader.GetInt32(0);
+                string fname = reader.GetString(1);
+                string lname = reader.GetString(2);
+                int age = reader.GetInt32(3);
+                string uname = reader.GetString(4);
+                string pwd = reader.GetString(5);
+                string street = reader.GetString(6);
+                string postcode = reader.GetString(7);
+                string city = reader.GetString(8);
+                string country = reader.GetString(9);
+                Close();
+                return new User(userId, uname, pwd, fname, lname, age, street, postcode, city, country);
+
+            }
+            else
+            {
+                Close();
+                throw new Exception("User not found");
+            }
+
+
+        }
+        public static User GetUserEntry(int uId)
+        {
+
+            OpenConnection();
+            string select = "SELECT u.ID, u.First_Name, u.Last_Name, u.Age, u.UName, u.PWD," +
+                " a.street, a.postcode, a.city, a.country" +
+                " FROM users u" +
+                " LEFT JOIN addresses a ON u.ID = a.user_id" +
+                " WHERE ID = @uid";
             using (MySqlCommand command = new MySqlCommand(select, connection))
             {
-                command.Parameters.AddWithValue("@uName", uName);
+                command.Parameters.AddWithValue("@uid", uId);
 
 
                 using (MySqlDataReader reader = command.ExecuteReader())
@@ -338,7 +485,7 @@ namespace des_fonds.Controller
             //income.amount
             //income.date
             OpenConnection();
-            string insert = "INSERT INTO statement(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
+            string insert = "INSERT INTO statements(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
 
             qCmd.Parameters.AddWithValue("@source", source);
@@ -354,15 +501,20 @@ namespace des_fonds.Controller
 
         public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
-            string delete = "DELETE from statement WHERE source = @source amount = @amount date = @date type = INCOME";
+            string delete = "DELETE from statements WHERE source = @source amount = @amount date = @date type = INCOME";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
         }
 
+        public static void removeExpenseEntry(string source, double expense, DateTime date)
+        {
+            string delete = "DELETE from statements WHERE source = @source amount = @expense date = @date type = EXPENSE";
+            MySqlCommand qCmd = new MySqlCommand(delete, connection);
+        }
 
         public static void addExpenseEntry(string source, double amount, DateTime date, string type, int uid)
         {
             OpenConnection();
-            string insert = "INSERT INTO statement(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
+            string insert = "INSERT INTO statements(source,amount,date,type,user_id) VALUES(@source,@amount,@date,@type,@uid)";
             MySqlCommand qCmd = new MySqlCommand(insert, connection);
 
             qCmd.Parameters.AddWithValue("@source", source);
@@ -375,65 +527,205 @@ namespace des_fonds.Controller
             qCmd.ExecuteNonQuery();
         }
 
-        public static void removeExpenseEntry(string source, double expense, DateTime date)
-        {
-
-        }
+  
 
         public static void GetStatementTable(DateTime date)
         {
-            string get = "SELECT from statement WHERE date = @date";
+            string get = "SELECT from statements WHERE date = @date";
             MySqlCommand qCmd = new MySqlCommand(get, connection);
             qCmd.ExecuteNonQuery();
         }
-        public static void GetIncomeStatements()
+        public static void GetStatements(int id)
         {
-            string get = "SELECT from statement WHERE type = 'INCOME';";
+            string get = "SELECT from statements WHERE user_id = '@id';";
+            MySqlCommand qCmd = new MySqlCommand(get, connection);
+            qCmd.ExecuteNonQuery();
+        }
+        public static finalstatement GetIncomeStatements(int id)
+        {
+            OpenConnection();
+            string get = "SELECT source, amount, user_id FROM statements WHERE type = 'INCOME' AND user_id = @id;";
+            using (MySqlCommand qCmd = new MySqlCommand(get, connection)) 
+            {
+                qCmd.Parameters.AddWithValue("@id", id);
+                int totalIncome = 0;
+                List<int> incomes = new List<int>();
+                List<string> sources = new List<string>();
+
+                using (MySqlDataReader reader = qCmd.ExecuteReader()) 
+                {
+                    while (reader.Read())
+                    {
+                        
+              
+                            string source = reader.GetString("source");
+                            int amount = reader.GetInt32("amount");
+                            //DateTime date = reader.GetDateTime("date");
+                            int uID = reader.GetInt32("user_id");
+
+                            
+                        incomes.Add(amount);
+                        sources.Add(source);
+                        totalIncome += amount;
+                        
+                        
+
+                    }
+                    return new finalstatement(incomes, totalIncome,sources);
+
+
+                    Close();
+                        
+                    
+                }
+            
+
+            }   
         }
 
-        public static void GetExpenseStatements() { }
+        public static finalstatement GetExpenseStatements(int id) 
+        {
+            OpenConnection();
+            string get = "SELECT source, amount, user_id FROM statements WHERE type = 'EXPENSE' AND user_id = @id;";
+            using (MySqlCommand qCmd = new MySqlCommand(get, connection))
+            {
+                qCmd.Parameters.AddWithValue("@id", id);
+
+                int totalExpense = 0;
+                List<int> expenses = new List<int>();
+                List<string> sources = new List<string>();
+
+
+                using (MySqlDataReader reader = qCmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+
+
+                        string source = reader.GetString("source");
+                        int amount = reader.GetInt32("amount");
+                        //DateTime date = reader.GetDateTime("date");
+                        int uID = reader.GetInt32("user_id");
+
+                       
+                        expenses.Add(amount);
+                        sources.Add(source);
+                        totalExpense += amount;
+
+
+                    }
+                    return new finalstatement(expenses, totalExpense,sources);
+
+
+                    Close();
+                        
+                    
+                }
+
+
+            }
+
+
+
+        }
 
 
         public static void AddMessageEntry(string sender, int senid, string receiver, int recid, string message)
         {
             OpenConnection();
-            string insert = "INSERT into messages(Sender,SenderID,Receiver,ReceiverID,Message) VALUES(@sender,@senid,@receiver,@recid,@message)";
-            MySqlCommand qCmd = new MySqlCommand(insert, connection);
-            qCmd.Parameters.AddWithValue("@sender", sender);
-            qCmd.Parameters.AddWithValue("@senid", senid);
-            qCmd.Parameters.AddWithValue("@receiver", receiver);
-            qCmd.Parameters.AddWithValue("@recid", recid);
-            qCmd.Parameters.AddWithValue("@message", message);
-            qCmd.ExecuteNonQuery();
-        Close();
-        }
+            string insert = "INSERT INTO messages (Sender, SenderID, Receiver, ReceiverID, Message) " +
+                        "VALUES (@sender, @senid, @receiver, @recid, @message)";
 
-        public static void CheckForMessage(int recId)
+            using (MySqlCommand qCmd = new MySqlCommand(insert, connection))
+            {
+                qCmd.Parameters.AddWithValue("@sender", sender);
+                qCmd.Parameters.AddWithValue("@senid", senid);
+                qCmd.Parameters.AddWithValue("@receiver", receiver);
+                qCmd.Parameters.AddWithValue("@recid", recid);
+                qCmd.Parameters.AddWithValue("@message", message);
+
+                qCmd.ExecuteNonQuery();
+            }
+            Close();
+        }
+      
+
+        public static Message GetMessage(int recId)
         {
             OpenConnection();
-            string get = "SELECT from messages WHERE ReceiverID = @recId";
+            string get = "SELECT Sender, SenderID,Receiver,ReceiverID,Message from messages WHERE ReceiverID = @recId";
+
             MySqlCommand qCmd = new MySqlCommand(get, connection);
+
+            qCmd.Parameters.AddWithValue("@recID", recId);
+         
             using (MySqlDataReader reader = qCmd.ExecuteReader())
             {
                 if (reader.Read())
                 {
 
-                    string sender = reader.GetString(0);
-                    int senderID = reader.GetInt32(1);
-                    string Receiver = reader.GetString(3);
-                    int ReceiverID = reader.GetInt32(4);
-                    string message = reader.GetString(5);
-
-
+                    string sender = reader.GetString("Sender");
+                    int senderID = reader.GetInt32("SenderID");
+                    string Receiver = reader.GetString("Receiver");
+                    int ReceiverID = reader.GetInt32("ReceiverID");
+                    string message = reader.GetString("Message");
+                    User partyA = GetUserEntry(sender);
+                    User partyB = GetUserEntry(Receiver);
+                   
                     Close();
-                    //return new Message();
+                    
+                    return new Message(DateTime.Now,partyA,partyB,message);
+                    
 
                 }
-                else
+                else {
+                    Close();
+                    throw new Exception("issue");
+                         }
+
+                
+                 
+                
+
+            }
+
+        }
+        public static List<Message> GetMessageList(int recId)
+        {
+            OpenConnection();
+            string get = "SELECT Sender, SenderID,Receiver,ReceiverID,Message from messages WHERE ReceiverID = @recId";
+
+            MySqlCommand qCmd = new MySqlCommand(get, connection);
+
+            List<Message> messages = new List<Message>();
+
+            qCmd.Parameters.AddWithValue("@recID", recId);
+
+            using (MySqlDataReader reader = qCmd.ExecuteReader())
+            {
+                while (reader.Read())
                 {
+                   
+                    string sender = reader.GetString("Sender");
+                    int senderID = reader.GetInt32("SenderID");
+                    string Receiver = reader.GetString("Receiver");
+                    int ReceiverID = reader.GetInt32("ReceiverID");
+                    string message = reader.GetString("Message");
+                    User partyA = GetUserEntry(sender);
+                    User partyB = GetUserEntry(Receiver);
+
                     Close();
-                    throw new Exception("MESSAGE CANT BE SENT!!!");
+
+                    messages.Add(new Message(DateTime.Now,partyA,partyB,message));
+
+
                 }
+                return messages;
+               
+
+
+
+
 
             }
 

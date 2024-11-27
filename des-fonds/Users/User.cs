@@ -1,3 +1,4 @@
+
 using des_fonds.Finances;
 using des_fonds.Mail;
 
@@ -80,7 +81,7 @@ public class User
         this.firstName = firstname;
         this.lastName = lastname;
         this.age = age;
-        this.id = ++nextId;
+        this.id = userId;
         this.IsHeadOfHouse = false;
         statements = new List<Statement>();
         bills = new List<Bill>();

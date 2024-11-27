@@ -201,8 +201,22 @@ public static class UserManager
         }
 
     }
+    public static finalstatement GetIncomes(User user) 
+    
+    {
+       finalstatement incomings = DataController.GetIncomeStatements(user.Id);
+        return incomings;
+    }
 
- 
+    public static finalstatement GetExpenses(User user) 
+    {
+
+      finalstatement outgoings =  DataController.GetExpenseStatements(user.Id);
+        return outgoings;
+    
+    }
+
+
     public static void AddExpense(User user, string source, string strAmount, string strDate)
     {
         if (IsStrEmpty(source))
@@ -590,12 +604,32 @@ public static class UserManager
         partyA.Household.Members.Add(acceptedInvite.PartyB);
         
     }
-    public static void AcceptInvite(User user, Invite invite)
+    public static void AcceptInvite(Message message)
     {
-        invite.Accept();
+        DataController.InsertHouseholdMember(message);
         
     }
-    private static User GetUserByUsername(string username)
+
+    public static void RejectInvite(User user)
+    {
+        
+    }
+    public static Message ReceiveMessage(User partyB) 
+    {
+        try
+        {
+
+            Message message =  DataController.GetMessage(partyB.Id);
+            return message;
+
+        }
+        catch
+        {
+            throw new Exception("issue");
+        }
+
+    }
+   private static User GetUserByUsername(string username)
     {
         foreach (User u in MoneyApp.Instance.UserList)
         {
