@@ -588,8 +588,8 @@ namespace des_fonds.Controller
             using (MySqlCommand qCmd = new MySqlCommand(get, connection)) 
             {
                 qCmd.Parameters.AddWithValue("@id", id);
-                int totalIncome = 0;
-                List<int> incomes = new List<int>();
+                double totalIncome = 0;
+                List<double> incomes = new List<double>();
                 List<string> sources = new List<string>();
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader()) 
@@ -599,9 +599,9 @@ namespace des_fonds.Controller
                         
               
                             string source = reader.GetString("source");
-                            int amount = reader.GetInt32("amount");
+                            double amount = reader.GetDouble("amount");
                             //DateTime date = reader.GetDateTime("date");
-                            int uID = reader.GetInt32("user_id");
+                            double uID = reader.GetInt32("user_id");
 
                             
                         incomes.Add(amount);
@@ -611,10 +611,11 @@ namespace des_fonds.Controller
                         
 
                     }
+                    Close();
                     return new finalstatement(incomes, totalIncome,sources);
 
 
-                    Close();
+                    
                         
                     
                 }
@@ -637,6 +638,7 @@ namespace des_fonds.Controller
                 double amount = reader.GetDouble("amount");                
                 DateTime date = reader.GetDateTime("date");
                 string type = reader.GetString("type");
+
 
                 if (type.StartsWith("I"))
                 {
@@ -661,8 +663,8 @@ namespace des_fonds.Controller
             {
                 qCmd.Parameters.AddWithValue("@id", id);
 
-                int totalExpense = 0;
-                List<int> expenses = new List<int>();
+                double totalExpense = 0;
+                List<double> expenses = new List<double>();
                 List<string> sources = new List<string>();
 
 
@@ -673,7 +675,7 @@ namespace des_fonds.Controller
 
 
                         string source = reader.GetString("source");
-                        int amount = reader.GetInt32("amount");
+                        double amount = reader.GetInt32("amount");
                         //DateTime date = reader.GetDateTime("date");
                         int uID = reader.GetInt32("user_id");
 

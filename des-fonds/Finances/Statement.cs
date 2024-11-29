@@ -27,6 +27,14 @@
             this.type = type;
         }
 
+
+        public override string ToString()
+        {
+            string strout = "=========== STATEMENT ===========\n";
+            strout += string.Format("{0, -10},{1,-10} | \t{2, -10} | {3, -10}\n\n",
+                "Type", "category", "Amount", "Date");
+            return strout;
+        }
         // Display method accepting single income and expense
         public void DisplayStatements(Income income, Expense expense)
         {

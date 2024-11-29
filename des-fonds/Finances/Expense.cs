@@ -23,11 +23,10 @@
         /// <returns>returns a string representation of an expense</returns>
         public override string ToString() 
         {
-            string strout = string.Format("Expense Id: {0}\n" +
-                "Category: {1}\n" +
-                "Amount: £{2}\n" +
-                "Date Spent: {3}",
-               Id, Category, Amount, Date.ToShortDateString());
+
+            
+            string strout = string.Format("| {0,-12} | {1,-18} \t\t| £{2,-15} \t| {3,-15:N2} |\n-----------------------------------------------------------------------------------------",
+                Type, category, Amount, Date.ToShortDateString());
             return strout;
         
         }

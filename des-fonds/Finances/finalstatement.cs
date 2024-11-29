@@ -8,14 +8,14 @@ namespace des_fonds.Finances
 {
     public class finalstatement
     {
-        private List<int> statements = new List<int>();
-        private int totalstatement;
+        private List<double> statements = new List<double>();
+        private double totalstatement;
         private List<string> sources = new List<string>();
-        public List<int> Statements { get => statements; set => statements = value; }
-        public int Totalstatement { get => totalstatement; set => totalstatement = value; }
+        public List<double> Statements { get => statements; set => statements = value; }
+        public double Totalstatement { get => totalstatement; set => totalstatement = value; }
         public List<string> Sources { get => sources; set => sources = value; }
 
-        public finalstatement(List<int> statements, int totalStatement, List<string> sources) 
+        public finalstatement(List<double> statements, double totalStatement, List<string> sources) 
         {
         this.statements = statements;
         this.totalstatement = totalStatement;
