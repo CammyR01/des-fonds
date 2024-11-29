@@ -2,22 +2,29 @@
 {
     public abstract class Statement
     {
-        private static int nextId = 0;
+        
         private int id;
         private double amount;
         private DateTime date;
+        private string type;
 
         // Properties
         public double Amount { get => amount; set => amount = value; }
         public DateTime Date { get => date; set => date = value; }
         public int Id { get => id; set => id = value; }
-
+        public string Type { get => type; set => type = value; }
         // Constructor
         public Statement(double amount, DateTime date)
-        {
-            this.id = ++nextId;
+        {            
             this.amount = amount;
             this.date = date;
+            this.type = "Not Set";
+        }
+        public Statement(double amount, DateTime date, string type)
+        {
+            this.amount = amount;
+            this.date = date;
+            this.type = type;
         }
 
         // Display method accepting single income and expense

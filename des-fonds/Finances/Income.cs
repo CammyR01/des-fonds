@@ -14,6 +14,10 @@
         {
             this.source = source;
         }
+        public Income(string source, double amount, DateTime date, string type): base(amount, date, type)
+        {
+            this.source = source;
+        }
 
 
 

@@ -12,7 +12,11 @@
         {
             this.category = category;
         }
-
+        public Expense(string category, double amount, DateTime date, string type):base(amount, date, type)
+        {
+            this.category=category;
+            
+        }
         /// <summary>
         /// display a string representation of an expense statement
         /// </summary>

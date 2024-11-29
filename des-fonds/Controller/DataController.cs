@@ -622,6 +622,36 @@ namespace des_fonds.Controller
 
             }   
         }
+        public static List<Statement> Last5Statements(User user)
+        {
+            OpenConnection();
+            string statement = "SELECT source, amount, date, type, user_id FROM statements " +
+                "WHERE user_id = @user_id";
+            using MySqlCommand cmd = new MySqlCommand(statement, connection);
+            cmd.Parameters.AddWithValue("@user_id", user.Id);
+            List<Statement> statements = new List<Statement>();
+            using MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string source = reader.GetString("source");
+                double amount = reader.GetDouble("amount");                
+                DateTime date = reader.GetDateTime("date");
+                string type = reader.GetString("type");
+
+                if (type.StartsWith("I"))
+                {
+                    Income income = new Income(source, amount, date, type);
+                    statements.Add(income);
+                }
+                else
+                {
+                    Expense expense = new Expense(source, amount, date, type);
+                    statements.Add(expense);
+                }
+
+            }
+            return statements;
+        }
 
         public static finalstatement GetExpenseStatements(int id) 
         {
