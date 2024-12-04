@@ -540,12 +540,15 @@ namespace des_fonds.Controller
 
         public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
-            string delete = "DELETE from statements WHERE source = @source amount = @amount date = @date type = INCOME";
+            OpenConnection();
+            string delete = "DELETE from statements WHERE source = @source amount = @amount date = @date";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
+  
         }
 
         public static void removeExpenseEntry(string source, double expense, DateTime date)
         {
+            OpenConnection();
             string delete = "DELETE from statements WHERE source = @source amount = @expense date = @date type = EXPENSE";
             MySqlCommand qCmd = new MySqlCommand(delete, connection);
         }
@@ -581,30 +584,35 @@ namespace des_fonds.Controller
         //    MySqlCommand qCmd = new MySqlCommand(get, connection);
         //    qCmd.ExecuteNonQuery();
         //}
-        public static finalstatement GetIncomeStatements(int id)
+        public static List<Income> GetIncomeStatements(int id)
         {
             OpenConnection();
-            string get = "SELECT source, amount, user_id FROM statements WHERE type = 'INCOME' AND user_id = @id;";
+            string get = "SELECT source, amount,date, user_id FROM statements WHERE type = 'INCOME' AND user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection)) 
             {
                 qCmd.Parameters.AddWithValue("@id", id);
                 double totalIncome = 0;
-                List<double> incomes = new List<double>();
+                List<double> incomes2 = new List<double>();
                 List<string> sources = new List<string>();
+                List<Income> incomes = new List<Income>();
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader()) 
                 {
                     while (reader.Read())
                     {
                         
-              
+                        
                             string source = reader.GetString("source");
                             double amount = reader.GetDouble("amount");
-                            //DateTime date = reader.GetDateTime("date");
-                            double uID = reader.GetInt32("user_id");
+                         DateTime date = reader.GetDateTime("date");
+                        double uID = reader.GetInt32("user_id");
 
-                            
-                        incomes.Add(amount);
+                        Income income = new Income(source, amount, date,"Income");
+
+                        
+                         incomes.Add(income);
+                        
+                        incomes2.Add(amount);
                         sources.Add(source);
                         totalIncome += amount;
                         
@@ -612,7 +620,8 @@ namespace des_fonds.Controller
 
                     }
                     Close();
-                    return new finalstatement(incomes, totalIncome,sources);
+                    //return new finalstatement(incomes, totalIncome,sources);
+                    return incomes;
 
 
                     
@@ -655,18 +664,17 @@ namespace des_fonds.Controller
             return statements;
         }
 
-        public static finalstatement GetExpenseStatements(int id) 
+        public static List<Expense> GetExpenseStatements(int id)
         {
             OpenConnection();
-            string get = "SELECT source, amount, user_id FROM statements WHERE type = 'EXPENSE' AND user_id = @id;";
+            string get = "SELECT source, amount,date, user_id FROM statements WHERE type = 'EXPENSE' AND user_id = @id;";
             using (MySqlCommand qCmd = new MySqlCommand(get, connection))
             {
                 qCmd.Parameters.AddWithValue("@id", id);
-
                 double totalExpense = 0;
-                List<double> expenses = new List<double>();
+                List<double> expense2 = new List<double>();
                 List<string> sources = new List<string>();
-
+                List<Expense> expenses = new List<Expense>();
 
                 using (MySqlDataReader reader = qCmd.ExecuteReader())
                 {
@@ -675,30 +683,34 @@ namespace des_fonds.Controller
 
 
                         string source = reader.GetString("source");
-                        double amount = reader.GetInt32("amount");
-                        //DateTime date = reader.GetDateTime("date");
-                        int uID = reader.GetInt32("user_id");
+                        double amount = reader.GetDouble("amount");
+                        DateTime date = reader.GetDateTime("date");
+                        double uID = reader.GetInt32("user_id");
 
-                       
-                        expenses.Add(amount);
+                        Expense expense = new Expense(source, amount, date,"Expense");
+
+
+                        expenses.Add(expense);
+
+                        expense2.Add(amount);
                         sources.Add(source);
                         totalExpense += amount;
 
 
+
                     }
-                    return new finalstatement(expenses, totalExpense,sources);
-
-
                     Close();
-                        
-                    
+                    //return new finalstatement(incomes, totalIncome,sources);
+                    return expenses;
+
+
+
+
+
                 }
 
 
             }
-
-
-
         }
 
 

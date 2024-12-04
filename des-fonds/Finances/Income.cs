@@ -27,9 +27,14 @@
         /// <returns>String Representation of an income</returns>
         public override string ToString()
         {
-            string strout = string.Format("| {0,-12} | {1,-18} | £{2,-15} \t\t| {3,-15:N2} |\n-----------------------------------------------------------------------------------------",
-                Type, source, Amount, Date.ToShortDateString());
+            string strout = string.Format(
+                "| {0,-8} | {1,-15} | £{2,10:F2} | {3,-10} |\n{4}",
+                Type, source, Amount, Date.ToShortDateString(),
+                new string('-', 49)
+            );
             return strout;
         }
+
+
     }
 }

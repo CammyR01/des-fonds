@@ -200,17 +200,17 @@ public static class UserManager
         }
 
     }
-    public static finalstatement GetIncomes(User user) 
-    
+    public static List<Income> GetIncomes(User user)
+
     {
-       finalstatement incomings = DataController.GetIncomeStatements(user.Id);
+        List<Income> incomings = DataController.GetIncomeStatements(user.Id);
         return incomings;
     }
 
-    public static finalstatement GetExpenses(User user) 
+    public static List<Expense> GetExpenses(User user) 
     {
 
-      finalstatement outgoings =  DataController.GetExpenseStatements(user.Id);
+      List<Expense> outgoings =  DataController.GetExpenseStatements(user.Id);
         return outgoings;
     
     }
