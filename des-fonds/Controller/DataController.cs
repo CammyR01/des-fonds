@@ -540,17 +540,75 @@ namespace des_fonds.Controller
 
         public static void removeIncomeEntry(string source, double amount, DateTime date)
         {
-            OpenConnection();
-            string delete = "DELETE from statements WHERE source = @source amount = @amount date = @date";
-            MySqlCommand qCmd = new MySqlCommand(delete, connection);
-  
+            try
+            {
+                OpenConnection();
+
+                // Incorrect SQL syntax - missing AND operators between conditions
+                string delete = "DELETE FROM statements WHERE source = @source AND amount = @amount AND date = @date";
+
+                using (MySqlCommand qCmd = new MySqlCommand(delete, connection))
+                {
+                    qCmd.Parameters.AddWithValue("@source", source);
+                    qCmd.Parameters.AddWithValue("@amount", amount);
+                    qCmd.Parameters.AddWithValue("@date", date);
+
+                    int rowsAffected = qCmd.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                        // Log or handle the case where no rows were deleted
+                        Console.WriteLine("No matching income entry found.");
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                // Proper error handling
+                Console.WriteLine($"Error removing income entry: {ex.Message}");
+                // Consider logging the error or rethrowing
+            }
+            finally
+            {
+                // Ensure connection is closed
+                connection.Close();
+            }
         }
 
         public static void removeExpenseEntry(string source, double expense, DateTime date)
         {
-            OpenConnection();
-            string delete = "DELETE from statements WHERE source = @source amount = @expense date = @date type = EXPENSE";
-            MySqlCommand qCmd = new MySqlCommand(delete, connection);
+            try
+            {
+                OpenConnection();
+
+              
+                string delete = "DELETE FROM statements WHERE source = @source AND amount = @amount AND date = @date";
+
+                using (MySqlCommand qCmd = new MySqlCommand(delete, connection))
+                {
+                    qCmd.Parameters.AddWithValue("@source", source);
+                    qCmd.Parameters.AddWithValue("@amount", expense);
+                    qCmd.Parameters.AddWithValue("@date", date);
+
+                    int rowsAffected = qCmd.ExecuteNonQuery();
+
+                    if (rowsAffected == 0)
+                    {
+                       
+                        Console.WriteLine("No matching income entry found.");
+                    }
+                }
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine($"Error removing income entry: {ex.Message}");
+                
+            }
+            finally
+            {
+                
+                connection.Close();
+            }
         }
 
         public static void addExpenseEntry(string source, double amount, DateTime date, string type, int uid)
