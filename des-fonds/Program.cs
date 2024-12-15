@@ -15,6 +15,7 @@ namespace des_fonds
     {
         static void Main(string[] args)
         {
+            //starting
             //MoneyApp app = MoneyApp.Instance;
             //CreateIncome();//creates an income.
             //CreateExpense();//creates an expense.
